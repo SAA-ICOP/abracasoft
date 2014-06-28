@@ -14,14 +14,24 @@ import java.util.Date;
 import javax.swing.JFrame;
 
 /**
+ * Esta clase gestiona la comunicación del sistema con la base de datos desde la
+ * parte del usuario.
  *
  * @author Ema
+ * @since 1.0
  */
 public class GestorUsuario {
+    /*
+     * Se crea un atributo estatico que guarda la fecha actual tomada del sistema. 
+     */
 
     static Date fecha = new Date();
+    /*
+     * Este metodo recibe 1 String y 1 Interger, compara esos 2 datos con los que se encuentran en la base de datos en
+     la tabla usuario. Si son iguales retorna el IDUsuario que es un Integer.
+     */
 
-    public static int ingreso(String usuario, String pass) {
+    public static int ingreso(String usuario, int pass) {
         int idUsuario = 0;
 
         String sql = "SELECT IDUSU FROM usuario WHERE NOMUSUARIO = ? and PASSUSUARIO = ?";
@@ -29,7 +39,7 @@ public class GestorUsuario {
         try {
             PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
             pst.setString(1, usuario);
-            pst.setString(2, pass);
+            pst.setInt(2, pass);
             ResultSet resultado = pst.executeQuery();
 
             if (resultado.next()) { //cuando la consulta no da vacia pasa por acá
@@ -43,6 +53,12 @@ public class GestorUsuario {
             return idUsuario;
         }
     }
+    /*
+     * Este metodo recibe un usuario (Usuario usuario) y los IDPrivilegio (int[] idprivilegio) y guarda el usuario en la 
+     tabla usuario de la base de datos, llama al metodo consultarIDUsuario() que devuelve el ID del usuario creado, llama
+     crea una instancia de la clase privilegio y llama al metodo AltaPrivilegioDeUsuarioEnBD(int ID, Privilegio privilegio).
+     El metodo devuelve un int(entre 1 y 0) confirmando si se guardo el usuario con los privilegios.
+     */
 
     public static int AltaUsuarioEnBD(Usuario usuario, int[] privilegios) throws SQLException {
         int usuarioGuardado = 0;
@@ -78,6 +94,9 @@ public class GestorUsuario {
     public static void ModificarUsuarioEnBD(Usuario usuario) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    /*
+     * Este metodo consulta el ID del usuario recientemente creado y lo retorna, no recibe parametros.
+     */
 
     private static int consultarIDUsuario() throws SQLException {
         int ID;
