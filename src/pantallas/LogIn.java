@@ -223,7 +223,7 @@ public class LogIn extends javax.swing.JFrame {
         return estado;
     }
     
-    private int ingresar(String usuario, String pass){
+    private int ingresar(String usuario, int pass){
         int idUsuario = gestores.GestorUsuario.ingreso(usuario, pass);
         
         if (idUsuario != 0){
