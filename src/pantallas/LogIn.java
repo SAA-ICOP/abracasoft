@@ -235,7 +235,7 @@ public class LogIn extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error al intentar loguearse");
         }
         
-        
+            
         return idUsuario;
     }
     
