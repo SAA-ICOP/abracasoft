@@ -165,6 +165,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new MenuDeOpcionesEmpleado().setVisible(true);
             }
