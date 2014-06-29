@@ -238,4 +238,5 @@ public class LogIn extends javax.swing.JFrame {
         
         return idUsuario;
     }
+    
 }
