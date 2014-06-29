@@ -112,5 +112,6 @@ public class GestorUsuario {
             Conexion.conectar().close();
         }
         return ID;
+        
     }
 }
