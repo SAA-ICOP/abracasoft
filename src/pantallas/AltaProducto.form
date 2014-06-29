@@ -729,16 +729,10 @@
                           <Component id="TFprecioPromoProd" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="131" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jDateChooser1" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="106" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
-                          <Component id="jDateChooser2" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
+                      <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="212" max="32767" attributes="0"/>
+                      <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -754,11 +748,7 @@
                           <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="TFprecioPromoProd" min="-2" max="-2" attributes="0"/>
-                          <Component id="jDateChooser1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jDateChooser2" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="TFprecioPromoProd" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="337" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -789,10 +779,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Hasta"/>
               </Properties>
-            </Component>
-            <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
-            </Component>
-            <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser2">
             </Component>
           </SubComponents>
         </Container>

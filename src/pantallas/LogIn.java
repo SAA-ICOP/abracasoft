@@ -157,7 +157,7 @@ public class LogIn extends javax.swing.JFrame {
 
             
         }else{
-            ingresar(TFloginUsuario.getText(), TFloginPass.getText());
+            ingresar(TFloginUsuario.getText(), Integer.parseInt(TFloginPass.getText()));
         }
 
     }//GEN-LAST:event_BlogInActionPerformed
@@ -223,7 +223,7 @@ public class LogIn extends javax.swing.JFrame {
         return estado;
     }
     
-    private int ingresar(String usuario, String pass){
+    private int ingresar(String usuario, int pass){
         int idUsuario = gestores.GestorUsuario.ingreso(usuario, pass);
         
         if (idUsuario != 0){
@@ -235,7 +235,8 @@ public class LogIn extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error al intentar loguearse");
         }
         
-        
+            
         return idUsuario;
     }
+    
 }

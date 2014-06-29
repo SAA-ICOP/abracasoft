@@ -82,7 +82,7 @@ public class Usuario extends Privilegio {
         gestores.GestorUsuario.ModificarUsuarioEnBD(usuario);
     }
 
-    public static int LogIn(String nombreDeUsuario, String pass) {
+    public static int LogIn(String nombreDeUsuario, int pass) {
         int idUsuario;
         idUsuario = gestores.GestorUsuario.ingreso(nombreDeUsuario, pass);
         return idUsuario;
