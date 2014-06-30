@@ -82,4 +82,25 @@ public class GestorProducto {
             return productoEncontrado;
         }
     }
+    public static ArrayList<Producto> ConsultaPorDescripcion(String Descripcion) { //Método para buscar por descripcion (usado en la pantalla "MenuDeGestionDeProd"
+        ArrayList<Producto> listaProductoEncontrado = new ArrayList<>();
+        String Texto = "%" + Descripcion + "%";
+        String sql = "SELECT * FROM producto WHERE NOMPRODUCTO like ?";
+
+        try {
+            PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
+            pst.setString(1, Texto);
+            ResultSet resultSet = pst.executeQuery();
+
+            while (resultSet.next()) {
+                Producto producto = new Producto(resultSet.getInt("IDPRODUCTO"),resultSet.getString("NOMPRODUCTO"), resultSet.getInt("PRECIOUNITARIO"), resultSet.getInt("STOCK"));
+                listaProductoEncontrado.add(producto);
+            }
+        } catch (SQLException e) {
+            Producto productoEncontrado = new Producto(0, "Hubo un problema, consulte con el Administrador", 0, 0);
+            listaProductoEncontrado.add(productoEncontrado);
+            //return listaProductoEncontrado;
+        }
+        return listaProductoEncontrado;
+    }    
 }

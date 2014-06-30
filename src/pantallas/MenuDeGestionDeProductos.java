@@ -38,6 +38,8 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextFieldCodigoDeBarraProducto = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jTextDescripcion = new javax.swing.JTextField();
         jButtonBuscarProducto = new javax.swing.JButton();
         jLabelMensajeDeAdvertencia = new javax.swing.JLabel();
         jToolBar1 = new javax.swing.JToolBar();
@@ -70,7 +72,7 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.GridLayout(3, 4, 30, 15));
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 22)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Codigo de barra del Producto:");
         jPanel1.add(jLabel2);
@@ -86,6 +88,23 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jTextFieldCodigoDeBarraProducto);
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Descripción del Producto:");
+        jPanel1.add(jLabel1);
+
+        jTextDescripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextDescripcionActionPerformed(evt);
+            }
+        });
+        jTextDescripcion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextDescripcionFocusGained(evt);
+            }
+        });
+        jPanel1.add(jTextDescripcion);
 
         jButtonBuscarProducto.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jButtonBuscarProducto.setText("Buscar Producto");
@@ -153,12 +172,11 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
         // TODO add your handling code here:
         validar();
         Integer numero = 0;
+        String descripcion = jTextDescripcion.getText();
         try{
-                numero = parseInt(jTextFieldCodigoDeBarraProducto.getText());
-            }catch(NumberFormatException exc) {
-                jLabelMensajeDeAdvertencia.setText("Ingrese un número válido"); 
-                jTextFieldCodigoDeBarraProducto.setBackground(Color.red);
-            }
+            numero = parseInt(jTextFieldCodigoDeBarraProducto.getText());
+        }catch(NumberFormatException exc) {
+        }
         if (numero != 0) {
 
             Object[] productoBuscado = {GestorProducto.ConsultaProducto(numero).getCodigoDeProducto(),
@@ -168,12 +186,32 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
 
             DefaultTableModel tabla = (DefaultTableModel) jTable1.getModel();
 
-            int a = jTable1.getRowCount() - 1; //"a" guarda la cantidad de filas que tiene la tabla
-            for (int i = a; i >= 0; i--) {
-                tabla.removeRow(i); //se van borrando para que solo muestre el producto que se buscó
-            }
+            borrarRenglones();
             tabla.insertRow(0, productoBuscado);
-        }
+        }else{
+            if (descripcion != "") {
+                DefaultTableModel tabla = (DefaultTableModel) jTable1.getModel();
+                if (GestorProducto.ConsultaPorDescripcion(descripcion).size() != 0) {
+                    borrarRenglones();
+                    for (int i = 0; i < GestorProducto.ConsultaPorDescripcion(descripcion).size(); i++) {
+                        Object[] fila = {GestorProducto.ConsultaPorDescripcion(descripcion).get(i).getCodigoDeProducto(),
+                        GestorProducto.ConsultaPorDescripcion(descripcion).get(i).getNombreProducto(),
+                        GestorProducto.ConsultaPorDescripcion(descripcion).get(i).getStockProducto(),
+                        GestorProducto.ConsultaPorDescripcion(descripcion).get(i).getPrecioUnitario()};
+                        tabla.addRow(fila);
+                    }
+                }else{
+                    borrarRenglones();
+                }
+            }                    
+        }/*
+            int a = jTable1.getRowCount() - 1; //"a" guarda la cantidad de filas que tiene la tabla
+            for (int b = a; b >= 0; b--) {
+                tabla.removeRow(b); //se van borrando para que solo muestre el producto que se buscó
+            
+        //    tabla.insertRow(0, productoBuscado);              
+            
+        }*/
     }//GEN-LAST:event_jButtonBuscarProductoActionPerformed
 
     private void jTextFieldCodigoDeBarraProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldCodigoDeBarraProductoMouseClicked
@@ -186,6 +224,14 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
         AltaProducto ventanaAltaProducto = new AltaProducto();
         ventanaAltaProducto.setVisible(true);
     }//GEN-LAST:event_jButtonIngresarNuevoProductoActionPerformed
+
+    private void jTextDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextDescripcionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextDescripcionActionPerformed
+
+    private void jTextDescripcionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextDescripcionFocusGained
+        jTextFieldCodigoDeBarraProducto.setText(null); // Borra el contenido del campo de busqueda por codigo
+    }//GEN-LAST:event_jTextDescripcionFocusGained
 
     /**
      * @param args the command line arguments
@@ -225,19 +271,20 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBuscarProducto;
     private javax.swing.JButton jButtonIngresarNuevoProducto;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelMensajeDeAdvertencia;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextDescripcion;
     private javax.swing.JTextField jTextFieldCodigoDeBarraProducto;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 
     private void validar() {
-        if (jTextFieldCodigoDeBarraProducto.getText().isEmpty()) {
-            jLabelMensajeDeAdvertencia.setText("No ah ingresado el codigo de barra del producto");
-            jTextFieldCodigoDeBarraProducto.setBackground(Color.red);
+        if (jTextFieldCodigoDeBarraProducto.getText().isEmpty() && jTextDescripcion.getText().isEmpty()) {
+            agregarProductosATabla();
         }
     }
 
@@ -251,6 +298,13 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
                     GestorProducto.listarProductosDB().get(i).getPrecioUnitario()};
                 tabla.addRow(fila);
             }
+        }
+    }
+    private void borrarRenglones(){
+        DefaultTableModel tabla = (DefaultTableModel) jTable1.getModel();
+        int a = jTable1.getRowCount() - 1;
+        for (int i = a; i >= 0; i--) {
+            tabla.removeRow(i); //se van borrando para que solo muestre el producto que se buscó
         }
     }
 }
