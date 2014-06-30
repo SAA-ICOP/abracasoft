@@ -77,7 +77,7 @@ public class GestorUsuario {
                 ID = consultarIDUsuario(pst);
             }
             if (ID != 0) {
-                resultado = privilegio.AltaPrivilegioDeUsuarioEnBD(ID, privilegios);
+                resultado = privilegio.AltaPrivilegioDeUsuarioEnBD(pst, ID, privilegios);
             }
         } catch (SQLException e) {
             e.printStackTrace();
