@@ -6,6 +6,11 @@
 
 package pantallas;
 
+import entidades.Producto;
+import gestores.GestorProducto;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
 import javax.swing.*;
 
 
@@ -140,7 +145,11 @@ public class AltaProducto extends javax.swing.JFrame {
 
         jLabel6.setText("Cantidad minima");
 
+        TFsotckProductoMin.setEditable(false);
+
         jLabel7.setText("Cantidad máxima");
+
+        TFsotckProductoMax.setEditable(false);
 
         jButton1.setText("+");
 
@@ -597,7 +606,7 @@ public class AltaProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_TFstockProductoActionPerformed
 
     private void BguardarAltaProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BguardarAltaProdActionPerformed
-        // TODO add your handling code here:
+        validar();// TODO add your handling code here:
     }//GEN-LAST:event_BguardarAltaProdActionPerformed
 
     private void RBcomisionRegistroVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RBcomisionRegistroVendedorActionPerformed
@@ -710,10 +719,37 @@ public class AltaProducto extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 
+    private void validar() {
 
-    
-    
-    //HOLA
+        if (TFidProducto.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No ha ingresado ningun de barra");
+            TFidProducto.requestFocus();
+        }else{
+            if (TAdescripcion.getText().isEmpty()){
+                JOptionPane.showMessageDialog(null, "No ha ingresado ninguna descripciÃ³n");
+                TAdescripcion.requestFocus();
+            }else{
+                if (TFDescuento.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null, "No ha ingresado el precio");
+                    TFDescuento.requestFocus();
+                }else{
+                    //ingresar el producto a la base de datos
+                    try {
+                        int codigoDeBarras = parseInt(TFidProducto.getText());
+                        int stock = parseInt(TFstockProducto.getText());
+                        String descripcion = TAdescripcion.getText();
+                        float precioUnitario = Float.parseFloat(TFDescuento.getText());
+                        System.out.println(precioUnitario);
+                        Producto producto = new Producto(codigoDeBarras, descripcion, precioUnitario, stock);
+                        GestorProducto.agregarProducto(producto);
+                    }catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(null, "En el precio, el separador decimal debe ser un punto '.'  y no debe haber letras");
+                    }
+                }
+            }
+        }
+    }
+
     
     
     

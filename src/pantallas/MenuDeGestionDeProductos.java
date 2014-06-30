@@ -204,14 +204,7 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
                     borrarRenglones();
                 }
             }                    
-        }/*
-            int a = jTable1.getRowCount() - 1; //"a" guarda la cantidad de filas que tiene la tabla
-            for (int b = a; b >= 0; b--) {
-                tabla.removeRow(b); //se van borrando para que solo muestre el producto que se buscó
-            
-        //    tabla.insertRow(0, productoBuscado);              
-            
-        }*/
+        }
     }//GEN-LAST:event_jButtonBuscarProductoActionPerformed
 
     private void jTextFieldCodigoDeBarraProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldCodigoDeBarraProductoMouseClicked
