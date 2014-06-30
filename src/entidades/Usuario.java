@@ -91,7 +91,12 @@ public class Usuario extends Privilegio {
     public static boolean backUp() {
         boolean ok;
         AbraBackUp backUpData = new AbraBackUp();
-        ok = backUpData.CrearBackup("localhost", "3306", "root", "password", "abracasoftDB", "c:/abracasoftDB.sql");
+    //    ok = backUpData.CrearBackup("localhost", "3306", "root", "password", "abracasoftDB", "c:/abracasoftDB.sql");
+        if(new AbraBackUp().CrearBackup()){
+            ok = true;
+        }else{
+            ok = false;
+        }
         return ok;
     }
 }
