@@ -17,8 +17,11 @@ import java.util.ArrayList;
  */
 public class GestorProducto {
     
+    //Consejo el metodo tiene que recibir un "producto" no los campos en individual. 
+    //El metodo tiene que devolver un int para poder utilizarlo para devolver un msj de que se cargo correctamente.
     public static void agregarProducto(int CodigoBarra, String Descripcion, float Precio, int Stock){
     String sql = "INSERT INTO producto (IDPRODUCTO,NOMPRODUCTO,PRECIOUNITARIO,STOCK) VALUES (?,?,?,?)";
+    //Consejo esto no es mas rapido.
     int cod = CodigoBarra;
     String descrip = Descripcion;
     int cantidad = Stock;
@@ -30,7 +33,7 @@ public class GestorProducto {
             pst.setString(2, descrip);
             pst.setFloat(3, precio);
             pst.setInt(4, cantidad);
-            pst.executeUpdate();
+            pst.executeUpdate(); //El executeUpdate devuelve 1 si anduvo, lo guardas en un campo auxiliar y lo retornas.
 
             }catch (SQLException e) {
                 System.out.println(e);
