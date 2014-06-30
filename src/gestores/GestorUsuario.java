@@ -60,7 +60,7 @@ public class GestorUsuario {
      El metodo devuelve un int(entre 1 y 0) confirmando si se guardo el usuario con los privilegios.
      */
 
-    public static int AltaUsuarioEnBD(Usuario usuario, int[] privilegios) throws SQLException {
+    public static int AltaUsuarioEnBD(Usuario usuario, int[] privilegios) {
         int usuarioGuardado = 0;
         int resultado = 0;
         int ID = 0;
