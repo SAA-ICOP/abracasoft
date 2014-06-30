@@ -50,10 +50,7 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
         jTable1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Codigo del Producto", "Descripcion del Producto", "Stock", "Precio de Costo", "Alicuota", "Precio Final"
@@ -113,6 +110,11 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
         jButtonIngresarNuevoProducto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(204, 0, 204), null, null, new java.awt.Color(204, 0, 204)));
         jButtonIngresarNuevoProducto.setFocusable(false);
         jButtonIngresarNuevoProducto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonIngresarNuevoProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIngresarNuevoProductoActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jButtonIngresarNuevoProducto);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -179,6 +181,11 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
         jTextFieldCodigoDeBarraProducto.setBackground(Color.white);
         jLabelMensajeDeAdvertencia.setText(" ");
     }//GEN-LAST:event_jTextFieldCodigoDeBarraProductoMouseClicked
+
+    private void jButtonIngresarNuevoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIngresarNuevoProductoActionPerformed
+        AltaProducto ventanaAltaProducto = new AltaProducto();
+        ventanaAltaProducto.setVisible(true);
+    }//GEN-LAST:event_jButtonIngresarNuevoProductoActionPerformed
 
     /**
      * @param args the command line arguments
