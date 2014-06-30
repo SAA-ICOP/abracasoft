@@ -17,12 +17,12 @@ import java.util.ArrayList;
  */
 public class GestorProducto {
     
-    public static void agregarProducto(Producto producto){
+    public static void agregarProducto(int CodigoBarra, String Descripcion, float Precio, int Stock){
     String sql = "INSERT INTO producto (IDPRODUCTO,NOMPRODUCTO,PRECIOUNITARIO,STOCK) VALUES (?,?,?,?)";
-    int cod = producto.getCodigoDeProducto();
-    String descrip = producto.getNombreProducto();
-    int cantidad = producto.getStockProducto();
-    float precio = producto.getPrecioUnitario();
+    int cod = CodigoBarra;
+    String descrip = Descripcion;
+    int cantidad = Stock;
+    float precio = Precio;
         if (cod>0 && precio>0 && cantidad >= 0 && descrip!=""){
             try {
             PreparedStatement pst = Conexion.conectar().prepareStatement(sql);

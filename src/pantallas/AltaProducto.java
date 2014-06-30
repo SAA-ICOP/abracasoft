@@ -6,7 +6,7 @@
 
 package pantallas;
 
-import entidades.Producto;
+
 import gestores.GestorProducto;
 import static java.lang.Integer.parseInt;
 import static java.lang.Integer.parseInt;
@@ -740,8 +740,8 @@ public class AltaProducto extends javax.swing.JFrame {
                         String descripcion = TAdescripcion.getText();
                         float precioUnitario = Float.parseFloat(TFDescuento.getText());
                         System.out.println(precioUnitario);
-                        Producto producto = new Producto(codigoDeBarras, descripcion, precioUnitario, stock);
-                        GestorProducto.agregarProducto(producto);
+                    //    Producto producto = new Producto(codigoDeBarras, descripcion, precioUnitario, stock);
+                        GestorProducto.agregarProducto(codigoDeBarras, descripcion, precioUnitario, stock);
                     }catch (NumberFormatException e) {
                         JOptionPane.showMessageDialog(null, "En el precio, el separador decimal debe ser un punto '.'  y no debe haber letras");
                     }
