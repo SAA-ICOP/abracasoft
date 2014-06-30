@@ -7,7 +7,7 @@
 package pantallas;
 
 
-import gestores.GestorProducto;
+import gestores.GestorProducto; // Las pantallas se comunican con la logica de negocio no les interesa como llegan los datos 
 import static java.lang.Integer.parseInt;
 import static java.lang.Integer.parseInt;
 import static java.lang.Integer.parseInt;
