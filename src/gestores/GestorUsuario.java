@@ -81,8 +81,6 @@ public class GestorUsuario {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            Conexion.conectar().close();
         }
         return resultado;
     }
@@ -98,7 +96,7 @@ public class GestorUsuario {
      * Este metodo consulta el ID del usuario recientemente creado y lo retorna, no recibe parametros.
      */
 
-    private static int consultarIDUsuario(PreparedStatement pst){
+    private static int consultarIDUsuario(PreparedStatement pst) {
         int ID;
         String sql = "SELECT MAX(IDUSU) AS IDUSU FROM usuario";
         try {
