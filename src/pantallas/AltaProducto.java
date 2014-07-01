@@ -6,6 +6,11 @@
 
 package pantallas;
 
+
+import gestores.GestorProducto; // Las pantallas se comunican con la logica de negocio no les interesa como llegan los datos 
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
 import javax.swing.*;
 
 
@@ -142,7 +147,11 @@ public class AltaProducto extends javax.swing.JFrame {
 
         jLabel6.setText("Cantidad minima");
 
+        TFsotckProductoMin.setEditable(false);
+
         jLabel7.setText("Cantidad máxima");
+
+        TFsotckProductoMax.setEditable(false);
 
         jButton1.setText("+");
 
@@ -610,9 +619,7 @@ public class AltaProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_TFstockProductoActionPerformed
 
     private void BguardarAltaProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BguardarAltaProdActionPerformed
-        // TODO add your handling code here:
-
-    
+        validar();// TODO add your handling code here:
     }//GEN-LAST:event_BguardarAltaProdActionPerformed
 
     private void RBcomisionRegistroVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RBcomisionRegistroVendedorActionPerformed
@@ -727,28 +734,29 @@ public class AltaProducto extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 
-private void validar() {
+    private void validar() {
 
-        if (codiBar.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No ha ingresado ningún codigo de barra");
-            codiBar.requestFocus();
+        if (TFidProducto.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No ha ingresado ningun de barra");
+            TFidProducto.requestFocus();
         }else{
-            if (descriProd.getText().isEmpty()){
+            if (TAdescripcion.getText().isEmpty()){
                 JOptionPane.showMessageDialog(null, "No ha ingresado ninguna descripciÃ³n");
-                descriProd.requestFocus();
+                TAdescripcion.requestFocus();
             }else{
-                if (preUni.getText().isEmpty()){
+                if (TFDescuento.getText().isEmpty()){
                     JOptionPane.showMessageDialog(null, "No ha ingresado el precio");
-                    preUni.requestFocus();
+                    TFDescuento.requestFocus();
                 }else{
                     //ingresar el producto a la base de datos
                     try {
-                        int codigoDeBarras = parseInt(codiBar.getText());
-                        String descripcion = descriProd.getText();
-                        float precioUnitario = Float.parseFloat(preUni.getText());
+                        int codigoDeBarras = parseInt(TFidProducto.getText());
+                        int stock = parseInt(TFstockProducto.getText());
+                        String descripcion = TAdescripcion.getText();
+                        float precioUnitario = Float.parseFloat(TFDescuento.getText());
                         System.out.println(precioUnitario);
-                        Producto producto = new Producto(codigoDeBarras, descripcion, precioUnitario, 0);
-                        GestorProducto.agregarProducto(producto);
+                    //    Producto producto = new Producto(codigoDeBarras, descripcion, precioUnitario, stock);
+                        GestorProducto.agregarProducto(codigoDeBarras, descripcion, precioUnitario, stock);
                     }catch (NumberFormatException e) {
                         JOptionPane.showMessageDialog(null, "En el precio, el separador decimal debe ser un punto '.'  y no debe haber letras");
                     }
@@ -756,10 +764,7 @@ private void validar() {
             }
         }
     }
-    
-    
-    //HOLA
-    //¿Como estas?
+
     
     
     

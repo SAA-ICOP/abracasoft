@@ -17,11 +17,10 @@ import java.util.ArrayList;
  */
 public class GestorPrivilegio {
 
-    int AltaPrivilegioDeUsuarioEnBD(int idusuario, int[] idprivilegios) throws SQLException {
+    int AltaPrivilegioDeUsuarioEnBD(PreparedStatement pst, int idusuario, int[] idprivilegios) {
         int resultado;
         String sql = "INSERT INTO relation_582 (IDUSU,IDPRIVILEGIO) VALUES(?,?)";
         try {
-            PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
             pst.setInt(1, idusuario);
             for (int i = 0; i < idprivilegios.length; i++) {
                 pst.setInt(2, idprivilegios[i]);
@@ -30,8 +29,6 @@ public class GestorPrivilegio {
         } catch (SQLException e) {
             e.printStackTrace();
             resultado = 0;
-        } finally {
-            Conexion.conectar().close();
         }
         return resultado;
     }

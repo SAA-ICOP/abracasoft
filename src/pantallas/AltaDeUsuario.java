@@ -5,7 +5,6 @@
  */
 package pantallas;
 
-import com.sun.java.swing.plaf.windows.resources.windows;
 import java.awt.Component;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;

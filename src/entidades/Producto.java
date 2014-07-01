@@ -13,10 +13,10 @@ public class Producto {
 
     private int CodigoDeProducto;
     private String NombreProducto;
-    private int PrecioUnitario;
+    private float PrecioUnitario;
     private int StockProducto;
 
-    public Producto(int CodigoDeProducto, String NombreProducto, int PrecioUnitario, int StockProducto) {
+    public Producto(int CodigoDeProducto, String NombreProducto, float PrecioUnitario, int StockProducto) {
         this.CodigoDeProducto = CodigoDeProducto;
         this.NombreProducto = NombreProducto;
         this.PrecioUnitario = PrecioUnitario;
@@ -39,7 +39,7 @@ public class Producto {
         NombreProducto = nombreProducto;
     }
 
-    public int getPrecioUnitario() {
+    public float getPrecioUnitario() {
         return PrecioUnitario;
     }
 

@@ -17,12 +17,15 @@ import java.util.ArrayList;
  */
 public class GestorProducto {
     
-    public static void agregarProducto(Producto producto){
+    //Consejo el metodo tiene que recibir un "producto" no los campos en individual. 
+    //El metodo tiene que devolver un int para poder utilizarlo para devolver un msj de que se cargo correctamente.
+    public static void agregarProducto(int CodigoBarra, String Descripcion, float Precio, int Stock){
     String sql = "INSERT INTO producto (IDPRODUCTO,NOMPRODUCTO,PRECIOUNITARIO,STOCK) VALUES (?,?,?,?)";
-    int cod = producto.getCodigoDeProducto();
-    String descrip = producto.getNombreProducto();
-    int cantidad = producto.getStockProducto();
-    float precio = producto.getPrecioUnitario();
+    //Consejo esto no es mas rapido.
+    int cod = CodigoBarra;
+    String descrip = Descripcion;
+    int cantidad = Stock;
+    float precio = Precio;
         if (cod>0 && precio>0 && cantidad >= 0 && descrip!=""){
             try {
             PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
@@ -30,7 +33,7 @@ public class GestorProducto {
             pst.setString(2, descrip);
             pst.setFloat(3, precio);
             pst.setInt(4, cantidad);
-            pst.executeUpdate();
+            pst.executeUpdate(); //El executeUpdate devuelve 1 si anduvo, lo guardas en un campo auxiliar y lo retornas.
 
             }catch (SQLException e) {
                 System.out.println(e);
@@ -82,4 +85,25 @@ public class GestorProducto {
             return productoEncontrado;
         }
     }
+    public static ArrayList<Producto> ConsultaPorDescripcion(String Descripcion) { //Método para buscar por descripcion (usado en la pantalla "MenuDeGestionDeProd"
+        ArrayList<Producto> listaProductoEncontrado = new ArrayList<>();
+        String Texto = "%" + Descripcion + "%";
+        String sql = "SELECT * FROM producto WHERE NOMPRODUCTO like ?";
+
+        try {
+            PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
+            pst.setString(1, Texto);
+            ResultSet resultSet = pst.executeQuery();
+
+            while (resultSet.next()) {
+                Producto producto = new Producto(resultSet.getInt("IDPRODUCTO"),resultSet.getString("NOMPRODUCTO"), resultSet.getInt("PRECIOUNITARIO"), resultSet.getInt("STOCK"));
+                listaProductoEncontrado.add(producto);
+            }
+        } catch (SQLException e) {
+            Producto productoEncontrado = new Producto(0, "Hubo un problema, consulte con el Administrador", 0, 0);
+            listaProductoEncontrado.add(productoEncontrado);
+            //return listaProductoEncontrado;
+        }
+        return listaProductoEncontrado;
+    }    
 }

@@ -60,7 +60,7 @@ public class GestorUsuario {
      El metodo devuelve un int(entre 1 y 0) confirmando si se guardo el usuario con los privilegios.
      */
 
-    public static int AltaUsuarioEnBD(Usuario usuario, int[] privilegios) throws SQLException {
+    public static int AltaUsuarioEnBD(Usuario usuario, int[] privilegios) {
         int usuarioGuardado = 0;
         int resultado = 0;
         int ID = 0;
@@ -73,16 +73,14 @@ public class GestorUsuario {
             pst.setInt(2, usuario.getPassUsuario());
             pst.setDate(3, new java.sql.Date(fecha.getTime()));
             usuarioGuardado = pst.executeUpdate();
+            if (usuarioGuardado == 1) {
+                ID = consultarIDUsuario(pst);
+            }
+            if (ID != 0) {
+                resultado = privilegio.AltaPrivilegioDeUsuarioEnBD(pst, ID, privilegios);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            Conexion.conectar().close();
-        }
-        if (usuarioGuardado == 1) {
-            ID = consultarIDUsuario();
-        }
-        if (ID != 0) {
-            resultado = privilegio.AltaPrivilegioDeUsuarioEnBD(ID, privilegios);
         }
         return resultado;
     }
@@ -98,21 +96,17 @@ public class GestorUsuario {
      * Este metodo consulta el ID del usuario recientemente creado y lo retorna, no recibe parametros.
      */
 
-    private static int consultarIDUsuario() throws SQLException {
+    private static int consultarIDUsuario(PreparedStatement pst) {
         int ID;
         String sql = "SELECT MAX(IDUSU) AS IDUSU FROM usuario";
         try {
-            PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
             ResultSet resultado = pst.executeQuery(sql);
             ID = resultado.getInt("IDUSU");
         } catch (SQLException e) {
             e.printStackTrace();
             ID = 0;
-        } finally {
-            Conexion.conectar().close();
         }
         return ID;
-        
+
     }
 }
-//prueba pablito genio
