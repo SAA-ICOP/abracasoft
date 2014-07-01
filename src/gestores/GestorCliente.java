@@ -21,9 +21,9 @@ public class GestorCliente {
         
         String nombre = nombreCliente;
         String direccion = direccionCliente;
-        int codigoPostal = codigoPostalCliente;
-        int telefono = telefonoCliente;
-        int documento = dniCuilCuit;
+            int codigoPostal = codigoPostalCliente;
+            int telefono = telefonoCliente;
+            int documento = dniCuilCuit;
         String mail = mailCliente;
         
         if (nombre.trim().length()!=0){

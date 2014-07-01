@@ -7,6 +7,7 @@
 package pantallas;
 
 import static java.lang.Integer.parseInt;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -45,6 +46,7 @@ public class AltaCliente extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Agregar nuevo cliente");
@@ -55,11 +57,29 @@ public class AltaCliente extends javax.swing.JFrame {
 
         jLabel3.setText("Email");
 
-        jLabel4.setText("Código postal");
+        jLabel4.setText("Código postal*");
+
+        BclienteCP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                BclienteCPKeyTyped(evt);
+            }
+        });
 
         jLabel5.setText("Telefono");
 
+        BclienteTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                BclienteTelefonoKeyTyped(evt);
+            }
+        });
+
         jLabel6.setText("DNI");
+
+        BclienteDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                BclienteDNIKeyTyped(evt);
+            }
+        });
 
         jButton1.setText("Cancelar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -76,6 +96,8 @@ public class AltaCliente extends javax.swing.JFrame {
         });
 
         jButton3.setText("Ayuda");
+
+        jLabel7.setText("* El codigo postal es por defecto 3100");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -117,7 +139,10 @@ public class AltaCliente extends javax.swing.JFrame {
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(BclienteDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,7 +171,9 @@ public class AltaCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(BclienteTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                .addGap(34, 34, 34)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
@@ -163,14 +190,52 @@ public class AltaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int dniCuitCuil = parseInt(BclienteDNI.getText());
-        int codPostal = parseInt(BclienteCP.getText());
-        int tel = parseInt(BclienteTelefono.getText());
+        int dniCuitCuil = 0;
+        int codPostal = 3100;
+        int tel = 0;
+        try {
+            dniCuitCuil= parseInt(BclienteDNI.getText());
+        }catch (NumberFormatException e){
+        }
+        try {
+            codPostal = parseInt(BclienteCP.getText());
+        }catch (NumberFormatException e){
+        }
+        try {
+            tel = parseInt(BclienteTelefono.getText());
+        }catch (NumberFormatException e){
+        }
         String nombre = BclienteNombre.getText();
         String direccion = BclienteDireccion.getText();
         String mail = BclienteEmail.getText();
-        gestores.GestorCliente.agregarCliente(nombre, direccion, codPostal, tel, dniCuitCuil, mail);        // TODO add your handling code here:
+        if (gestores.GestorCliente.agregarCliente(nombre, direccion, codPostal, tel, dniCuitCuil, mail)){
+            JOptionPane.showMessageDialog(null, "Cliente Agregado");
+        }else{
+            JOptionPane.showMessageDialog(null, "No se ha podido agregar el cliente");
+        }
+        
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void BclienteDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BclienteDNIKeyTyped
+        char car = evt.getKeyChar();
+        if ((car < '0' || car > '9')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_BclienteDNIKeyTyped
+
+    private void BclienteCPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BclienteCPKeyTyped
+        char car = evt.getKeyChar();
+        if ((car < '0' || car > '9')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_BclienteCPKeyTyped
+
+    private void BclienteTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BclienteTelefonoKeyTyped
+        char car = evt.getKeyChar();
+        if ((car < '0' || car > '9')) {
+            evt.consume();
+        }// TODO add your handling code here:
+    }//GEN-LAST:event_BclienteTelefonoKeyTyped
 
     /**
      * @param args the command line arguments
@@ -223,5 +288,6 @@ public class AltaCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     // End of variables declaration//GEN-END:variables
 }
