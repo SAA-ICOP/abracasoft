@@ -25,6 +25,9 @@ public class AltaDeUsuario extends javax.swing.JFrame {
      * Creates new form AltaDeUsuario
      */
     public AltaDeUsuario() {
+        
+        AparienciaPantalla apa = new AparienciaPantalla();
+        apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
         agregarPrivilegiosATabla();
         NombreDeUsuariojTextField1.requestFocus();
@@ -39,7 +42,6 @@ public class AltaDeUsuario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Titulo = new javax.swing.JLabel();
         UsuariojLabel = new javax.swing.JLabel();
         NombreDeUsuariojTextField1 = new javax.swing.JTextField();
         PassjLabel = new javax.swing.JLabel();
@@ -53,36 +55,29 @@ public class AltaDeUsuario extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         GuardarjButton = new javax.swing.JButton();
         SalirjButton = new javax.swing.JButton();
+        Bayuda = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Ingreso de Usuarios Administrador");
+        setTitle("Agregar un nuevo usuario");
         setExtendedState(AltaDeUsuario.MAXIMIZED_BOTH);
+        setResizable(false);
 
-        Titulo.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
-        Titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Titulo.setText("Carga de usuarios");
-        Titulo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        UsuariojLabel.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        UsuariojLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        UsuariojLabel.setText("Nombre de usuario:");
+        UsuariojLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UsuariojLabel.setText("Nombre");
 
         NombreDeUsuariojTextField1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
 
-        PassjLabel.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        PassjLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        PassjLabel.setText("Contraseña:");
+        PassjLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        PassjLabel.setText("Contraseña");
 
-        ContraseniajTextField2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         ContraseniajTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 ContraseniajTextField2KeyTyped(evt);
             }
         });
 
-        RepitaPassjLabel.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        RepitaPassjLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        RepitaPassjLabel.setText("Repita la contraseña:");
+        RepitaPassjLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        RepitaPassjLabel.setText("Repetir contraseña");
 
         ContraseniajTextField3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         ContraseniajTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -91,23 +86,20 @@ public class AltaDeUsuario extends javax.swing.JFrame {
             }
         });
 
-        TipoUsuariojLabel.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        TipoUsuariojLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        TipoUsuariojLabel.setText("Tipo de usuario:");
+        TipoUsuariojLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        TipoUsuariojLabel.setText("Tipo");
 
-        TipoDeUsuariojComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Dueño", "Administrador", "Empleado" }));
+        TipoDeUsuariojComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administrador", "Dueño", "Empleado" }));
         TipoDeUsuariojComboBox1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 TipoDeUsuariojComboBox1ItemStateChanged(evt);
             }
         });
 
-        PrivilegiosjLabel.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        PrivilegiosjLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        PrivilegiosjLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         PrivilegiosjLabel.setText("Privilegios:");
 
         jTable1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTable1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -119,14 +111,31 @@ public class AltaDeUsuario extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, true
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setMinWidth(60);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(60);
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTable1.getColumnModel().getColumn(1).setMinWidth(467);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(467);
+            jTable1.getColumnModel().getColumn(1).setMaxWidth(467);
+            jTable1.getColumnModel().getColumn(2).setMinWidth(90);
+            jTable1.getColumnModel().getColumn(2).setPreferredWidth(90);
+            jTable1.getColumnModel().getColumn(2).setMaxWidth(90);
+        }
 
-        GuardarjButton.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         GuardarjButton.setText("Guardar");
         GuardarjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,77 +143,75 @@ public class AltaDeUsuario extends javax.swing.JFrame {
             }
         });
 
-        SalirjButton.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        SalirjButton.setText("Salir");
+        SalirjButton.setText("Cancelar");
         SalirjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SalirjButtonActionPerformed(evt);
             }
         });
 
+        Bayuda.setText("Ayuda");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addComponent(Bayuda)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(GuardarjButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(SalirjButton))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(UsuariojLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PassjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(RepitaPassjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TipoUsuariojLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(NombreDeUsuariojTextField1)
-                            .addComponent(ContraseniajTextField2)
-                            .addComponent(ContraseniajTextField3)
-                            .addComponent(TipoDeUsuariojComboBox1, 0, 271, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(PrivilegiosjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(82, 82, 82)
-                        .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 1250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(SalirjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(117, 117, 117)
-                .addComponent(GuardarjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(501, 501, 501))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(NombreDeUsuariojTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ContraseniajTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(PassjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(76, 76, 76)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ContraseniajTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(RepitaPassjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(PrivilegiosjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TipoUsuariojLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TipoDeUsuariojComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(Titulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(NombreDeUsuariojTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(UsuariojLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(UsuariojLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(NombreDeUsuariojTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ContraseniajTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PassjLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
-                .addGap(13, 13, 13)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ContraseniajTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(RepitaPassjLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(PassjLabel)
+                    .addComponent(RepitaPassjLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ContraseniajTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ContraseniajTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(TipoUsuariojLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TipoDeUsuariojComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(TipoUsuariojLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TipoDeUsuariojComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(PrivilegiosjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(PrivilegiosjLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(GuardarjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(SalirjButton, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
+                    .addComponent(Bayuda)
+                    .addComponent(SalirjButton)
+                    .addComponent(GuardarjButton))
                 .addContainerGap())
         );
 
@@ -269,9 +276,9 @@ public class AltaDeUsuario extends javax.swing.JFrame {
         }
         resultado = usuario.AltaDeUsuarioNegocio(usuario, privilegios);
         if (resultado == 1) {
-            JOptionPane.showMessageDialog(null, "Se agrego el usuario");
+            JOptionPane.showMessageDialog(null, "Se ha creado el usuario correctamente");
         } else {
-            JOptionPane.showMessageDialog(null, "Se ha producido un error");
+            JOptionPane.showMessageDialog(null, "Se ha producido un error al crear usuario");
         }
     }//GEN-LAST:event_GuardarjButtonActionPerformed
 
@@ -337,6 +344,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Bayuda;
     private javax.swing.JTextField ContraseniajTextField2;
     private javax.swing.JTextField ContraseniajTextField3;
     private javax.swing.JButton GuardarjButton;
@@ -347,7 +355,6 @@ public class AltaDeUsuario extends javax.swing.JFrame {
     private javax.swing.JButton SalirjButton;
     private javax.swing.JComboBox TipoDeUsuariojComboBox1;
     private javax.swing.JLabel TipoUsuariojLabel;
-    private javax.swing.JLabel Titulo;
     private javax.swing.JLabel UsuariojLabel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
