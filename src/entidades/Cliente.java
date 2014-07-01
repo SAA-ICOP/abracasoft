@@ -17,11 +17,12 @@ public class Cliente {
     private String DireccionCliente;
     private int CodigoPostalCliente;
     private int TelefonoCliente;
+    private int DniCuilCuit;
     private String MailCliente;
 
     public Cliente(String nombreCliente, String provinciaCliente,
             String localidadCliente, String direccionCliente,
-            int codigoPostalCliente, int telefonoCliente, String mailCliente) {
+            int codigoPostalCliente, int telefonoCliente, int dniCuilCuit, String mailCliente) {
         super();
         NombreCliente = nombreCliente;
         ProvinciaCliente = provinciaCliente;
@@ -29,6 +30,18 @@ public class Cliente {
         DireccionCliente = direccionCliente;
         CodigoPostalCliente = codigoPostalCliente;
         TelefonoCliente = telefonoCliente;
+        DniCuilCuit = dniCuilCuit;
+        MailCliente = mailCliente;
+    }
+    
+        public Cliente(String nombreCliente, String direccionCliente,
+            int codigoPostalCliente, int telefonoCliente, int dniCuilCuit, String mailCliente) {
+        super();
+        NombreCliente = nombreCliente;
+        DireccionCliente = direccionCliente;
+        CodigoPostalCliente = codigoPostalCliente;
+        TelefonoCliente = telefonoCliente;
+        DniCuilCuit = dniCuilCuit;
         MailCliente = mailCliente;
     }
 

@@ -102,7 +102,6 @@ public class GestorProducto {
         } catch (SQLException e) {
             Producto productoEncontrado = new Producto(0, "Hubo un problema, consulte con el Administrador", 0, 0);
             listaProductoEncontrado.add(productoEncontrado);
-            //return listaProductoEncontrado;
         }
         return listaProductoEncontrado;
     }    
