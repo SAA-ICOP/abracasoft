@@ -3,9 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pantallas;
-
 
 import gestores.GestorProducto; // Las pantallas se comunican con la logica de negocio no les interesa como llegan los datos 
 import static java.lang.Integer.parseInt;
@@ -13,20 +11,17 @@ import static java.lang.Integer.parseInt;
 import static java.lang.Integer.parseInt;
 import javax.swing.*;
 
-
 /**
  *
  * @author German
  */
 public class AltaProducto extends javax.swing.JFrame {
 
-    
-
     /**
      * Creates new form AltaProducto
      */
     public AltaProducto() {
-        
+
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
@@ -718,9 +713,7 @@ public class AltaProducto extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
-        
-        
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -828,37 +821,39 @@ public class AltaProducto extends javax.swing.JFrame {
 
     private void validar() {
 
-        if (camposVacios()){
+        if (camposVacios()) {
             try {
                 int codigoDeBarras = parseInt(TFidProducto.getText());
                 int stock = parseInt(TFstockProducto.getText());
                 String descripcion = TAdescripcion.getText();
                 float precioCosto = Float.parseFloat(TFDescuento.getText());
                 GestorProducto.agregarProducto(codigoDeBarras, descripcion, precioCosto, stock);
-            }catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "En el precio, el separador decimal debe ser un punto '.'  y no debe haber letras");
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "En el precio, el separador decimal"
+                        + " debe ser un punto '.'  y no debe haber letras");
             }
         }
     }
-    private boolean camposVacios(){
+
+    private boolean camposVacios() {
         boolean ok = false;
-        if (TFidProducto.getText().trim().length()==0) {
+        if (TFidProducto.getText().trim().length() == 0) {
             JOptionPane.showMessageDialog(null, "No ha ingresado ningun codigo de barra");
             TFidProducto.requestFocus();
-        }else{
-            if (TAdescripcion.getText().trim().length()==0){
+        } else {
+            if (TAdescripcion.getText().trim().length() == 0) {
                 JOptionPane.showMessageDialog(null, "No ha ingresado ninguna descripción");
                 TAdescripcion.requestFocus();
-            }else{
-                if (TFDescuento.getText().trim().length()==0){
+            } else {
+                if (TFDescuento.getText().trim().length() == 0) {
                     JOptionPane.showMessageDialog(null, "No ha ingresado el precio de costo");
                     TFDescuento.requestFocus();
-                }else{
-                    if (TFstockProducto.getText().trim().length()==0){
+                } else {
+                    if (TFstockProducto.getText().trim().length() == 0) {
                         JOptionPane.showMessageDialog(null, "No ha ingresado stock inicial");
                         TFDescuento.requestFocus();
-                    }else{
-                        ok=true;
+                    } else {
+                        ok = true;
                     }
                 }
             }
