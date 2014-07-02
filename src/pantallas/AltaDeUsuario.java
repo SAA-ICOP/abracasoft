@@ -70,6 +70,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
         PassjLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         PassjLabel.setText("Contraseña");
 
+        ContraseniajTextField2.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         ContraseniajTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 ContraseniajTextField2KeyTyped(evt);
@@ -79,7 +80,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
         RepitaPassjLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         RepitaPassjLabel.setText("Repetir contraseña");
 
-        ContraseniajTextField3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        ContraseniajTextField3.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         ContraseniajTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 ContraseniajTextField3KeyTyped(evt);
@@ -195,7 +196,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(PassjLabel)
                     .addComponent(RepitaPassjLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ContraseniajTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ContraseniajTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))

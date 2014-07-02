@@ -77,7 +77,7 @@
                   <Component id="PassjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="RepitaPassjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="15" max="32767" attributes="0"/>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="ContraseniajTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="ContraseniajTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -122,6 +122,11 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="ContraseniajTextField2">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="12" style="0"/>
+        </Property>
+      </Properties>
       <Events>
         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="ContraseniajTextField2KeyTyped"/>
       </Events>
@@ -135,7 +140,7 @@
     <Component class="javax.swing.JTextField" name="ContraseniajTextField3">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Times New Roman" size="14" style="1"/>
+          <Font name="Times New Roman" size="12" style="0"/>
         </Property>
       </Properties>
       <Events>
