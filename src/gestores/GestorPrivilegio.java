@@ -38,7 +38,7 @@ public class GestorPrivilegio {
         ArrayList<Privilegio> listaPrivilegio = new ArrayList<Privilegio>();
         String sql = "SELECT * FROM privilegio";
         try {
-            PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
+            PreparedStatement pst = PoolDeConexiones.pedirConexion().prepareStatement(sql);
             ResultSet resultSet = pst.executeQuery();
 
             while (resultSet.next()) {
@@ -47,7 +47,9 @@ public class GestorPrivilegio {
                 privilegio.setDescripcionDePrivilegio(resultSet.getString("DESCPRIVILEGIO"));
                 listaPrivilegio.add(privilegio);
             }
+            PoolDeConexiones.pedirConexion().close();
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.print(e.toString());
         }
         return listaPrivilegio;
