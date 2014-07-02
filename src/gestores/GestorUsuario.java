@@ -24,6 +24,7 @@ public class GestorUsuario {
     /*
      * Se crea un atributo estatico que guarda la fecha actual tomada del sistema. 
      */
+
     static Date fecha = new Date();
 
     /*
@@ -40,13 +41,13 @@ public class GestorUsuario {
         String sql = "INSERT INTO usuario (NOMUSUARIO,PASSUSUARIO,FECHACREACION)"
                 + "VALUES(?,?,?)";
         try {
-            PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
+            PreparedStatement pst = PoolDeConexiones.pedirConexion().prepareStatement(sql);
             pst.setString(1, usuario.getNombreUsuario());
             pst.setInt(2, usuario.getPassUsuario());
             pst.setDate(3, new java.sql.Date(fecha.getTime()));
             usuarioGuardado = pst.executeUpdate();
             if (usuarioGuardado == 1) {
-                ID = consultarIDUsuario();
+                ID = consultarIDUsuario(pst);
             }
             if (ID != 0) {
                 resultado = privilegio.AltaPrivilegioDeUsuarioEnBD(pst, ID, privilegios);
@@ -93,23 +94,21 @@ public class GestorUsuario {
     /*
      * Este metodo consulta el ID del usuario recientemente creado y lo retorna, no recibe parametros.
      */
-    private static int consultarIDUsuario() {
+    private static int consultarIDUsuario(PreparedStatement pst) {
         int ID;
         String sql = "SELECT max(idusu) as id FROM usuario";
         try {
-            PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
-            ResultSet resultado = pst.executeQuery();
+            ResultSet resultado = pst.executeQuery(sql);
             if (resultado.next()) {
                 ID = resultado.getInt("id");
             } else {
                 ID = 0;
             }
-            return ID;
-
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(e.toString());
             ID = 0;
-            return ID;
         }
+        return ID;
     }
 }

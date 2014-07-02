@@ -3,18 +3,40 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gestores;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 import javax.sql.DataSource;
 import org.apache.commons.dbcp.BasicDataSource;
+
 /**
  *
  * @author Ema
  */
 public class PoolDeConexiones {
-    private String nombre_bd;
-    private String usuario;
-    private String contraseña;
-    
-    
+
+    private static Connection conexion = null;
+
+    public static Connection pedirConexion() {
+        
+        if (conexion == null){
+            try {
+            BasicDataSource basicDataSource = new BasicDataSource();
+            basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
+            basicDataSource.setUrl("jdbc:mysql://localhost:3306/abracasoftdb");
+            basicDataSource.setUsername("root");
+            basicDataSource.setPassword("admin");
+
+            conexion = basicDataSource.getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("SQLException: " + e.getMessage());
+
+            return null;
+        }
+        }        
+        return conexion;
+    }
+
 }
