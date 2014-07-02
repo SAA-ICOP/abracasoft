@@ -90,7 +90,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
         TipoUsuariojLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         TipoUsuariojLabel.setText("Tipo");
 
-        TipoDeUsuariojComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administrador", "Dueño", "Empleado" }));
+        TipoDeUsuariojComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Dueño", "Administrador", "Empleado" }));
         TipoDeUsuariojComboBox1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 TipoDeUsuariojComboBox1ItemStateChanged(evt);
