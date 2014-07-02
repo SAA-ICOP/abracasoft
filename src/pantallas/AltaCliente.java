@@ -190,29 +190,7 @@ public class AltaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int dniCuitCuil = 0;
-        int codPostal = 3100;
-        int tel = 0;
-        try {
-            dniCuitCuil= parseInt(BclienteDNI.getText());
-        }catch (NumberFormatException e){
-        }
-        try {
-            codPostal = parseInt(BclienteCP.getText());
-        }catch (NumberFormatException e){
-        }
-        try {
-            tel = parseInt(BclienteTelefono.getText());
-        }catch (NumberFormatException e){
-        }
-        String nombre = BclienteNombre.getText();
-        String direccion = BclienteDireccion.getText();
-        String mail = BclienteEmail.getText();
-        if (gestores.GestorCliente.agregarCliente(nombre, direccion, codPostal, tel, dniCuitCuil, mail)){
-            JOptionPane.showMessageDialog(null, "Cliente Agregado");
-        }else{
-            JOptionPane.showMessageDialog(null, "No se ha podido agregar el cliente");
-        }
+        agregarCliente();
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -290,4 +268,31 @@ public class AltaCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     // End of variables declaration//GEN-END:variables
+
+    private void agregarCliente() {
+        int dniCuitCuil = 0;
+        int codPostal = 3100;
+        int tel = 0;
+        try {
+            dniCuitCuil= parseInt(BclienteDNI.getText());
+        }catch (NumberFormatException e){
+        }
+        try {
+            codPostal = parseInt(BclienteCP.getText());
+        }catch (NumberFormatException e){
+        }
+        try {
+            tel = parseInt(BclienteTelefono.getText());
+        }catch (NumberFormatException e){
+        }
+        String nombre = BclienteNombre.getText();
+        String direccion = BclienteDireccion.getText();
+        String mail = BclienteEmail.getText();
+        if (gestores.GestorCliente.agregarCliente(nombre, direccion, codPostal, tel, dniCuitCuil, mail)){
+            JOptionPane.showMessageDialog(null, "Cliente Agregado");
+        }else{
+            JOptionPane.showMessageDialog(null, "No se ha podido agregar el cliente");
+        }
+    }
+    
 }

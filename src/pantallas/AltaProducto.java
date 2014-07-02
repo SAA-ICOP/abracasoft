@@ -6,8 +6,7 @@
 package pantallas;
 
 import gestores.GestorProducto; // Las pantallas se comunican con la logica de negocio no les interesa como llegan los datos 
-import static java.lang.Integer.parseInt;
-import static java.lang.Integer.parseInt;
+import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 import javax.swing.*;
 
@@ -64,7 +63,6 @@ public class AltaProducto extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         TFDescuento = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        TFivaProducto = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -263,16 +261,13 @@ public class AltaProducto extends javax.swing.JFrame {
 
         jLabel9.setText("Costo");
 
-        jLabel10.setText("Incluye IVA del");
-
-        TFivaProducto.setEditable(false);
-        TFivaProducto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        TFivaProducto.setText("21.00%");
-        TFivaProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFivaProductoActionPerformed(evt);
+        TFDescuento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TFDescuentoFocusLost(evt);
             }
         });
+
+        jLabel10.setText("No Incluir el IVA, el mismo será calculado en la venta.");
 
         jLabel13.setText("Porcentaje de utilidad");
 
@@ -285,10 +280,41 @@ public class AltaProducto extends javax.swing.JFrame {
                 TFporcentajeUtilidad1ActionPerformed(evt);
             }
         });
+        TFporcentajeUtilidad1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TFporcentajeUtilidad1FocusLost(evt);
+            }
+        });
+        TFporcentajeUtilidad1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFporcentajeUtilidad1KeyTyped(evt);
+            }
+        });
 
         TFporcentajeUtilidad2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TFporcentajeUtilidad2ActionPerformed(evt);
+            }
+        });
+        TFporcentajeUtilidad2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TFporcentajeUtilidad2FocusLost(evt);
+            }
+        });
+        TFporcentajeUtilidad2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFporcentajeUtilidad2KeyTyped(evt);
+            }
+        });
+
+        TFporcentajeUtilidad3.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TFporcentajeUtilidad3FocusLost(evt);
+            }
+        });
+        TFporcentajeUtilidad3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFporcentajeUtilidad3KeyTyped(evt);
             }
         });
 
@@ -319,30 +345,30 @@ public class AltaProducto extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLabel9)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(18, 18, 18)
+                        .addComponent(TFDescuento, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel14))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(TFDescuento)
+                                .addComponent(jLabel24)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel14))
+                                .addComponent(jLabel13))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel24)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel13))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel23)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel19)))))
+                                .addComponent(jLabel23)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel19)))))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(TFporcentajeUtilidad2)
@@ -363,11 +389,9 @@ public class AltaProducto extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(TFPrecio3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(444, 444, 444)
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TFivaProducto, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)))
-                .addGap(102, 102, 102))
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(47, 47, 47))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,11 +422,9 @@ public class AltaProducto extends javax.swing.JFrame {
                     .addComponent(jLabel22)
                     .addComponent(TFPrecio3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel23))
-                .addGap(32, 32, 32)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TFivaProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
-                .addContainerGap(240, Short.MAX_VALUE))
+                .addGap(36, 36, 36)
+                .addComponent(jLabel10)
+                .addContainerGap(244, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Precios", jPanel3);
@@ -705,9 +727,42 @@ public class AltaProducto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TFPrecio3ActionPerformed
 
-    private void TFivaProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFivaProductoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TFivaProductoActionPerformed
+    private void TFporcentajeUtilidad1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFporcentajeUtilidad1KeyTyped
+        char car = evt.getKeyChar();
+        if ((car < '0' || car > '9')) {
+            evt.consume();
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_TFporcentajeUtilidad1KeyTyped
+
+    private void TFporcentajeUtilidad2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFporcentajeUtilidad2KeyTyped
+        char car = evt.getKeyChar();
+        if ((car < '0' || car > '9')) {
+            evt.consume();
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_TFporcentajeUtilidad2KeyTyped
+
+    private void TFporcentajeUtilidad3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFporcentajeUtilidad3KeyTyped
+        char car = evt.getKeyChar();
+        if ((car < '0' || car > '9')) {
+            evt.consume();
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_TFporcentajeUtilidad3KeyTyped
+
+    private void TFporcentajeUtilidad1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFporcentajeUtilidad1FocusLost
+        calcularImporte();
+    }//GEN-LAST:event_TFporcentajeUtilidad1FocusLost
+
+    private void TFporcentajeUtilidad2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFporcentajeUtilidad2FocusLost
+        calcularImporte();
+    }//GEN-LAST:event_TFporcentajeUtilidad2FocusLost
+
+    private void TFporcentajeUtilidad3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFporcentajeUtilidad3FocusLost
+        calcularImporte();
+    }//GEN-LAST:event_TFporcentajeUtilidad3FocusLost
+
+    private void TFDescuentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFDescuentoFocusLost
+        calcularImporte();
+    }//GEN-LAST:event_TFDescuentoFocusLost
 
     /**
      * @param args the command line arguments
@@ -767,7 +822,6 @@ public class AltaProducto extends javax.swing.JFrame {
     private javax.swing.JTextField TFPrecio3;
     private javax.swing.JTextField TFidProducto;
     private javax.swing.JTextField TFidProducto1;
-    private javax.swing.JTextField TFivaProducto;
     private javax.swing.JTextField TFmontoComisionProd;
     private javax.swing.JTextField TFporcentajeUtilidad1;
     private javax.swing.JTextField TFporcentajeUtilidad2;
@@ -859,5 +913,29 @@ public class AltaProducto extends javax.swing.JFrame {
             }
         }
         return ok;
+    }
+    
+    private void calcularImporte(){
+        try{
+            float precio = (float) ((1+parseInt(TFporcentajeUtilidad1.getText())*0.01)*parseFloat(TFDescuento.getText()));
+            System.out.println(precio);
+            TFPrecio1.setText(String.valueOf(precio));
+        }catch (NumberFormatException e){
+            TFPrecio1.setText(null);
+        }
+        
+        try{
+            float precio = (float) ((1+parseInt(TFporcentajeUtilidad2.getText())*0.01)*parseFloat(TFDescuento.getText()));
+            TFPrecio2.setText(String.valueOf(precio));
+        }catch (NumberFormatException e){
+            TFPrecio2.setText(null);
+        }
+        
+        try{
+            float precio = (float) ((1+parseInt(TFporcentajeUtilidad3.getText())*0.01)*parseFloat(TFDescuento.getText()));
+            TFPrecio3.setText(String.valueOf(precio));
+        }catch (NumberFormatException e){
+            TFPrecio3.setText(null);
+        }
     }
 }
