@@ -84,7 +84,7 @@ public class Usuario extends Privilegio {
 
     public static int LogIn(String nombreDeUsuario, int pass) {
         int idUsuario;
-        idUsuario = gestores.GestorUsuario.ingreso(nombreDeUsuario, pass);
+        idUsuario = gestores.GestorUsuario.logIn(nombreDeUsuario, pass);
         return idUsuario;
     }
 

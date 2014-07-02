@@ -7,7 +7,7 @@
 package pantallas;
 
 import javax.swing.JOptionPane;
-import gestores.GestorUsuario;
+import negocio.UsuarioNegocio;
 
 /**
  *
@@ -224,7 +224,7 @@ public class LogIn extends javax.swing.JFrame {
     }
     
     private int ingresar(String usuario, int pass){
-        int idUsuario = gestores.GestorUsuario.ingreso(usuario, pass);
+        int idUsuario = UsuarioNegocio.LogIn(usuario, pass);
         
         if (idUsuario != 0){
             //acá habría que hacer un "case" que active la pantalla correcta según los privilegios del empleado
