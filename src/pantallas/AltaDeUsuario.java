@@ -25,7 +25,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
      * Creates new form AltaDeUsuario
      */
     public AltaDeUsuario() {
-        
+
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
@@ -262,24 +262,32 @@ public class AltaDeUsuario extends javax.swing.JFrame {
 
     private void GuardarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarjButtonActionPerformed
         // TODO add your handling code here:
+        boolean valido;
+        valido = validar();
         int resultado;
-        validar();
         UsuarioNegocio usuario = new UsuarioNegocio();
-        usuario.setNombreUsuario(NombreDeUsuariojTextField1.getText().toUpperCase());
-        usuario.setPassUsuario(Integer.parseInt(ContraseniajTextField3.getText()));
-        int[] privilegios = new int[jTable1.getRowCount()];
-        for (int i = 0; i < jTable1.getRowCount(); i++) {
-            jTable1.convertRowIndexToModel(i);
-            if (jTable1.getModel().getValueAt(i, 2).equals(true)) {
-                privilegios[i] = (int) (jTable1.getValueAt(i, 0));
+        try {
+            if (valido) {
+                usuario.setNombreUsuario(NombreDeUsuariojTextField1.getText().toUpperCase());
+                usuario.setPassUsuario(Integer.parseInt(ContraseniajTextField3.getText()));
+                int[] privilegios = new int[jTable1.getRowCount()];
+                for (int i = 0; i < jTable1.getRowCount(); i++) {
+                    jTable1.convertRowIndexToModel(i);
+                    if (jTable1.getModel().getValueAt(i, 2).equals(true)) {
+                        privilegios[i] = (int) (jTable1.getValueAt(i, 0));
+                    }
+                }
+                resultado = usuario.AltaDeUsuarioNegocio(usuario, privilegios);
+                if (resultado == 1) {
+                    JOptionPane.showMessageDialog(null, "Se ha creado el usuario correctamente");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se ha producido un error al crear usuario");
+                }
             }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.toString());
         }
-        resultado = usuario.AltaDeUsuarioNegocio(usuario, privilegios);
-        if (resultado == 1) {
-            JOptionPane.showMessageDialog(null, "Se ha creado el usuario correctamente");
-        } else {
-            JOptionPane.showMessageDialog(null, "Se ha producido un error al crear usuario");
-        }
+
     }//GEN-LAST:event_GuardarjButtonActionPerformed
 
     private void SalirjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirjButtonActionPerformed
@@ -360,19 +368,24 @@ public class AltaDeUsuario extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
-    private void validar() {
+    private boolean validar() {
+        boolean valido = true;
         if (NombreDeUsuariojTextField1.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "No ha ingresado su nombre de usuario");
             NombreDeUsuariojTextField1.requestFocus();
+            valido = false;
         } else if (ContraseniajTextField2.getText().length() < 4 || ContraseniajTextField2.getText().length() > 12) {
             JOptionPane.showMessageDialog(null, "La contraseña debe tener entre 4 y 12 caracteres");
             ContraseniajTextField2.requestFocus();
+            valido = false;
         } else {
             if (!ContraseniajTextField3.getText().equals(ContraseniajTextField2.getText())) {
                 JOptionPane.showMessageDialog(null, "Las contraseñas tienen que ser iguales");
                 ContraseniajTextField3.requestFocus();
+                valido = false;
             }
         }
+        return valido;
     }
 
     private void agregarPrivilegiosATabla() {
