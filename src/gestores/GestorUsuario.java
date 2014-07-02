@@ -74,7 +74,7 @@ public class GestorUsuario {
             pst.setDate(3, new java.sql.Date(fecha.getTime()));
             usuarioGuardado = pst.executeUpdate();
             if (usuarioGuardado == 1) {
-                ID = consultarIDUsuario(pst);
+                ID = consultarIDUsuario();
             }
             if (ID != 0) {
                 resultado = privilegio.AltaPrivilegioDeUsuarioEnBD(pst, ID, privilegios);
@@ -96,17 +96,23 @@ public class GestorUsuario {
      * Este metodo consulta el ID del usuario recientemente creado y lo retorna, no recibe parametros.
      */
 
-    private static int consultarIDUsuario(PreparedStatement pst) {
+    private static int consultarIDUsuario() {
         int ID;
-        String sql = "SELECT MAX(IDUSU) AS IDUSU FROM usuario";
+        String sql = "SELECT max(idusu) as id FROM usuario";
         try {
-            ResultSet resultado = pst.executeQuery(sql);
-            ID = resultado.getInt("IDUSU");
+            PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
+            ResultSet resultado = pst.executeQuery();
+            if (resultado.next()){
+                ID = resultado.getInt("id");
+            }else{
+                ID = 0;
+            }
+            return ID;
+            
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e);
             ID = 0;
+            return ID;
         }
-        return ID;
-
     }
 }
