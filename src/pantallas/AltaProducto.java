@@ -881,7 +881,9 @@ public class AltaProducto extends javax.swing.JFrame {
                 int stock = parseInt(TFstockProducto.getText());
                 String descripcion = TAdescripcion.getText();
                 float precioCosto = Float.parseFloat(TFDescuento.getText());
-                GestorProducto.agregarProducto(codigoDeBarras, descripcion, precioCosto, stock);
+                if (GestorProducto.agregarProducto(codigoDeBarras, descripcion, precioCosto, stock)){
+                    agregarPreciosBD();
+                }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "En el precio, el separador decimal"
                         + " debe ser un punto '.'  y no debe haber letras");
@@ -918,7 +920,6 @@ public class AltaProducto extends javax.swing.JFrame {
     private void calcularImporte(){
         try{
             float precio = (float) ((1+parseInt(TFporcentajeUtilidad1.getText())*0.01)*parseFloat(TFDescuento.getText()));
-            System.out.println(precio);
             TFPrecio1.setText(String.valueOf(precio));
         }catch (NumberFormatException e){
             TFPrecio1.setText(null);
@@ -936,6 +937,23 @@ public class AltaProducto extends javax.swing.JFrame {
             TFPrecio3.setText(String.valueOf(precio));
         }catch (NumberFormatException e){
             TFPrecio3.setText(null);
+        }
+    }
+    
+    private void agregarPreciosBD (){
+        int id = parseInt(TFidProducto.getText());
+        float valor;
+        if (TFPrecio1.getText().trim().length() != 0){
+            valor = parseFloat(TFPrecio1.getText());
+            GestorProducto.actualizarPrecio(id, 1, valor);
+        }
+        if (TFPrecio2.getText().trim().length() != 0){
+            valor = parseFloat(TFPrecio2.getText());
+            GestorProducto.actualizarPrecio(id, 2, valor);
+        }
+        if (TFPrecio3.getText().trim().length() != 0){
+            valor = parseFloat(TFPrecio3.getText());
+            GestorProducto.actualizarPrecio(id, 3, valor);
         }
     }
 }
