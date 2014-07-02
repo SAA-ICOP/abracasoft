@@ -5,11 +5,16 @@
  */
 
 package gestores;
-import javax.sql.DataSource; 
+import javax.sql.DataSource;
+import org.apache.commons.dbcp.BasicDataSource;
 /**
  *
  * @author Ema
  */
 public class PoolDeConexiones {
-        
+    private String nombre_bd;
+    private String usuario;
+    private String contraseña;
+    
+    
 }
