@@ -52,6 +52,7 @@ public class GestorUsuario {
             if (ID != 0) {
                 resultado = privilegio.AltaPrivilegioDeUsuarioEnBD(pst, ID, privilegios);
             }
+            PoolDeConexiones.pedirConexion().close();
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.print(e.toString());
