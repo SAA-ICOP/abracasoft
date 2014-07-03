@@ -35,7 +35,7 @@ public class GestorUsuario {
      crea una instancia de la clase privilegio y llama al metodo AltaPrivilegioDeUsuarioEnBD(int ID, Privilegio privilegio).
      El metodo devuelve un int(entre 1 y 0) confirmando si se guardo el usuario con los privilegios.
      */
-    public static int AltaUsuarioEnBD(Usuario usuario, ArrayList<Privilegio> privilegios) throws SQLException {
+    public static int altaUsuarioEnBD(Usuario usuario, ArrayList<Privilegio> privilegios) {
         int usuarioGuardado = 0;
         int resultado = 0;
         int ID = 0;
@@ -65,8 +65,6 @@ public class GestorUsuario {
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.print(e.toString());
-        } finally {
-            PoolDeConexiones.pedirConexion().close();
         }
         return resultado;
     }

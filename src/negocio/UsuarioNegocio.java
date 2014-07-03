@@ -19,10 +19,10 @@ public class UsuarioNegocio extends Usuario {
     public UsuarioNegocio() {
     }
 
-    public int AltaDeUsuarioNegocio(Usuario usuario, ArrayList<Privilegio> privilegios) {
+    public int altaDeUsuarioNegocio(Usuario usuario, ArrayList<Privilegio> privilegios) {
         int resultado = 0;
         try {
-            resultado = usuario.AltaDeUsuario(usuario, privilegios);
+            resultado = usuario.altaDeUsuario(usuario, privilegios);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);

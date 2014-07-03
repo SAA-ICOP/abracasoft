@@ -282,7 +282,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
                     }
                     privilegios.add(i, privilegio);
                 }
-                resultado = usuario.AltaDeUsuarioNegocio(usuario, privilegios);
+                resultado = usuario.altaDeUsuarioNegocio(usuario, privilegios);
                 if (resultado == 1) {
                     JOptionPane.showMessageDialog(null, "Se ha creado el usuario correctamente");
                 } else {
