@@ -5,7 +5,9 @@
  */
 package pantallas;
 
+import entidades.Privilegio;
 import java.awt.Component;
+import java.util.ArrayList;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -271,12 +273,14 @@ public class AltaDeUsuario extends javax.swing.JFrame {
             if (valido) {
                 usuario.setNombreUsuario(NombreDeUsuariojTextField1.getText().toUpperCase());
                 usuario.setPassUsuario(Integer.parseInt(ContraseniajTextField3.getText()));
-                int[] privilegios = new int[jTable1.getRowCount()];
+                ArrayList<Privilegio> privilegios = new ArrayList<Privilegio>();
+                Privilegio privilegio = new Privilegio();
                 for (int i = 0; i < jTable1.getRowCount(); i++) {
                     jTable1.convertRowIndexToModel(i);
                     if (jTable1.getModel().getValueAt(i, 2).equals(true)) {
-                        privilegios[i] = (int) (jTable1.getValueAt(i, 0));
+                        privilegio.setID((int) (jTable1.getValueAt(i, 0)));
                     }
+                    privilegios.add(i, privilegio);
                 }
                 resultado = usuario.AltaDeUsuarioNegocio(usuario, privilegios);
                 if (resultado == 1) {

@@ -7,6 +7,7 @@ package entidades;
 
 import gestores.AbraBackUp;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -69,7 +70,7 @@ public class Usuario extends Privilegio {
         PassUsuario = passUsuario;
     }
 
-    public static int AltaDeUsuario(Usuario usuario, int[] privilegios) throws SQLException {
+    public static int AltaDeUsuario(Usuario usuario, ArrayList<Privilegio> privilegios) throws SQLException {
        int resultado = gestores.GestorUsuario.AltaUsuarioEnBD(usuario, privilegios);
        return resultado;
     }

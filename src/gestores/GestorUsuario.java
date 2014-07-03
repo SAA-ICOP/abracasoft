@@ -5,11 +5,13 @@
  */
 package gestores;
 
+import entidades.Privilegio;
 import entidades.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JFrame;
 
@@ -33,7 +35,7 @@ public class GestorUsuario {
      crea una instancia de la clase privilegio y llama al metodo AltaPrivilegioDeUsuarioEnBD(int ID, Privilegio privilegio).
      El metodo devuelve un int(entre 1 y 0) confirmando si se guardo el usuario con los privilegios.
      */
-    public static int AltaUsuarioEnBD(Usuario usuario, int[] privilegios) {
+    public static int AltaUsuarioEnBD(Usuario usuario, ArrayList<Privilegio> privilegios) throws SQLException {
         int usuarioGuardado = 0;
         int resultado = 0;
         int ID = 0;
@@ -50,12 +52,21 @@ public class GestorUsuario {
                 ID = consultarIDUsuario(pst);
             }
             if (ID != 0) {
-                resultado = privilegio.AltaPrivilegioDeUsuarioEnBD(pst, ID, privilegios);
+                boolean guardoLosPrivilegios = false;
+                for (int i = 0; i < privilegios.toArray().length; i++) {
+                    guardoLosPrivilegios = privilegio.AltaPrivilegioDeUsuarioEnBD(ID, privilegios.get(i).getID());
+                }
+                if (guardoLosPrivilegios) {
+                    resultado = 1;
+                }else{
+                    resultado = 0;
+                }
             }
-            PoolDeConexiones.pedirConexion().close();
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.print(e.toString());
+        } finally {
+            PoolDeConexiones.pedirConexion().close();
         }
         return resultado;
     }

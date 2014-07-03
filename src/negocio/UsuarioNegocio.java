@@ -5,7 +5,9 @@
  */
 package negocio;
 
+import entidades.Privilegio;
 import entidades.Usuario;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,7 +19,7 @@ public class UsuarioNegocio extends Usuario {
     public UsuarioNegocio() {
     }
 
-    public int AltaDeUsuarioNegocio(Usuario usuario, int[] privilegios) {
+    public int AltaDeUsuarioNegocio(Usuario usuario, ArrayList<Privilegio> privilegios) {
         int resultado = 0;
         try {
             resultado = usuario.AltaDeUsuario(usuario, privilegios);
