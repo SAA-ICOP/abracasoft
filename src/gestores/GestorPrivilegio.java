@@ -33,7 +33,7 @@ public class GestorPrivilegio {
         return resultado;
     }
 
-    public static ArrayList<Privilegio> listarPrivilegiosDB() {
+    public static ArrayList<Privilegio> listarPrivilegiosDB() throws SQLException {
 
         ArrayList<Privilegio> listaPrivilegio = new ArrayList<Privilegio>();
         String sql = "SELECT * FROM privilegio";
@@ -51,6 +51,7 @@ public class GestorPrivilegio {
             e.printStackTrace();
             System.out.print(e.toString());
         }
+        PoolDeConexiones.pedirConexion().close();
         return listaPrivilegio;
     }
 

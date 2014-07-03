@@ -5,6 +5,7 @@
  */
 package entidades;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -68,7 +69,7 @@ public class Privilegio {
         this.DescripcionDePrivilegio = DescripcionDePrivilegio;
     }
     
-    public ArrayList<Privilegio> listarPrivilegios(){
+    public ArrayList<Privilegio> listarPrivilegios() throws SQLException{
         return gestores.GestorPrivilegio.listarPrivilegiosDB();
     }
 }

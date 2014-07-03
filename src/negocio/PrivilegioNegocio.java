@@ -21,6 +21,7 @@ public class PrivilegioNegocio {
         try {
            listadeprivilegios = privilegio.listarPrivilegios();
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.print(e.toString());
         }
         return listadeprivilegios;
