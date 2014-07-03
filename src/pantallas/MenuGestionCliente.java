@@ -21,7 +21,7 @@ public class MenuGestionCliente extends javax.swing.JFrame {
      */
     public MenuGestionCliente() {
         initComponents();
-        agregarClientesATabla();
+        buscarMientrasEscribe();
     }
 
     /**
@@ -63,6 +63,11 @@ public class MenuGestionCliente extends javax.swing.JFrame {
 
         TFbusquedaCliente.setFont(new java.awt.Font("Tahoma", 2, 24)); // NOI18N
         TFbusquedaCliente.setForeground(new java.awt.Color(204, 204, 204));
+        TFbusquedaCliente.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                TFbusquedaClienteCaretUpdate(evt);
+            }
+        });
         TFbusquedaCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TFbusquedaClienteMouseClicked(evt);
@@ -71,6 +76,11 @@ public class MenuGestionCliente extends javax.swing.JFrame {
         TFbusquedaCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TFbusquedaClienteActionPerformed(evt);
+            }
+        });
+        TFbusquedaCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFbusquedaClienteKeyTyped(evt);
             }
         });
 
@@ -122,11 +132,10 @@ public class MenuGestionCliente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(BclienteAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(BclienteEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(BclienteBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(BclienteAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BclienteEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BclienteBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -188,6 +197,15 @@ public class MenuGestionCliente extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void TFbusquedaClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFbusquedaClienteKeyTyped
+        /*Abria que probar con carácteres especiales que no falle*/
+    }//GEN-LAST:event_TFbusquedaClienteKeyTyped
+
+    private void TFbusquedaClienteCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_TFbusquedaClienteCaretUpdate
+        borrarRenglones();
+        buscarMientrasEscribe();
+    }//GEN-LAST:event_TFbusquedaClienteCaretUpdate
+
     /**
      * @param args the command line arguments
      */
@@ -235,22 +253,33 @@ public class MenuGestionCliente extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+    private String paraBuscar="";
+            
+            
 
-    private void agregarClientesATabla() {
-        
+    private void buscarMientrasEscribe() {
+        paraBuscar = TFbusquedaCliente.getText();
         DefaultTableModel tabla = (DefaultTableModel) jTable1.getModel();
-        if (GestorCliente.listarClientesDB().size() != 0) {
-            for (int i = 0; i < GestorCliente.listarClientesDB().size(); i++) {
-                Object[] fila = {GestorCliente.listarClientesDB().get(i).getNombreCliente(),
-                    GestorCliente.listarClientesDB().get(i).getDireccionCliente(),
-                    GestorCliente.listarClientesDB().get(i).getMailCliente(),
-                    GestorCliente.listarClientesDB().get(i).getCodigoPostalCliente(),
-                    GestorCliente.listarClientesDB().get(i).getTelefonoCliente(),
-                    GestorCliente.listarClientesDB().get(i).getDniCuilCuit(),
-                    GestorCliente.listarClientesDB().get(i).getEsatdo(),
+        if (GestorCliente.ConsultaPorDescripcion(paraBuscar).size() != 0) {
+            for (int i = 0; i < GestorCliente.ConsultaPorDescripcion(paraBuscar).size(); i++) {
+                Object[] fila = {GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getNombreCliente(),
+                   GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getDireccionCliente(),
+                    GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getMailCliente(),
+                    GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getCodigoPostalCliente(),
+                    GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getTelefonoCliente(),
+                    GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getDniCuilCuit(),
+                    GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getEsatdo(),
                 };
                 tabla.addRow(fila);
             }
+        }
+    }
+    
+    private void borrarRenglones(){
+        DefaultTableModel tabla = (DefaultTableModel) jTable1.getModel();
+        int a = jTable1.getRowCount() - 1;
+        for (int i = a; i >= 0; i--) {
+            tabla.removeRow(i); //se van borrando para que solo muestre el producto que se buscó
         }
     }
 }

@@ -30,13 +30,11 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="BclienteAgregar" alignment="0" max="32767" attributes="0"/>
-                              <Component id="BclienteEditar" alignment="0" max="32767" attributes="0"/>
-                              <Component id="BclienteBorrar" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Component id="jButton5" alignment="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="BclienteAgregar" alignment="0" max="32767" attributes="0"/>
+                          <Component id="BclienteEditar" alignment="0" max="32767" attributes="0"/>
+                          <Component id="BclienteBorrar" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jButton5" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -127,8 +125,10 @@
         </Property>
       </Properties>
       <Events>
+        <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="TFbusquedaClienteCaretUpdate"/>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TFbusquedaClienteMouseClicked"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TFbusquedaClienteActionPerformed"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFbusquedaClienteKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton4">
