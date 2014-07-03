@@ -112,6 +112,17 @@ public class AltaProducto extends javax.swing.JFrame {
 
         jLabel1.setText("Código del producto");
 
+        TFidProducto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TFidProductoFocusLost(evt);
+            }
+        });
+        TFidProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFidProductoKeyTyped(evt);
+            }
+        });
+
         jLabel2.setText("Descripción");
 
         TAdescripcion.setColumns(20);
@@ -763,6 +774,19 @@ public class AltaProducto extends javax.swing.JFrame {
     private void TFDescuentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFDescuentoFocusLost
         calcularImporte();
     }//GEN-LAST:event_TFDescuentoFocusLost
+
+    private void TFidProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFidProductoKeyTyped
+        char car = evt.getKeyChar();
+        if ((car < '0' || car > '9')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_TFidProductoKeyTyped
+
+    private void TFidProductoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFidProductoFocusLost
+        if (GestorProducto.ConsultaProducto(parseInt(TFidProducto.getText())).getCodigoDeProducto()!=0){
+/**/        JOptionPane.showMessageDialog(null, "El producto ya existe: " + GestorProducto.ConsultaProducto(parseInt(TFidProducto.getText())).getNombreProducto());
+        }
+    }//GEN-LAST:event_TFidProductoFocusLost
 
     /**
      * @param args the command line arguments

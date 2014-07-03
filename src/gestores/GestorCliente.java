@@ -6,8 +6,11 @@
 
 package gestores;
 
+import entidades.Cliente;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -46,5 +49,29 @@ public class GestorCliente {
             JOptionPane.showMessageDialog(null, "El campo 'nombre' no puede estar vacio");
         }
         return estado;
+    }
+    
+        public static ArrayList<Cliente> listarClientesDB() {//Método para que se listen los productos en la pantalla "MenuDeGestionDeProd"
+
+        ArrayList<Cliente> listaCliente = new ArrayList<>();
+        String sql = "SELECT * FROM cliente";
+        try {
+            PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
+            ResultSet resultSet = pst.executeQuery();
+
+            while (resultSet.next()) { //int dniCuilCuit, String mailCliente
+                Cliente cliente = new Cliente(resultSet.getString("NOMCLIENTE"),
+                        resultSet.getString("DIRCLIENTE"), resultSet.getInt("CODIGOPOSTAL"), 
+                        resultSet.getInt("TELCLIENTE"),resultSet.getInt("DNICLIENTE"),
+                        resultSet.getString("MAILCLIENTE"));
+
+                listaCliente.add(cliente);
+
+            }
+        } catch (SQLException e) {
+            System.out.print(e.toString());
+        }
+
+        return listaCliente;
     }
 }

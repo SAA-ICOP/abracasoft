@@ -6,6 +6,9 @@
 
 package pantallas;
 
+import gestores.GestorCliente;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author German
@@ -18,6 +21,7 @@ public class MenuGestionCliente extends javax.swing.JFrame {
      */
     public MenuGestionCliente() {
         initComponents();
+        agregarClientesATabla();
     }
 
     /**
@@ -32,7 +36,7 @@ public class MenuGestionCliente extends javax.swing.JFrame {
         BclienteAgregar = new javax.swing.JButton();
         BclienteEditar = new javax.swing.JButton();
         BclienteBorrar = new javax.swing.JButton();
-        TFbusquedaProducto = new javax.swing.JTextField();
+        TFbusquedaCliente = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -57,16 +61,16 @@ public class MenuGestionCliente extends javax.swing.JFrame {
         BclienteBorrar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         BclienteBorrar.setText("-");
 
-        TFbusquedaProducto.setFont(new java.awt.Font("Tahoma", 2, 24)); // NOI18N
-        TFbusquedaProducto.setForeground(new java.awt.Color(204, 204, 204));
-        TFbusquedaProducto.addMouseListener(new java.awt.event.MouseAdapter() {
+        TFbusquedaCliente.setFont(new java.awt.Font("Tahoma", 2, 24)); // NOI18N
+        TFbusquedaCliente.setForeground(new java.awt.Color(204, 204, 204));
+        TFbusquedaCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TFbusquedaProductoMouseClicked(evt);
+                TFbusquedaClienteMouseClicked(evt);
             }
         });
-        TFbusquedaProducto.addActionListener(new java.awt.event.ActionListener() {
+        TFbusquedaCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFbusquedaProductoActionPerformed(evt);
+                TFbusquedaClienteActionPerformed(evt);
             }
         });
 
@@ -75,20 +79,17 @@ public class MenuGestionCliente extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "ID", "Nombre", "Dirección", "Email", "CP", "Telefono", "DNI", "Estado"
+                "Nombre", "Dirección", "Email", "CP", "Telefono", "DNI", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true, true
+                false, false, false, false, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -130,7 +131,7 @@ public class MenuGestionCliente extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(TFbusquedaProducto)
+                                .addComponent(TFbusquedaCliente)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton4))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 626, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -147,7 +148,7 @@ public class MenuGestionCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton4)
                     .addComponent(BclienteAgregar)
-                    .addComponent(TFbusquedaProducto, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(TFbusquedaCliente, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -168,14 +169,14 @@ public class MenuGestionCliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TFbusquedaProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TFbusquedaProductoMouseClicked
+    private void TFbusquedaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TFbusquedaClienteMouseClicked
         // TODO add your handling code here:
         
-    }//GEN-LAST:event_TFbusquedaProductoMouseClicked
+    }//GEN-LAST:event_TFbusquedaClienteMouseClicked
 
-    private void TFbusquedaProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFbusquedaProductoActionPerformed
+    private void TFbusquedaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFbusquedaClienteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TFbusquedaProductoActionPerformed
+    }//GEN-LAST:event_TFbusquedaClienteActionPerformed
 
     private void BclienteAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BclienteAgregarActionPerformed
         // TODO add your handling code here:
@@ -226,7 +227,7 @@ public class MenuGestionCliente extends javax.swing.JFrame {
     private javax.swing.JButton BclienteAgregar;
     private javax.swing.JButton BclienteBorrar;
     private javax.swing.JButton BclienteEditar;
-    private javax.swing.JTextField TFbusquedaProducto;
+    private javax.swing.JTextField TFbusquedaCliente;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -234,4 +235,22 @@ public class MenuGestionCliente extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    private void agregarClientesATabla() {
+        
+        DefaultTableModel tabla = (DefaultTableModel) jTable1.getModel();
+        if (GestorCliente.listarClientesDB().size() != 0) {
+            for (int i = 0; i < GestorCliente.listarClientesDB().size(); i++) {
+                Object[] fila = {GestorCliente.listarClientesDB().get(i).getNombreCliente(),
+                    GestorCliente.listarClientesDB().get(i).getDireccionCliente(),
+                    GestorCliente.listarClientesDB().get(i).getMailCliente(),
+                    GestorCliente.listarClientesDB().get(i).getCodigoPostalCliente(),
+                    GestorCliente.listarClientesDB().get(i).getTelefonoCliente(),
+                    GestorCliente.listarClientesDB().get(i).getDniCuilCuit(),
+                    GestorCliente.listarClientesDB().get(i).getEsatdo(),
+                };
+                tabla.addRow(fila);
+            }
+        }
+    }
 }

@@ -97,7 +97,7 @@ public class AltaCliente extends javax.swing.JFrame {
 
         jButton3.setText("Ayuda");
 
-        jLabel7.setText("* El codigo postal es por defecto 3100");
+        jLabel7.setText("* El código postal por defecto es: 3100");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

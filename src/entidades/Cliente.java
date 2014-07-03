@@ -18,6 +18,23 @@ public class Cliente {
     private int CodigoPostalCliente;
     private int TelefonoCliente;
     private int DniCuilCuit;
+    private String Esatdo;
+
+    public int getDniCuilCuit() {
+        return DniCuilCuit;
+    }
+
+    public String getEsatdo() {
+        return Esatdo;
+    }
+
+    public void setEsatdo(String Esatdo) {
+        this.Esatdo = Esatdo;
+    }
+
+    public void setDniCuilCuit(int DniCuilCuit) {
+        this.DniCuilCuit = DniCuilCuit;
+    }
     private String MailCliente;
 
     public Cliente(String nombreCliente, String provinciaCliente,

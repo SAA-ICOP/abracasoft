@@ -201,7 +201,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
-        <Property name="text" type="java.lang.String" value="* El codigo postal es por defecto 3100"/>
+        <Property name="text" type="java.lang.String" value="* El c&#xf3;digo postal por defecto es: 3100"/>
       </Properties>
     </Component>
   </SubComponents>
