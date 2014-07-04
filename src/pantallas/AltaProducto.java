@@ -6,9 +6,13 @@
 package pantallas;
 
 import gestores.GestorProducto; // Las pantallas se comunican con la logica de negocio no les interesa como llegan los datos 
+import java.awt.Image;
+import java.awt.MediaTracker;
+import java.io.*;
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -491,6 +495,11 @@ public class AltaProducto extends javax.swing.JFrame {
         BquitarImagenProd.setText("-");
 
         BagregarImagenProd1.setText("+");
+        BagregarImagenProd1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BagregarImagenProd1ActionPerformed(evt);
+            }
+        });
 
         jEditorPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane4.setViewportView(jEditorPane1);
@@ -794,6 +803,47 @@ public class AltaProducto extends javax.swing.JFrame {
             TFidProducto.requestFocus();
         }
     }//GEN-LAST:event_TFidProductoFocusLost
+
+    private void BagregarImagenProd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BagregarImagenProd1ActionPerformed
+        JFileChooser selector=new JFileChooser();
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("JPG, JPEG, BMP", "jpg", "jpeg", "bmp");
+        
+        selector.setFileFilter(filtro);
+        
+        int estado=selector.showOpenDialog(null);
+        File archivoelegido;
+        String ruta;
+        JLabel etiqueta;
+        
+        if(estado==JFileChooser.APPROVE_OPTION){
+            archivoelegido=selector.getSelectedFile();
+            ruta=archivoelegido.getPath();
+        
+            ImageIcon imagen = new ImageIcon(ruta);
+            if(imagen.getImageLoadStatus()!=MediaTracker.COMPLETE){
+                JOptionPane.showMessageDialog(null, "Seleccione un tipo de archivo válido");
+            }else{
+                System.out.println("Se cargo");
+                etiqueta = new JLabel(imagen);
+                etiqueta.setBounds(200,0,250,250);
+                /**/
+                Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(etiqueta.getWidth(), etiqueta.getHeight(), Image.SCALE_DEFAULT));
+                etiqueta.setIcon(icono);
+                this.repaint();
+                /**/
+                jEditorPane1.removeAll();
+                jEditorPane1.add(etiqueta);
+                if(archivoelegido.exists()){
+                    System.out.println("bien");
+                }else{
+                    System.out.println("no bien");
+                }
+            }
+        }
+        
+        
+
+    }//GEN-LAST:event_BagregarImagenProd1ActionPerformed
 
     /**
      * @param args the command line arguments
