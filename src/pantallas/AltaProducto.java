@@ -783,8 +783,15 @@ public class AltaProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_TFidProductoKeyTyped
 
     private void TFidProductoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFidProductoFocusLost
-        if (GestorProducto.ConsultaProducto(parseInt(TFidProducto.getText())).getCodigoDeProducto()!=0){
+        int evitaError = 0;
+        try {
+            evitaError = GestorProducto.ConsultaProducto(parseInt(TFidProducto.getText())).getCodigoDeProducto();
+        }catch (NumberFormatException e){
+            evitaError = 0;
+        }
+        if (evitaError!=0){
 /**/        JOptionPane.showMessageDialog(null, "El producto ya existe: " + GestorProducto.ConsultaProducto(parseInt(TFidProducto.getText())).getNombreProducto());
+            TFidProducto.requestFocus();
         }
     }//GEN-LAST:event_TFidProductoFocusLost
 

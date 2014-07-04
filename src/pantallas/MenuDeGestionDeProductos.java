@@ -293,6 +293,7 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
     
     private void validar() {
         if (jTextFieldCodigoDeBarraProducto.getText().isEmpty() && jTextDescripcion.getText().isEmpty()) {
+            borrarRenglones();
             agregarProductosATabla();
         }
     }
