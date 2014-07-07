@@ -19,9 +19,8 @@ import java.util.ArrayList;
 
 public class GestorPresupuesto {
 
-    public static ArrayList<Presupuesto> buscarPorFecha(String fechaDesde, String fechaHasta) {
+    public static ArrayList<Presupuesto> buscarPresupuesto(String fechaDesde, String fechaHasta) {
         ArrayList<Presupuesto> listaPresupuesto = new ArrayList();
-           
         
         String sql = "SELECT * FROM presupuesto WHERE VIGENPRESUPUESTO BETWEEN ? and ? order by VIGENPRESUPUESTO DESC";
 
@@ -45,4 +44,29 @@ public class GestorPresupuesto {
         }
         return listaPresupuesto;
     } 
+    
+    public static ArrayList<Presupuesto> buscarPresupuesto(int codigo){ //para que el EMA se ponga contento
+        ArrayList<Presupuesto> listaPresupuesto = new ArrayList();
+        
+        String sql = "SELECT * FROM presupuesto WHERE IDPRESUPUESTO = ?";
+        
+        try {
+            PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
+            pst.setInt(1, codigo);
+            ResultSet resultSet = pst.executeQuery();
+
+           while (resultSet.next()) {
+                Presupuesto presupuesto = new Presupuesto();
+                    presupuesto.setVigenciaDePresupuesto((resultSet.getDate("VIGENPRESUPUESTO")));
+                    presupuesto.setIdCliente(resultSet.getInt("IDCLIENTE"));
+                    presupuesto.setIdPresupuesto(resultSet.getInt("IDPRESUPUESTO"));
+                    presupuesto.setIdVendedor(resultSet.getInt("IDUSU"));
+                listaPresupuesto.add(presupuesto);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            System.out.println("no se pudo buscar presupuesto");
+        }
+        return listaPresupuesto;
+    }
 }

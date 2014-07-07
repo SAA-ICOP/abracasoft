@@ -6,8 +6,10 @@
 
 package pantallas;
 
+import com.toedter.calendar.JDateChooser;
 import entidades.Presupuesto;
 import java.awt.Color;
+import static java.lang.Integer.parseInt;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -100,16 +102,6 @@ public class GestionPresupuesto extends javax.swing.JFrame {
                 TFpresupuestoCodigoMouseClicked(evt);
             }
         });
-        TFpresupuestoCodigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFpresupuestoCodigoActionPerformed(evt);
-            }
-        });
-        TFpresupuestoCodigo.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                TFpresupuestoCodigoFocusGained(evt);
-            }
-        });
         TFpresupuestoCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TFpresupuestoCodigoKeyTyped(evt);
@@ -190,6 +182,8 @@ public class GestionPresupuesto extends javax.swing.JFrame {
             }
         });
         SPpresupuestoArticulos.setViewportView(TpresupuestoArticulos);
+
+        jRangoDesde.setMinSelectableDate(new java.util.Date(-62135755134000L));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -281,14 +275,6 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         TFpresupuestoCodigo.setBackground(Color.white);
     }//GEN-LAST:event_TFpresupuestoCodigoMouseClicked
 
-    private void TFpresupuestoCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFpresupuestoCodigoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TFpresupuestoCodigoActionPerformed
-
-    private void TFpresupuestoCodigoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFpresupuestoCodigoFocusGained
-        
-    }//GEN-LAST:event_TFpresupuestoCodigoFocusGained
-
     private void TFpresupuestoCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFpresupuestoCodigoKeyTyped
         char car = evt.getKeyChar();
         if ((car < '0' || car > '9')) {
@@ -310,7 +296,20 @@ public class GestionPresupuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_BpresupuestoEditarActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        buscarPorFecha();
+        String validador = "";
+        borrarRenglones();
+        try {
+            validador = jRangoDesde.getDate().toString() + jRangoHasta.getDate().toString();
+            System.out.println(validador);
+        }catch (NullPointerException e){
+            System.out.println("fechas vacias");
+        }
+        
+        if (validador == ""){
+            buscarPorCodigo();
+        }else{
+            buscarPorFecha();
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
@@ -368,6 +367,14 @@ public class GestionPresupuesto extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
+        private void borrarRenglones() {
+        DefaultTableModel tabla = (DefaultTableModel) Tpresupuesto.getModel();
+        int a = Tpresupuesto.getRowCount() - 1;
+        for (int i = a; i >= 0; i--) {
+            tabla.removeRow(i); //se van borrando para que solo muestre el producto que se buscó
+        }
+    }
+    
     private void buscarPorFecha() {
         String fechaDesde = "";
         String fechaHasta = "";
@@ -380,9 +387,24 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         }
         
         if (fechaDesde != "" && fechaHasta != ""){
-            agregarProductoATabla(gestores.GestorPresupuesto.buscarPorFecha(fechaDesde, fechaHasta));
+            agregarProductoATabla(gestores.GestorPresupuesto.buscarPresupuesto(fechaDesde, fechaHasta));
         }
         
+    }
+    
+    private void buscarPorCodigo() {
+        int codigo = 0;
+        
+        try {
+            codigo = parseInt(TFpresupuestoCodigo.getText());
+        }catch (NumberFormatException e){
+            System.out.println("No se puede convertir el codigo de barra");
+        }
+
+        if (codigo!=0){
+            agregarProductoATabla(gestores.GestorPresupuesto.buscarPresupuesto(codigo));
+        }
+
     }
 
     private void agregarProductoATabla(ArrayList<Presupuesto> buscarPorFecha) {
