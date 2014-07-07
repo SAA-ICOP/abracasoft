@@ -493,6 +493,11 @@ public class AltaProducto extends javax.swing.JFrame {
         jTabbedPane1.addTab("Comisiones", jPanel2);
 
         BquitarImagenProd.setText("-");
+        BquitarImagenProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BquitarImagenProdActionPerformed(evt);
+            }
+        });
 
         BagregarImagenProd1.setText("+");
         BagregarImagenProd1.addActionListener(new java.awt.event.ActionListener() {
@@ -806,7 +811,7 @@ public class AltaProducto extends javax.swing.JFrame {
 
     private void BagregarImagenProd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BagregarImagenProd1ActionPerformed
         JFileChooser selector=new JFileChooser();
-        FileNameExtensionFilter filtro = new FileNameExtensionFilter("JPG, JPEG, BMP", "jpg", "jpeg", "bmp");
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("JPG, JPEG", "jpg", "jpeg");
         
         selector.setFileFilter(filtro);
         
@@ -844,6 +849,10 @@ public class AltaProducto extends javax.swing.JFrame {
         
 
     }//GEN-LAST:event_BagregarImagenProd1ActionPerformed
+
+    private void BquitarImagenProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BquitarImagenProdActionPerformed
+        
+    }//GEN-LAST:event_BquitarImagenProdActionPerformed
 
     /**
      * @param args the command line arguments
