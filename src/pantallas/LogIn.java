@@ -159,6 +159,8 @@ public class LogIn extends javax.swing.JFrame {
         }else{
             ingresar(TFloginUsuario.getText(), Integer.parseInt(TFloginPass.getText()));
         }
+        
+        this.dispose();
 
     }//GEN-LAST:event_BlogInActionPerformed
 
