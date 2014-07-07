@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pantallas;
 
 /**
@@ -100,7 +99,12 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         MenuDeGestionDeProductos gestionproducto = new MenuDeGestionDeProductos();
-        jTabbedPane1.add(gestionproducto.getContentPane());
+        int señal = 0;
+        if (señal == 0) {
+            jTabbedPane1.addTab("Puto", gestionproducto.getContentPane());
+            señal = 1;
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
