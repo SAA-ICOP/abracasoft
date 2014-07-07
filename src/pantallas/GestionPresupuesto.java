@@ -6,7 +6,13 @@
 
 package pantallas;
 
+import entidades.Presupuesto;
 import java.awt.Color;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -36,7 +42,6 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         Tpresupuesto = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        TFpresupuestoDescripcion = new javax.swing.JTextField();
         TFpresupuestoCodigo = new javax.swing.JTextField();
         BpresupuestoNuevo = new javax.swing.JButton();
         BpresupuestoEditar = new javax.swing.JButton();
@@ -47,6 +52,9 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         SPpresupuestoArticulos = new javax.swing.JScrollPane();
         TpresupuestoArticulos = new javax.swing.JTable();
+        jRangoDesde = new com.toedter.calendar.JDateChooser();
+        jLabel3 = new javax.swing.JLabel();
+        jRangoHasta = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestion de presupuestos");
@@ -81,27 +89,11 @@ public class GestionPresupuesto extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("Descripción");
+        jLabel1.setText("Rango desde:");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("Codigo");
-
-        TFpresupuestoDescripcion.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                TFpresupuestoDescripcionCaretUpdate(evt);
-            }
-        });
-        TFpresupuestoDescripcion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFpresupuestoDescripcionActionPerformed(evt);
-            }
-        });
-        TFpresupuestoDescripcion.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                TFpresupuestoDescripcionFocusGained(evt);
-            }
-        });
 
         TFpresupuestoCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -163,6 +155,11 @@ public class GestionPresupuesto extends javax.swing.JFrame {
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton3.setText("Buscar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -194,6 +191,10 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         });
         SPpresupuestoArticulos.setViewportView(TpresupuestoArticulos);
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel3.setText("hasta:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -224,7 +225,12 @@ public class GestionPresupuesto extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(TFpresupuestoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(TFpresupuestoDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jRangoDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jRangoHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton3)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -253,7 +259,9 @@ public class GestionPresupuesto extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
-                                    .addComponent(TFpresupuestoDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jRangoDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jRangoHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(31, 31, 31)
                                 .addComponent(SPpresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
@@ -268,19 +276,6 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TFpresupuestoDescripcionCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_TFpresupuestoDescripcionCaretUpdate
-        //borrarRenglones();
-        //buscarMientrasEscribe();
-    }//GEN-LAST:event_TFpresupuestoDescripcionCaretUpdate
-
-    private void TFpresupuestoDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFpresupuestoDescripcionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TFpresupuestoDescripcionActionPerformed
-
-    private void TFpresupuestoDescripcionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFpresupuestoDescripcionFocusGained
-        TFpresupuestoCodigo.setText(null); // Borra el contenido del campo de busqueda por codigo
-    }//GEN-LAST:event_TFpresupuestoDescripcionFocusGained
-
     private void TFpresupuestoCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TFpresupuestoCodigoMouseClicked
         // TODO add your handling code here:
         TFpresupuestoCodigo.setBackground(Color.white);
@@ -291,7 +286,7 @@ public class GestionPresupuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_TFpresupuestoCodigoActionPerformed
 
     private void TFpresupuestoCodigoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFpresupuestoCodigoFocusGained
-        TFpresupuestoDescripcion.setText(null);
+        
     }//GEN-LAST:event_TFpresupuestoCodigoFocusGained
 
     private void TFpresupuestoCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFpresupuestoCodigoKeyTyped
@@ -313,6 +308,10 @@ public class GestionPresupuesto extends javax.swing.JFrame {
     private void BpresupuestoEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpresupuestoEditarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BpresupuestoEditarActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        buscarPorFecha();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -356,7 +355,6 @@ public class GestionPresupuesto extends javax.swing.JFrame {
     private javax.swing.JScrollPane SPpresupuesto;
     private javax.swing.JScrollPane SPpresupuestoArticulos;
     private javax.swing.JTextField TFpresupuestoCodigo;
-    private javax.swing.JTextField TFpresupuestoDescripcion;
     private javax.swing.JTable Tpresupuesto;
     private javax.swing.JTable TpresupuestoArticulos;
     private javax.swing.JButton jButton1;
@@ -364,6 +362,39 @@ public class GestionPresupuesto extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private com.toedter.calendar.JDateChooser jRangoDesde;
+    private com.toedter.calendar.JDateChooser jRangoHasta;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
+
+    private void buscarPorFecha() {
+        String fechaDesde = "";
+        String fechaHasta = "";
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            fechaDesde = formato.format(jRangoDesde.getDate()); 
+            fechaHasta = formato.format(jRangoHasta.getDate());
+        }catch (NullPointerException e){
+            JOptionPane.showMessageDialog(null,"Seleccione el rango de fecha a buscar");
+        }
+        
+        if (fechaDesde != "" && fechaHasta != ""){
+            agregarProductoATabla(gestores.GestorPresupuesto.buscarPorFecha(fechaDesde, fechaHasta));
+        }
+        
+    }
+
+    private void agregarProductoATabla(ArrayList<Presupuesto> buscarPorFecha) {
+        DefaultTableModel tabla = (DefaultTableModel) Tpresupuesto.getModel();
+        for (int i = 0; i < buscarPorFecha.size(); i++) {
+            Object[] fila = { buscarPorFecha.get(i).getIdPresupuesto(),
+                buscarPorFecha.get(i).getIdCliente(),
+                buscarPorFecha.get(i).getIdVendedor(),
+                "",
+                buscarPorFecha.get(i).getVigenciaDePresupuesto()
+            };
+            tabla.addRow(fila);
+        }
+    }  
 }
