@@ -51,13 +51,14 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         BpresupuestoEliminar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        BpresupuestoBuscar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         SPpresupuestoArticulos = new javax.swing.JScrollPane();
         TpresupuestoArticulos = new javax.swing.JTable();
-        jRangoDesde = new com.toedter.calendar.JDateChooser();
+        CSpresupuestoRangoDesde = new com.toedter.calendar.JDateChooser();
         jLabel3 = new javax.swing.JLabel();
-        jRangoHasta = new com.toedter.calendar.JDateChooser();
+        CSpresupuestoRangoHasta = new com.toedter.calendar.JDateChooser();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestion de presupuestos");
@@ -102,7 +103,7 @@ public class GestionPresupuesto extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("Rango desde:");
+        jLabel1.setText("Rango");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -156,11 +157,11 @@ public class GestionPresupuesto extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton3.setText("Buscar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        BpresupuestoBuscar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        BpresupuestoBuscar.setText("Buscar");
+        BpresupuestoBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                BpresupuestoBuscarActionPerformed(evt);
             }
         });
 
@@ -191,11 +192,15 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         });
         SPpresupuestoArticulos.setViewportView(TpresupuestoArticulos);
 
-        jRangoDesde.setMinSelectableDate(new java.util.Date(-62135755134000L));
+        CSpresupuestoRangoDesde.setMinSelectableDate(new java.util.Date(-62135755134000L));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel3.setText("hasta:");
+        jLabel3.setText("desde");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel4.setText("hasta");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -225,16 +230,18 @@ public class GestionPresupuesto extends javax.swing.JFrame {
                                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(TFpresupuestoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jRangoDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
                                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jRangoHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(CSpresupuestoRangoDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(CSpresupuestoRangoHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton3)))
+                                .addComponent(BpresupuestoBuscar)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton2)
@@ -261,14 +268,16 @@ public class GestionPresupuesto extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
-                                    .addComponent(jRangoDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(CSpresupuestoRangoDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3)
-                                    .addComponent(jRangoHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel4)
+                                        .addComponent(CSpresupuestoRangoHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(31, 31, 31)
                                 .addComponent(SPpresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(13, 13, 13)
-                                .addComponent(jButton3))))
+                                .addComponent(BpresupuestoBuscar))))
                     .addComponent(SPpresupuestoArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(jButton2)
@@ -303,11 +312,11 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_BpresupuestoEditarActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void BpresupuestoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpresupuestoBuscarActionPerformed
         String validador = "";
         borrarRenglones(1);
         try {
-            validador = jRangoDesde.getDate().toString() + jRangoHasta.getDate().toString();
+            validador = CSpresupuestoRangoDesde.getDate().toString() + CSpresupuestoRangoHasta.getDate().toString();
             System.out.println(validador);
         }catch (NullPointerException e){
             System.out.println("fechas vacias");
@@ -318,7 +327,7 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         }else{
             buscarPorFecha();
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_BpresupuestoBuscarActionPerformed
 
     private void TpresupuestoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TpresupuestoKeyReleased
         presupuestoProducto();        // TODO add your handling code here:
@@ -364,9 +373,12 @@ public class GestionPresupuesto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BpresupuestoBuscar;
     private javax.swing.JButton BpresupuestoEditar;
     private javax.swing.JButton BpresupuestoEliminar;
     private javax.swing.JButton BpresupuestoNuevo;
+    private com.toedter.calendar.JDateChooser CSpresupuestoRangoDesde;
+    private com.toedter.calendar.JDateChooser CSpresupuestoRangoHasta;
     private javax.swing.JScrollPane SPpresupuesto;
     private javax.swing.JScrollPane SPpresupuestoArticulos;
     private javax.swing.JTextField TFpresupuestoCodigo;
@@ -374,12 +386,10 @@ public class GestionPresupuesto extends javax.swing.JFrame {
     private javax.swing.JTable TpresupuestoArticulos;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private com.toedter.calendar.JDateChooser jRangoDesde;
-    private com.toedter.calendar.JDateChooser jRangoHasta;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
@@ -403,8 +413,8 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         String fechaHasta = "";
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            fechaDesde = formato.format(jRangoDesde.getDate()); 
-            fechaHasta = formato.format(jRangoHasta.getDate());
+            fechaDesde = formato.format(CSpresupuestoRangoDesde.getDate()); 
+            fechaHasta = formato.format(CSpresupuestoRangoHasta.getDate());
         }catch (NullPointerException e){
             JOptionPane.showMessageDialog(null,"Seleccione el rango de fecha a buscar");
         }
