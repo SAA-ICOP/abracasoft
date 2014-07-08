@@ -57,7 +57,8 @@ public class GestorProducto {
 
             while (resultSet.next()) {
                 Producto producto = new Producto(resultSet.getInt("IDPRODUCTO"),
-                        resultSet.getString("NOMPRODUCTO"), resultSet.getInt("PRECIOUNITARIO"), resultSet.getInt("STOCK"));
+                        resultSet.getString("NOMPRODUCTO"), resultSet.getInt("PRECIOUNITARIO"), 
+                        resultSet.getInt("STOCK"));
 
                 listaProducto.add(producto);
 
@@ -161,5 +162,28 @@ public class GestorProducto {
             System.out.println("Error al ejecutar el SQL");
         }
         return ok;
+    }
+    
+    public static ArrayList<Object> presupuestoProducto(int codigo){
+        ArrayList<Object> presupuestoProducto = new ArrayList();
+        
+        String sql = "select producto.IDPRODUCTO, producto.NOMPRODUCTO, relation_168.CANTIDAD, relation_168.PRECIOVENTA from relation_168, producto where IDPRESUPUESTO = ? and relation_168.IDPRODUCTO = producto.IDPRODUCTO";
+        
+        try {
+            PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
+            pst.setInt(1, codigo);
+            ResultSet resultSet = pst.executeQuery();
+
+           while (resultSet.next()) {
+                Object [] detalle = { resultSet.getInt("IDPRODUCTO"),
+                        resultSet.getString("NOMPRODUCTO"), 
+                        resultSet.getInt("CANTIDAD"), resultSet.getFloat("PRECIOVENTA")};
+                presupuestoProducto.add(detalle);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            System.out.println("no se pudo buscar presupuesto");
+        }
+        return presupuestoProducto;
     }
 }

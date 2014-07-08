@@ -8,6 +8,7 @@ package pantallas;
 
 import com.toedter.calendar.JDateChooser;
 import entidades.Presupuesto;
+import gestores.GestorProducto;
 import java.awt.Color;
 import static java.lang.Integer.parseInt;
 import java.text.SimpleDateFormat;
@@ -85,7 +86,17 @@ public class GestionPresupuesto extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        Tpresupuesto.setColumnSelectionAllowed(true);
+        Tpresupuesto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Tpresupuesto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TpresupuestoMouseClicked(evt);
+            }
+        });
+        Tpresupuesto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                TpresupuestoKeyReleased(evt);
+            }
+        });
         SPpresupuesto.setViewportView(Tpresupuesto);
         Tpresupuesto.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
@@ -157,10 +168,7 @@ public class GestionPresupuesto extends javax.swing.JFrame {
 
         TpresupuestoArticulos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Codigo", "Producto", "Cantidad", "Subtotal"
@@ -297,7 +305,7 @@ public class GestionPresupuesto extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         String validador = "";
-        borrarRenglones();
+        borrarRenglones(1);
         try {
             validador = jRangoDesde.getDate().toString() + jRangoHasta.getDate().toString();
             System.out.println(validador);
@@ -311,6 +319,14 @@ public class GestionPresupuesto extends javax.swing.JFrame {
             buscarPorFecha();
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void TpresupuestoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TpresupuestoKeyReleased
+        presupuestoProducto();        // TODO add your handling code here:
+    }//GEN-LAST:event_TpresupuestoKeyReleased
+
+    private void TpresupuestoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TpresupuestoMouseClicked
+        presupuestoProducto();
+    }//GEN-LAST:event_TpresupuestoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -367,9 +383,16 @@ public class GestionPresupuesto extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
-        private void borrarRenglones() {
-        DefaultTableModel tabla = (DefaultTableModel) Tpresupuesto.getModel();
-        int a = Tpresupuesto.getRowCount() - 1;
+    private void borrarRenglones(int jpanel) {
+        int a;
+        DefaultTableModel tabla;
+        if (jpanel == 1){
+            tabla = (DefaultTableModel) Tpresupuesto.getModel();
+            a = Tpresupuesto.getRowCount() - 1;
+        }else{
+            tabla = (DefaultTableModel) TpresupuestoArticulos.getModel();
+            a = TpresupuestoArticulos.getRowCount() - 1;
+        }
         for (int i = a; i >= 0; i--) {
             tabla.removeRow(i); //se van borrando para que solo muestre el producto que se buscó
         }
@@ -419,4 +442,21 @@ public class GestionPresupuesto extends javax.swing.JFrame {
             tabla.addRow(fila);
         }
     }  
+
+    private void presupuestoProducto() {
+        if(Tpresupuesto.getSelectedRows().length > 0 ) {
+            int valorCelda = 0;
+            try{
+                valorCelda = parseInt(Tpresupuesto.getValueAt(Tpresupuesto.getSelectedRow(),0).toString());
+            }catch (NumberFormatException e){ 
+            }
+            borrarRenglones(2);
+            if(valorCelda != 0){
+                DefaultTableModel tarticulos = (DefaultTableModel) TpresupuestoArticulos.getModel();
+                for (int i = 0; i < GestorProducto.presupuestoProducto(valorCelda).size(); i++) {
+                    tarticulos.addRow((Object[]) GestorProducto.presupuestoProducto(valorCelda).get(i));
+                }  
+            }
+         }
+    }
 }
