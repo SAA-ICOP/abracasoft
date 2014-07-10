@@ -8,8 +8,10 @@ package pantallas;
 
 import com.toedter.calendar.JDateChooser;
 import entidades.Presupuesto;
+import gestores.GestorPresupuesto;
 import gestores.GestorProducto;
 import java.awt.Color;
+import static java.lang.Integer.parseInt;
 import static java.lang.Integer.parseInt;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -87,6 +89,7 @@ public class GestionPresupuesto extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        Tpresupuesto.setColumnSelectionAllowed(true);
         Tpresupuesto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Tpresupuesto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -144,6 +147,11 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         BpresupuestoEliminar.setText("-");
         BpresupuestoEliminar.setMaximumSize(new java.awt.Dimension(41, 41));
         BpresupuestoEliminar.setMinimumSize(new java.awt.Dimension(41, 41));
+        BpresupuestoEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BpresupuestoEliminarActionPerformed(evt);
+            }
+        });
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButton1.setText("?");
@@ -313,20 +321,7 @@ public class GestionPresupuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_BpresupuestoEditarActionPerformed
 
     private void BpresupuestoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpresupuestoBuscarActionPerformed
-        String validador = "";
-        borrarRenglones(1);
-        try {
-            validador = CSpresupuestoRangoDesde.getDate().toString() + CSpresupuestoRangoHasta.getDate().toString();
-            System.out.println(validador);
-        }catch (NullPointerException e){
-            System.out.println("fechas vacias");
-        }
-        
-        if (validador == ""){
-            buscarPorCodigo();
-        }else{
-            buscarPorFecha();
-        }
+        busqueda();
     }//GEN-LAST:event_BpresupuestoBuscarActionPerformed
 
     private void TpresupuestoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TpresupuestoKeyReleased
@@ -336,6 +331,10 @@ public class GestionPresupuesto extends javax.swing.JFrame {
     private void TpresupuestoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TpresupuestoMouseClicked
         presupuestoProducto();
     }//GEN-LAST:event_TpresupuestoMouseClicked
+
+    private void BpresupuestoEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpresupuestoEliminarActionPerformed
+        eliminarPresupuesto();
+    }//GEN-LAST:event_BpresupuestoEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -468,5 +467,54 @@ public class GestionPresupuesto extends javax.swing.JFrame {
                 }  
             }
          }
+    }
+
+    private void eliminarPresupuesto() {
+        //¿Será conveniente que también borre el listado de "Productos relacionado con el Presupuesto"?
+        
+        if(Tpresupuesto.getSelectedRows().length > 0 ) {
+            int valorCelda = 0;
+            try{
+                valorCelda = parseInt(Tpresupuesto.getValueAt(Tpresupuesto.getSelectedRow(),0).toString());
+            }catch (NumberFormatException e){
+                System.out.println("no se pudo determinar el ID del cliente");
+            }
+            if(valorCelda != 0){
+                DefaultTableModel tpresupuesto = (DefaultTableModel) Tpresupuesto.getModel();
+                int confirmado = JOptionPane.showConfirmDialog(BpresupuestoEliminar, 
+                    "¿Confirma que desea borrar el presupuesto: " + 
+                    Tpresupuesto.getValueAt(Tpresupuesto.getSelectedRow(),0).toString() + " ?");
+
+                if (JOptionPane.OK_OPTION == confirmado){
+                    if (GestorPresupuesto.eliminarPresupuesto(valorCelda)==true){
+                        JOptionPane.showMessageDialog(null, "El presupuesto fue eliminado");
+                        borrarRenglones(1);
+                        busqueda();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "No se pudo eliminar el presupuesto");
+                    }
+                }else{
+                   System.out.println("no se elimino nada");
+                }
+            }
+         }
+        
+    }
+
+    private void busqueda() {
+        String validador = "";
+        borrarRenglones(1);
+        try {
+            validador = CSpresupuestoRangoDesde.getDate().toString() + CSpresupuestoRangoHasta.getDate().toString();
+            System.out.println(validador);
+        }catch (NullPointerException e){
+            System.out.println("fechas vacias");
+        }
+        
+        if (validador == ""){
+            buscarPorCodigo();
+        }else{
+            buscarPorFecha();
+        }
     }
 }

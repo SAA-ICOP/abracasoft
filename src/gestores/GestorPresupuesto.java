@@ -69,4 +69,19 @@ public class GestorPresupuesto {
         }
         return listaPresupuesto;
     }
+
+    public static boolean eliminarPresupuesto(int valorCelda) {
+        boolean ok = false;
+        String sql = "DELETE FROM `abracasoftdb`.`presupuesto` WHERE `IDPRESUPUESTO`=?";
+        try {
+            PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
+            pst.setInt(1, valorCelda);
+            pst.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            System.out.println("No se pudo eliminar el presupuesto");
+            ok = false;
+        }
+        return ok;
+    }
 }
