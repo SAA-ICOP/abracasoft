@@ -186,4 +186,24 @@ public class GestorProducto {
         }
         return presupuestoProducto;
     }
+
+    public static boolean eliminarProducto(int valorCelda) {
+        boolean ok = false;
+        String sql1 = "DELETE FROM `abracasoftdb`.`relation_168` WHERE `IDPRODUCTO` = ?";
+        String sql2 = "DELETE FROM `abracasoftdb`.`producto` WHERE `IDPRODUCTO`=?";
+        try {
+            PreparedStatement pst = Conexion.conectar().prepareStatement(sql1);
+            pst.setInt(1, valorCelda);
+            pst.executeUpdate();
+            
+            pst = Conexion.conectar().prepareStatement(sql2);
+            pst.setInt(1, valorCelda);
+            pst.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            System.out.println("No se pudo eliminar el producto");
+            ok = false;
+        }
+        return ok;
+    }
 }

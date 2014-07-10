@@ -8,6 +8,8 @@ package pantallas;
 import gestores.GestorProducto;
 import java.awt.Color;
 import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -94,6 +96,11 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
         BproductoEliminar.setText("-");
         BproductoEliminar.setMaximumSize(new java.awt.Dimension(41, 41));
         BproductoEliminar.setMinimumSize(new java.awt.Dimension(41, 41));
+        BproductoEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BproductoEliminarActionPerformed(evt);
+            }
+        });
 
         jButtonBuscarProducto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButtonBuscarProducto.setText("Buscar");
@@ -327,6 +334,10 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowClosing
 
+    private void BproductoEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BproductoEliminarActionPerformed
+        borrarProducto();
+    }//GEN-LAST:event_BproductoEliminarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -418,5 +429,34 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
                 tabla.addRow(fila);
             }
         }
+    }
+
+    private void borrarProducto() {
+        if(jTable1.getSelectedRows().length > 0 ) {
+            int valorCelda = 0;
+            try{
+                valorCelda = parseInt(jTable1.getValueAt(jTable1.getSelectedRow(),0).toString());
+            }catch (NumberFormatException e){
+                System.out.println("no se pudo determinar el codigo de barra");
+            }
+            if(valorCelda != 0){
+                DefaultTableModel tcliente = (DefaultTableModel) jTable1.getModel();
+                int confirmado = JOptionPane.showConfirmDialog(BproductoEliminar, 
+                    "¿Confirma que desea borrar el producto: " + 
+                    jTable1.getValueAt(jTable1.getSelectedRow(),1).toString() + " ?");
+
+                if (JOptionPane.OK_OPTION == confirmado){
+                    if (GestorProducto.eliminarProducto(valorCelda)==true){
+                        JOptionPane.showMessageDialog(null, "El producto fue eliminado");
+                        borrarRenglones();
+                        buscarMientrasEscribe();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "No se pudo eliminar el producto");
+                    }
+                }else{
+                   System.out.println("no se elimino nada");
+                }
+            }
+         }
     }
 }

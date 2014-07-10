@@ -72,9 +72,14 @@ public class GestorPresupuesto {
 
     public static boolean eliminarPresupuesto(int valorCelda) {
         boolean ok = false;
-        String sql = "DELETE FROM `abracasoftdb`.`presupuesto` WHERE `IDPRESUPUESTO`=?";
+        String sql1 = "DELETE FROM `abracasoftdb`.`relation_168` WHERE `IDPRESUPUESTO` = ?";
+        String sql2 = "DELETE FROM `abracasoftdb`.`presupuesto` WHERE `IDPRESUPUESTO`=?";
         try {
-            PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
+            PreparedStatement pst = Conexion.conectar().prepareStatement(sql1);
+            pst.setInt(1, valorCelda);
+            pst.executeUpdate();
+            
+            pst = Conexion.conectar().prepareStatement(sql2);
             pst.setInt(1, valorCelda);
             pst.executeUpdate();
             ok = true;

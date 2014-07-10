@@ -477,7 +477,7 @@ public class GestionPresupuesto extends javax.swing.JFrame {
             try{
                 valorCelda = parseInt(Tpresupuesto.getValueAt(Tpresupuesto.getSelectedRow(),0).toString());
             }catch (NumberFormatException e){
-                System.out.println("no se pudo determinar el ID del cliente");
+                System.out.println("no se pudo determinar el codigo del presupuesto");
             }
             if(valorCelda != 0){
                 DefaultTableModel tpresupuesto = (DefaultTableModel) Tpresupuesto.getModel();
