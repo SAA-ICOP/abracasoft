@@ -7,6 +7,9 @@
 package pantallas;
 
 import gestores.GestorCliente;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -60,6 +63,11 @@ public class MenuGestionCliente extends javax.swing.JFrame {
 
         BclienteBorrar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         BclienteBorrar.setText("-");
+        BclienteBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BclienteBorrarActionPerformed(evt);
+            }
+        });
 
         TFbusquedaCliente.setFont(new java.awt.Font("Tahoma", 2, 24)); // NOI18N
         TFbusquedaCliente.setForeground(new java.awt.Color(204, 204, 204));
@@ -92,14 +100,14 @@ public class MenuGestionCliente extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Dirección", "Email", "CP", "Telefono", "DNI", "Estado"
+                "ID", "Nombre", "Dirección", "Email", "CP", "Telefono", "DNI", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, true
+                false, false, false, false, false, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -111,6 +119,11 @@ public class MenuGestionCliente extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setMinWidth(5);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(5);
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(6);
+        }
 
         jButton5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButton5.setText("?");
@@ -167,8 +180,8 @@ public class MenuGestionCliente extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButton5)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton3))
@@ -205,6 +218,10 @@ public class MenuGestionCliente extends javax.swing.JFrame {
         borrarRenglones();
         buscarMientrasEscribe();
     }//GEN-LAST:event_TFbusquedaClienteCaretUpdate
+
+    private void BclienteBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BclienteBorrarActionPerformed
+        eliminarCliente();
+    }//GEN-LAST:event_BclienteBorrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -262,8 +279,9 @@ public class MenuGestionCliente extends javax.swing.JFrame {
         DefaultTableModel tabla = (DefaultTableModel) jTable1.getModel();
         if (GestorCliente.ConsultaPorDescripcion(paraBuscar).size() != 0) {
             for (int i = 0; i < GestorCliente.ConsultaPorDescripcion(paraBuscar).size(); i++) {
-                Object[] fila = {GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getNombreCliente(),
-                   GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getDireccionCliente(),
+                Object[] fila = {GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getIdCliente(),
+                    GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getNombreCliente(),
+                    GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getDireccionCliente(),
                     GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getMailCliente(),
                     GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getCodigoPostalCliente(),
                     GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getTelefonoCliente(),
@@ -281,5 +299,34 @@ public class MenuGestionCliente extends javax.swing.JFrame {
         for (int i = a; i >= 0; i--) {
             tabla.removeRow(i); //se van borrando para que solo muestre el producto que se buscó
         }
+    }
+
+    private void eliminarCliente() {
+        if(jTable1.getSelectedRows().length > 0 ) {
+            int valorCelda = 0;
+            try{
+                valorCelda = parseInt(jTable1.getValueAt(jTable1.getSelectedRow(),0).toString());
+            }catch (NumberFormatException e){
+                System.out.println("no se pudo determinar el ID del cliente");
+            }
+            if(valorCelda != 0){
+                DefaultTableModel tcliente = (DefaultTableModel) jTable1.getModel();
+                int confirmado = JOptionPane.showConfirmDialog(BclienteBorrar, 
+                    "¿Confirma que desea borrar el cliente: " + 
+                    jTable1.getValueAt(jTable1.getSelectedRow(),1).toString() + " ?");
+
+                if (JOptionPane.OK_OPTION == confirmado){
+                    if (GestorCliente.eliminarCliente(valorCelda)==true){
+                        JOptionPane.showMessageDialog(null, "El cliente fue eliminado");
+                        borrarRenglones();
+                        buscarMientrasEscribe();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "No se pudo eliminar el cliente");
+                    }
+                }else{
+                   System.out.println("no se elimino nada");
+                }
+            }
+         }
     }
 }

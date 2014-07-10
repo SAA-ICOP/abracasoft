@@ -19,6 +19,15 @@ public class Cliente {
     private int TelefonoCliente;
     private int DniCuilCuit;
     private String Esatdo;
+    private int IdCliente;
+
+    public int getIdCliente() {
+        return IdCliente;
+    }
+
+    public void setIdCliente(int IdCliente) {
+        this.IdCliente = IdCliente;
+    }
 
     public int getDniCuilCuit() {
         return DniCuilCuit;
@@ -37,10 +46,11 @@ public class Cliente {
     }
     private String MailCliente;
 
-    public Cliente(String nombreCliente, String provinciaCliente,
+    public Cliente(int idCliente, String nombreCliente, String provinciaCliente,
             String localidadCliente, String direccionCliente,
             int codigoPostalCliente, int telefonoCliente, int dniCuilCuit, String mailCliente) {
         super();
+        IdCliente = idCliente;
         NombreCliente = nombreCliente;
         ProvinciaCliente = provinciaCliente;
         LocalidadCliente = localidadCliente;
@@ -51,9 +61,10 @@ public class Cliente {
         MailCliente = mailCliente;
     }
     
-        public Cliente(String nombreCliente, String direccionCliente,
+        public Cliente(int idCliente, String nombreCliente, String direccionCliente,
             int codigoPostalCliente, int telefonoCliente, int dniCuilCuit, String mailCliente) {
         super();
+        IdCliente = idCliente;
         NombreCliente = nombreCliente;
         DireccionCliente = direccionCliente;
         CodigoPostalCliente = codigoPostalCliente;

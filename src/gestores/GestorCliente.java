@@ -60,7 +60,8 @@ public class GestorCliente {
             ResultSet resultSet = pst.executeQuery();
 
             while (resultSet.next()) { //int dniCuilCuit, String mailCliente
-                Cliente cliente = new Cliente(resultSet.getString("NOMCLIENTE"),
+                Cliente cliente = new Cliente(resultSet.getInt("IDCLIENTE"),
+                        resultSet.getString("NOMCLIENTE"),
                         resultSet.getString("DIRCLIENTE"), resultSet.getInt("CODIGOPOSTAL"), 
                         resultSet.getInt("TELCLIENTE"),resultSet.getInt("DNICLIENTE"),
                         resultSet.getString("MAILCLIENTE"));
@@ -85,7 +86,8 @@ public class GestorCliente {
             ResultSet resultSet = pst.executeQuery();
 
             while (resultSet.next()) {
-                Cliente cliente = new Cliente(resultSet.getString("NOMCLIENTE"),
+                Cliente cliente = new Cliente(resultSet.getInt("IDCLIENTE"),
+                        resultSet.getString("NOMCLIENTE"),
                         resultSet.getString("DIRCLIENTE"), resultSet.getInt("CODIGOPOSTAL"), 
                         resultSet.getInt("TELCLIENTE"),resultSet.getInt("DNICLIENTE"),
                         resultSet.getString("MAILCLIENTE"));
@@ -95,5 +97,20 @@ public class GestorCliente {
             System.out.println("No se pudo efectuar la busqueda por descripcion en cliente");
         }
         return listaClienteEncontrado;
+    }
+
+    public static boolean eliminarCliente(int valorCelda) {
+        boolean ok = false;
+        String sql = "DELETE FROM `abracasoftdb`.`cliente` WHERE `IDCLIENTE`=?";
+        try {
+            PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
+            pst.setInt(1, valorCelda);
+            pst.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            System.out.println("No se pudo eliminar el cliente");
+            ok = false;
+        }
+        return ok;
     }
 }
