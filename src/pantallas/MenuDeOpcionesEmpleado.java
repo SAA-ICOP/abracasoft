@@ -5,6 +5,8 @@
  */
 package pantallas;
 
+import javax.swing.JTabbedPane;
+
 /**
  *
  * @author Ema
@@ -61,6 +63,11 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         jButton2.setFocusable(false);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jButton2);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -79,7 +86,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -97,15 +104,20 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
         MenuDeGestionDeProductos gestionproducto = new MenuDeGestionDeProductos();
-        int señal = 0;
-        if (señal == 0) {
-            jTabbedPane1.addTab("Puto", gestionproducto.getContentPane());
-            señal = 1;
+        if (señalProd == 0) {
+            jTabbedPane1.addTab("Gestion Producto", gestionproducto.getContentPane());
+           señalProd = 1;
         }
-
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        MenuGestionCliente gestioncliente = new MenuGestionCliente();
+        if (señalClie == 0) {
+            jTabbedPane1.addTab("Gestion Cliente", gestioncliente.getContentPane());
+           señalClie = 1;
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -144,11 +156,13 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JToolBar.Separator jSeparator1;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JToolBar jToolBar1;
+    javax.swing.JButton jButton1;
+    javax.swing.JButton jButton2;
+    javax.swing.JPanel jPanel1;
+    javax.swing.JToolBar.Separator jSeparator1;
+    javax.swing.JTabbedPane jTabbedPane1;
+    javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
+    private int señalProd = 0;
+    private int señalClie = 0;
 }
