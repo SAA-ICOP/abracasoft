@@ -8,7 +8,6 @@ package pantallas;
 
 import gestores.GestorCliente;
 import static java.lang.Integer.parseInt;
-import static java.lang.Integer.parseInt;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -46,6 +45,9 @@ public class MenuGestionCliente extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tCuentaCorriente = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gestion de clientes");
@@ -119,6 +121,16 @@ public class MenuGestionCliente extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
+        jTable1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTable1KeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setMinWidth(5);
@@ -137,6 +149,26 @@ public class MenuGestionCliente extends javax.swing.JFrame {
         });
 
         jButton3.setText("Ayuda");
+
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        tCuentaCorriente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null}
+            },
+            new String [] {
+                "Venta", "Pago", "Fecha"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tCuentaCorriente);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -157,10 +189,14 @@ public class MenuGestionCliente extends javax.swing.JFrame {
                                 .addComponent(TFbusquedaCliente)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton4))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 626, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 626, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 872, Short.MAX_VALUE)
                         .addComponent(jButton1)))
                 .addContainerGap())
         );
@@ -174,6 +210,8 @@ public class MenuGestionCliente extends javax.swing.JFrame {
                     .addComponent(TFbusquedaCliente, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
+                    .addComponent(jSeparator1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(BclienteEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -181,8 +219,8 @@ public class MenuGestionCliente extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButton5)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton3))
@@ -216,13 +254,21 @@ public class MenuGestionCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_TFbusquedaClienteKeyTyped
 
     private void TFbusquedaClienteCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_TFbusquedaClienteCaretUpdate
-        borrarRenglones();
+        borrarRenglones(1);
         buscarMientrasEscribe();
     }//GEN-LAST:event_TFbusquedaClienteCaretUpdate
 
     private void BclienteBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BclienteBorrarActionPerformed
         eliminarCliente();
     }//GEN-LAST:event_BclienteBorrarActionPerformed
+
+    private void jTable1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyReleased
+        clienteVentaPago();
+    }//GEN-LAST:event_jTable1KeyReleased
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        clienteVentaPago();
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -269,7 +315,10 @@ public class MenuGestionCliente extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable tCuentaCorriente;
     // End of variables declaration//GEN-END:variables
     private String paraBuscar="";
             
@@ -294,9 +343,16 @@ public class MenuGestionCliente extends javax.swing.JFrame {
         }
     }
     
-    private void borrarRenglones(){
-        DefaultTableModel tabla = (DefaultTableModel) jTable1.getModel();
-        int a = jTable1.getRowCount() - 1;
+    private void borrarRenglones(int jpanel){
+        int a;
+        DefaultTableModel tabla;
+        if (jpanel == 1){
+            tabla = (DefaultTableModel) jTable1.getModel();
+            a = jTable1.getRowCount() - 1;
+        }else{
+            tabla = (DefaultTableModel) tCuentaCorriente.getModel();
+            a = tCuentaCorriente.getRowCount() - 1;
+        }
         for (int i = a; i >= 0; i--) {
             tabla.removeRow(i); //se van borrando para que solo muestre el producto que se buscó
         }
@@ -319,13 +375,32 @@ public class MenuGestionCliente extends javax.swing.JFrame {
                 if (JOptionPane.OK_OPTION == confirmado){
                     if (GestorCliente.eliminarCliente(valorCelda)==true){
                         JOptionPane.showMessageDialog(null, "El cliente fue eliminado");
-                        borrarRenglones();
+                        borrarRenglones(1);
                         buscarMientrasEscribe();
                     }else{
                         JOptionPane.showMessageDialog(null, "No se pudo eliminar el cliente");
                     }
                 }else{
                    System.out.println("no se elimino nada");
+                }
+            }
+         }
+    }
+    
+    private void clienteVentaPago() {
+        if(jTable1.getSelectedRows().length > 0 ) {
+            int valorCelda = 0;
+            try{
+                valorCelda = parseInt(jTable1.getValueAt(jTable1.getSelectedRow(),0).toString());
+            }catch (NumberFormatException e){ 
+            }
+            borrarRenglones(2);
+            if(valorCelda != 0){
+                DefaultTableModel cliVenPag = (DefaultTableModel) tCuentaCorriente.getModel();
+                for (int i = 0; i < GestorCliente.cuentaPagoCliente(valorCelda).size(); i++) {
+                    
+                    /*** agregar método para mostrar ****/
+                    
                 }
             }
          }

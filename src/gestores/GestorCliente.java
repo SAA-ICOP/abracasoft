@@ -126,8 +126,8 @@ public class GestorCliente {
             ResultSet resultSet = pst.executeQuery();
 
            while (resultSet.next()) {
-                Object [] detalle = { resultSet.getFloat("MONTOVENTA"),
-                        resultSet.getDate("FECHAVENTA")};
+                Object [] detalle = {resultSet.getFloat("MONTOVENTA"),
+                        resultSet.getDate("FECHAVENTA")};           
                 cuentaVentaCliente.add(detalle);
             }
         } catch (SQLException e) {
@@ -148,13 +148,13 @@ public class GestorCliente {
             ResultSet resultSet = pst.executeQuery();
 
            while (resultSet.next()) {
-                Object [] detalle = { resultSet.getFloat("MONTOPAGO"),
+                Object [] detalle = {resultSet.getFloat("MONTOPAGO"),
                         resultSet.getDate("FECHAPAGO")};
                 cuentaPagoCliente.add(detalle);
             }
         } catch (SQLException e) {
             System.out.println(e);
-            System.out.println("no se pudo buscar VentasClientes");
+            System.out.println("no se pudo buscar CuentaPagoCliente");
         }
         return cuentaPagoCliente;
     }
