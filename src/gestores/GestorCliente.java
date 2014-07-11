@@ -113,4 +113,49 @@ public class GestorCliente {
         }
         return ok;
     }
+    
+    public static ArrayList<Object> cuentaVentaCliente(int idCliente){
+        ArrayList<Object> cuentaVentaCliente = new ArrayList();
+        
+        String sql1 = "SELECT montoventa, fechaventa FROM venta,presupuesto WHERE venta.idpresupuesto = "
+                + "presupuesto.idpresupuesto and presupuesto.idcliente = ? order by fechaventa desc";
+
+        try {
+            PreparedStatement pst = Conexion.conectar().prepareStatement(sql1);
+            pst.setInt(1, idCliente);
+            ResultSet resultSet = pst.executeQuery();
+
+           while (resultSet.next()) {
+                Object [] detalle = { resultSet.getFloat("MONTOVENTA"),
+                        resultSet.getDate("FECHAVENTA")};
+                cuentaVentaCliente.add(detalle);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            System.out.println("no se pudo buscar VentasClientes");
+        }
+        return cuentaVentaCliente;
+    }
+    
+        public static ArrayList<Object> cuentaPagoCliente(int idCliente){
+        ArrayList<Object> cuentaPagoCliente = new ArrayList();
+        
+        String sql1 = "SELECT MONTOPAGO, FECHAPAGO From pago where pago.idcliente = ? order by fechapago desc";
+
+        try {
+            PreparedStatement pst = Conexion.conectar().prepareStatement(sql1);
+            pst.setInt(1, idCliente);
+            ResultSet resultSet = pst.executeQuery();
+
+           while (resultSet.next()) {
+                Object [] detalle = { resultSet.getFloat("MONTOPAGO"),
+                        resultSet.getDate("FECHAPAGO")};
+                cuentaPagoCliente.add(detalle);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            System.out.println("no se pudo buscar VentasClientes");
+        }
+        return cuentaPagoCliente;
+    }
 }
