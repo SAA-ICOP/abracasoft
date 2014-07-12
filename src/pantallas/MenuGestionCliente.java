@@ -7,7 +7,12 @@
 package pantallas;
 
 import gestores.GestorCliente;
+import gestores.GestorPago;
+import gestores.GestorVenta;
 import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import java.util.Collections;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -397,12 +402,23 @@ public class MenuGestionCliente extends javax.swing.JFrame {
             borrarRenglones(2);
             if(valorCelda != 0){
                 DefaultTableModel cliVenPag = (DefaultTableModel) tCuentaCorriente.getModel();
-                for (int i = 0; i < GestorCliente.cuentaPagoCliente(valorCelda).size(); i++) {
-                    
-                    /*** agregar método para mostrar ****/
-                    
+                for (int i = 0; i < GestorVenta.cuentaVentaCliente(valorCelda).size(); i++) {
+                    Object [] fila = {
+                        GestorVenta.cuentaVentaCliente(valorCelda).get(i).getMontoPagoVenta(),
+                        "",
+                        GestorVenta.cuentaVentaCliente(valorCelda).get(i).getFechaDeVenta()
+                    };
+                    cliVenPag.addRow(fila);
+                }
+                for (int i = 0; i < GestorPago.cuentaPagoCliente(valorCelda).size(); i++)  {
+                    Object [] fila2 = {
+                        "",
+                        GestorPago.cuentaPagoCliente(valorCelda).get(i).getPagoCliente(),
+                        GestorPago.cuentaPagoCliente(valorCelda).get(i).getFechaPagoCliente()
+                    };
+                    cliVenPag.addRow(fila2);
                 }
             }
-         }
+        }
     }
 }

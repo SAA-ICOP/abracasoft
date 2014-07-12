@@ -23,6 +23,12 @@ public class Venta {
         MontoPagoVenta = montoPagoVenta;
         TipoPagoVenta = tipoPagoVenta;
     }
+    
+    public Venta(Date fechaDeVenta, float montoPagoVenta) {
+    super();
+    FechaDeVenta = fechaDeVenta;
+    MontoPagoVenta = montoPagoVenta;
+    }
 
     public Date getFechaDeVenta() {
         return FechaDeVenta;
