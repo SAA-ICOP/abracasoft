@@ -12,9 +12,15 @@ import gestores.GestorVenta;
 import static java.lang.Integer.parseInt;
 import static java.lang.Integer.parseInt;
 import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
 import java.util.Collections;
+import java.util.Comparator;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -417,6 +423,8 @@ public class MenuGestionCliente extends javax.swing.JFrame {
                         GestorPago.cuentaPagoCliente(valorCelda).get(i).getFechaPagoCliente()
                     };
                     cliVenPag.addRow(fila2);
+                    TableRowSorter<TableModel> elQueOrdena = new TableRowSorter<TableModel>(cliVenPag);
+                    tCuentaCorriente.setRowSorter(elQueOrdena);
                 }
             }
         }
