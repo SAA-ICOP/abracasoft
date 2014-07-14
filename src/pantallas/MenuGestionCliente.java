@@ -9,14 +9,11 @@ package pantallas;
 import gestores.GestorCliente;
 import gestores.GestorPago;
 import gestores.GestorVenta;
+import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 import static java.lang.Integer.parseInt;
 import static java.lang.Integer.parseInt;
-import static java.lang.Integer.parseInt;
-import static java.lang.Integer.parseInt;
-import static java.lang.Integer.parseInt;
-import java.util.Collections;
-import java.util.Comparator;
+import static java.lang.String.valueOf;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -59,6 +56,7 @@ public class MenuGestionCliente extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
         tCuentaCorriente = new javax.swing.JTable();
+        saldoCliente = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gestion de clientes");
@@ -165,7 +163,7 @@ public class MenuGestionCliente extends javax.swing.JFrame {
 
         tCuentaCorriente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Venta", "Pago", "Fecha"
@@ -180,6 +178,8 @@ public class MenuGestionCliente extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(tCuentaCorriente);
+
+        saldoCliente.setFont(new java.awt.Font("Times", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -201,10 +201,16 @@ public class MenuGestionCliente extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton4))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 626, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(70, 70, 70)
+                                .addComponent(saldoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 872, Short.MAX_VALUE)
@@ -215,10 +221,14 @@ public class MenuGestionCliente extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton4)
-                    .addComponent(BclienteAgregar)
-                    .addComponent(TFbusquedaCliente, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TFbusquedaCliente, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(saldoCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BclienteAgregar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
@@ -275,10 +285,12 @@ public class MenuGestionCliente extends javax.swing.JFrame {
 
     private void jTable1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyReleased
         clienteVentaPago();
+        saldoCliente();
     }//GEN-LAST:event_jTable1KeyReleased
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         clienteVentaPago();
+        saldoCliente();
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**
@@ -329,6 +341,7 @@ public class MenuGestionCliente extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel saldoCliente;
     private javax.swing.JTable tCuentaCorriente;
     // End of variables declaration//GEN-END:variables
     private String paraBuscar="";
@@ -423,10 +436,33 @@ public class MenuGestionCliente extends javax.swing.JFrame {
                         GestorPago.cuentaPagoCliente(valorCelda).get(i).getFechaPagoCliente()
                     };
                     cliVenPag.addRow(fila2);
-                    TableRowSorter<TableModel> elQueOrdena = new TableRowSorter<TableModel>(cliVenPag);
-                    tCuentaCorriente.setRowSorter(elQueOrdena);
+                    TableRowSorter<TableModel> ordenar = new TableRowSorter<TableModel>(cliVenPag);
+                    ordenar.toggleSortOrder(2);
+                    ordenar.toggleSortOrder(2); // esto tiene que estar dos veces para que lo ordene de mayor a menor
+                    tCuentaCorriente.setRowSorter(ordenar);
                 }
             }
         }
+    }
+    
+    private void saldoCliente(){
+        float ventas = 0;
+        float pagos = 0;
+        
+        DefaultTableModel cliVenPag = (DefaultTableModel) tCuentaCorriente.getModel();
+        
+        if (cliVenPag.getRowCount()!=0){
+            for (int i = 0; i< cliVenPag.getRowCount(); i++){
+                try {
+                    ventas += parseFloat(cliVenPag.getValueAt(i, 0).toString());
+                }catch (NumberFormatException e){
+                }
+                try {
+                    pagos += parseFloat(cliVenPag.getValueAt(i, 1).toString());
+                }catch (NumberFormatException e){
+                }
+            }
+        }
+        saldoCliente.setText("SALDO: "+valueOf(ventas-pagos));
     }
 }
