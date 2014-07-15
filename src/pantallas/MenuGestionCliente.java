@@ -11,15 +11,8 @@ import gestores.GestorPago;
 import gestores.GestorVenta;
 import java.awt.Desktop;
 import java.io.File;
-import java.io.IOException;
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
-import static java.lang.Integer.parseInt;
-import static java.lang.Integer.parseInt;
-import static java.lang.Integer.parseInt;
-import static java.lang.Integer.parseInt;
-import static java.lang.String.valueOf;
-import static java.lang.String.valueOf;
 import static java.lang.String.valueOf;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -481,7 +474,6 @@ public class MenuGestionCliente extends javax.swing.JFrame {
     }
     
     private void abrirAyuda(){
-        String ubicacion = System.getProperty("user.dir");
         try {
             File file = new File(System.getProperty("user.dir") + "\\src\\ayuda\\Manual_Gestion_Clientes.pdf");
             Desktop.getDesktop().open(file);

@@ -306,8 +306,7 @@ public class AltaCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No se ha podido agregar el cliente");
         }
     }
-        private void abrirAyuda(){
-        String ubicacion = System.getProperty("user.dir");
+    private void abrirAyuda(){
         try {
             File file = new File(System.getProperty("user.dir") + "\\src\\ayuda\\Manual_Agregar_Cliente.pdf");
             Desktop.getDesktop().open(file);

@@ -7,6 +7,8 @@ package pantallas;
 
 import gestores.GestorProducto;
 import java.awt.Color;
+import java.awt.Desktop;
+import java.io.File;
 import static java.lang.Integer.parseInt;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -170,6 +172,11 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
         jButton1.setText("?");
         jButton1.setMaximumSize(new java.awt.Dimension(41, 41));
         jButton1.setMinimumSize(new java.awt.Dimension(41, 41));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout gestionDeProductojPanelLayout = new javax.swing.GroupLayout(gestionDeProductojPanel);
         gestionDeProductojPanel.setLayout(gestionDeProductojPanelLayout);
@@ -338,6 +345,10 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
         borrarProducto();
     }//GEN-LAST:event_BproductoEliminarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        abrirAyuda();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -464,5 +475,14 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
                 }
             }
          }
+    }
+    
+    private void abrirAyuda(){
+        try {
+            File file = new File(System.getProperty("user.dir") + "\\src\\ayuda\\Manual_Gestion_Producto.pdf");
+            Desktop.getDesktop().open(file);
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(null, "No se puedo abrir el archivo de ayuda");
+        }
     }
 }
