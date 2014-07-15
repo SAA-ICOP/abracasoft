@@ -506,7 +506,6 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         borrarRenglones(1);
         try {
             validador = CSpresupuestoRangoDesde.getDate().toString() + CSpresupuestoRangoHasta.getDate().toString();
-            System.out.println(validador);
         }catch (NullPointerException e){
             System.out.println("fechas vacias");
         }

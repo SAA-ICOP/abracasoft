@@ -48,6 +48,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
 
         jToolBar1.setRollover(true);
 
+        jButton1.setFont(new java.awt.Font("Times", 1, 14)); // NOI18N
         jButton1.setText("Gestion de productos");
         jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton1.setFocusable(false);
@@ -61,6 +62,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         jToolBar1.add(jButton1);
         jToolBar1.add(jSeparator1);
 
+        jButton2.setFont(new java.awt.Font("Times", 1, 14)); // NOI18N
         jButton2.setText("Gestion de clientes");
         jButton2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton2.setFocusable(false);
@@ -74,6 +76,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         jToolBar1.add(jButton2);
         jToolBar1.add(jSeparator2);
 
+        jButton3.setFont(new java.awt.Font("Times", 1, 14)); // NOI18N
         jButton3.setText("Gestion de presupuestos");
         jButton3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton3.setFocusable(false);

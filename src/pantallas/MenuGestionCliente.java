@@ -9,10 +9,17 @@ package pantallas;
 import gestores.GestorCliente;
 import gestores.GestorPago;
 import gestores.GestorVenta;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 import static java.lang.Integer.parseInt;
 import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.String.valueOf;
+import static java.lang.String.valueOf;
 import static java.lang.String.valueOf;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -149,6 +156,11 @@ public class MenuGestionCliente extends javax.swing.JFrame {
 
         jButton5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButton5.setText("?");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Cancelar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -292,6 +304,10 @@ public class MenuGestionCliente extends javax.swing.JFrame {
         clienteVentaPago();
         saldoCliente();
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        abrirAyuda();
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -464,5 +480,15 @@ public class MenuGestionCliente extends javax.swing.JFrame {
             }
         }
         saldoCliente.setText("SALDO: "+valueOf(ventas-pagos));
+    }
+    
+    private void abrirAyuda(){
+        String ubicacion = System.getProperty("user.dir");
+        try {
+            File file = new File(System.getProperty("user.dir") + "\\src\\ayuda\\Manual_Gestion_Clientes.pdf");
+            Desktop.getDesktop().open(file);
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(null, "No se puedo abrir el archivo de ayuda");
+        }
     }
 }
