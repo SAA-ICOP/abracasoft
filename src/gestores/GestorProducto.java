@@ -57,7 +57,7 @@ public class GestorProducto {
 
             while (resultSet.next()) {
                 Producto producto = new Producto(resultSet.getInt("IDPRODUCTO"), resultSet.getString("NOMPRODUCTO"), 
-                        resultSet.getInt("PRECIOCONTADO"), resultSet.getInt("PRECIO2"), resultSet.getInt("PRECIO3"), 
+                        resultSet.getFloat("PRECIOCONTADO"), resultSet.getFloat("PRECIO2"), resultSet.getFloat("PRECIO3"), 
                         resultSet.getInt("STOCK"));
 
                 listaProducto.add(producto);
@@ -79,7 +79,7 @@ public class GestorProducto {
 
             if (resultSet.next()) { //cuando la consulta no da vacia pasa por acá
                 Producto productoEncontrado = new Producto(resultSet.getInt("IDPRODUCTO"), resultSet.getString("NOMPRODUCTO"), 
-                        resultSet.getInt("PRECIOCONTADO"), resultSet.getInt("PRECIO2"), resultSet.getInt("PRECIO3"), 
+                        resultSet.getFloat("PRECIOCONTADO"), resultSet.getFloat("PRECIO2"), resultSet.getFloat("PRECIO3"), 
                         resultSet.getInt("STOCK"));
                 return productoEncontrado;
             } else { //si la consulta SQL no encuentra resultados carga un "producto" que avisa que no se ha encontrado nada con el código ingresado
@@ -104,7 +104,7 @@ public class GestorProducto {
 
             while (resultSet.next()) {
                 Producto producto = new Producto(resultSet.getInt("IDPRODUCTO"), resultSet.getString("NOMPRODUCTO"), 
-                        resultSet.getInt("PRECIOCONTADO"), resultSet.getInt("PRECIO2"), resultSet.getInt("PRECIO3"), 
+                        resultSet.getFloat("PRECIOCONTADO"), resultSet.getFloat("PRECIO2"), resultSet.getFloat("PRECIO3"), 
                         resultSet.getInt("STOCK"));
                 listaProductoEncontrado.add(producto);
             }

@@ -123,7 +123,7 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Short.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Short.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
@@ -425,12 +425,12 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
         if (GestorProducto.ConsultaPorDescripcion(paraBuscar).size() != 0) {
             borrarRenglones();
             for (int i = 0; i < GestorProducto.ConsultaPorDescripcion(paraBuscar).size(); i++) {
-                Object[] fila = {GestorProducto.listarProductosDB().get(i).getCodigoDeProducto(),
-                    GestorProducto.listarProductosDB().get(i).getNombreProducto(),
-                    GestorProducto.listarProductosDB().get(i).getStockProducto(),
-                    GestorProducto.listarProductosDB().get(i).getPrecioContado(),
-                    GestorProducto.listarProductosDB().get(i).getPrecioDebito(),
-                    GestorProducto.listarProductosDB().get(i).getPrecioCredito(),
+                Object[] fila = {GestorProducto.ConsultaPorDescripcion(paraBuscar).get(i).getCodigoDeProducto(),
+                    GestorProducto.ConsultaPorDescripcion(paraBuscar).get(i).getNombreProducto(),
+                    GestorProducto.ConsultaPorDescripcion(paraBuscar).get(i).getStockProducto(),
+                    GestorProducto.ConsultaPorDescripcion(paraBuscar).get(i).getPrecioContado(),
+                    GestorProducto.ConsultaPorDescripcion(paraBuscar).get(i).getPrecioDebito(),
+                    GestorProducto.ConsultaPorDescripcion(paraBuscar).get(i).getPrecioCredito(),
                 };
                 tabla.addRow(fila);
             }
