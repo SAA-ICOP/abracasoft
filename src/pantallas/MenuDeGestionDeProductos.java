@@ -8,7 +8,6 @@ package pantallas;
 import gestores.GestorProducto;
 import java.awt.Color;
 import static java.lang.Integer.parseInt;
-import static java.lang.Integer.parseInt;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -120,7 +119,7 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Producto", "Descripción", "Stock", "Precio costo", "Alicuota", "Precio final"
+                "Producto", "Descripción", "Stock", "Precio contado", "Precio débito", "Precio crédito"
             }
         ) {
             Class[] types = new Class [] {
@@ -280,7 +279,10 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
             Object[] productoBuscado = {GestorProducto.ConsultaProducto(numero).getCodigoDeProducto(),
                 GestorProducto.ConsultaProducto(numero).getNombreProducto(),
                 GestorProducto.ConsultaProducto(numero).getStockProducto(),
-                GestorProducto.ConsultaProducto(numero).getPrecioUnitario()};
+                GestorProducto.ConsultaProducto(numero).getPrecioContado(),
+                GestorProducto.ConsultaProducto(numero).getPrecioDebito(),
+                GestorProducto.ConsultaProducto(numero).getPrecioCredito(),
+            };
 
             DefaultTableModel tabla = (DefaultTableModel) jTable1.getModel();
 
@@ -402,7 +404,10 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
                 Object[] fila = {GestorProducto.listarProductosDB().get(i).getCodigoDeProducto(),
                     GestorProducto.listarProductosDB().get(i).getNombreProducto(),
                     GestorProducto.listarProductosDB().get(i).getStockProducto(),
-                    GestorProducto.listarProductosDB().get(i).getPrecioUnitario()};
+                    GestorProducto.listarProductosDB().get(i).getPrecioContado(),
+                    GestorProducto.listarProductosDB().get(i).getPrecioDebito(),
+                    GestorProducto.listarProductosDB().get(i).getPrecioCredito(),
+                };
                 tabla.addRow(fila);
             }
         }
@@ -420,10 +425,13 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
         if (GestorProducto.ConsultaPorDescripcion(paraBuscar).size() != 0) {
             borrarRenglones();
             for (int i = 0; i < GestorProducto.ConsultaPorDescripcion(paraBuscar).size(); i++) {
-                Object[] fila = {GestorProducto.ConsultaPorDescripcion(paraBuscar).get(i).getCodigoDeProducto(),
-                GestorProducto.ConsultaPorDescripcion(paraBuscar).get(i).getNombreProducto(),
-                GestorProducto.ConsultaPorDescripcion(paraBuscar).get(i).getStockProducto(),
-                GestorProducto.ConsultaPorDescripcion(paraBuscar).get(i).getPrecioUnitario()};
+                Object[] fila = {GestorProducto.listarProductosDB().get(i).getCodigoDeProducto(),
+                    GestorProducto.listarProductosDB().get(i).getNombreProducto(),
+                    GestorProducto.listarProductosDB().get(i).getStockProducto(),
+                    GestorProducto.listarProductosDB().get(i).getPrecioContado(),
+                    GestorProducto.listarProductosDB().get(i).getPrecioDebito(),
+                    GestorProducto.listarProductosDB().get(i).getPrecioCredito(),
+                };
                 tabla.addRow(fila);
             }
         }

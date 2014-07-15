@@ -56,8 +56,8 @@ public class GestorProducto {
             ResultSet resultSet = pst.executeQuery();
 
             while (resultSet.next()) {
-                Producto producto = new Producto(resultSet.getInt("IDPRODUCTO"),
-                        resultSet.getString("NOMPRODUCTO"), resultSet.getInt("PRECIOUNITARIO"), 
+                Producto producto = new Producto(resultSet.getInt("IDPRODUCTO"), resultSet.getString("NOMPRODUCTO"), 
+                        resultSet.getInt("PRECIOCONTADO"), resultSet.getInt("PRECIO2"), resultSet.getInt("PRECIO3"), 
                         resultSet.getInt("STOCK"));
 
                 listaProducto.add(producto);
@@ -78,14 +78,16 @@ public class GestorProducto {
             ResultSet resultSet = pst.executeQuery();
 
             if (resultSet.next()) { //cuando la consulta no da vacia pasa por acá
-                Producto productoEncontrado = new Producto(resultSet.getInt("IDPRODUCTO"), resultSet.getString("NOMPRODUCTO"), resultSet.getInt("PRECIOUNITARIO"), resultSet.getInt("STOCK"));
+                Producto productoEncontrado = new Producto(resultSet.getInt("IDPRODUCTO"), resultSet.getString("NOMPRODUCTO"), 
+                        resultSet.getInt("PRECIOCONTADO"), resultSet.getInt("PRECIO2"), resultSet.getInt("PRECIO3"), 
+                        resultSet.getInt("STOCK"));
                 return productoEncontrado;
             } else { //si la consulta SQL no encuentra resultados carga un "producto" que avisa que no se ha encontrado nada con el código ingresado
-                Producto productoEncontrado = new Producto(0, "No se encontró ningún producto con ese código", 0, 0);
+                Producto productoEncontrado = new Producto(0, "No se encontró ningún producto con ese código", 0, 0, 0, 0);
                 return productoEncontrado;
             }
         } catch (Exception e) {
-            Producto productoEncontrado = new Producto(0, "Hubo un problema, consulte con el Administrador", 0, 0);
+            Producto productoEncontrado = new Producto(0, "Hubo un problema, consulte con el Administrador", 0, 0, 0, 0);
             return productoEncontrado;
         }
     }
@@ -101,11 +103,13 @@ public class GestorProducto {
             ResultSet resultSet = pst.executeQuery();
 
             while (resultSet.next()) {
-                Producto producto = new Producto(resultSet.getInt("IDPRODUCTO"), resultSet.getString("NOMPRODUCTO"), resultSet.getInt("PRECIOUNITARIO"), resultSet.getInt("STOCK"));
+                Producto producto = new Producto(resultSet.getInt("IDPRODUCTO"), resultSet.getString("NOMPRODUCTO"), 
+                        resultSet.getInt("PRECIOCONTADO"), resultSet.getInt("PRECIO2"), resultSet.getInt("PRECIO3"), 
+                        resultSet.getInt("STOCK"));
                 listaProductoEncontrado.add(producto);
             }
         } catch (SQLException e) {
-            Producto productoEncontrado = new Producto(0, "Hubo un problema, consulte con el Administrador", 0, 0);
+            Producto productoEncontrado = new Producto(0, "Hubo un problema, consulte con el Administrador", 0, 0, 0, 0);
             listaProductoEncontrado.add(productoEncontrado);
         }
         return listaProductoEncontrado;

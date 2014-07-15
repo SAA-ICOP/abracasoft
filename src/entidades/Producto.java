@@ -14,13 +14,42 @@ public class Producto {
     private int CodigoDeProducto;
     private String NombreProducto;
     private float PrecioUnitario;
+    private float PrecioContado;
+    private float PrecioDebito;
+    private float PrecioCredito;
+
+    public float getPrecioContado() {
+        return PrecioContado;
+    }
+
+    public void setPrecioContado(float PrecioContado) {
+        this.PrecioContado = PrecioContado;
+    }
+
+    public float getPrecioDebito() {
+        return PrecioDebito;
+    }
+
+    public void setPrecioDebito(float PrecioDebito) {
+        this.PrecioDebito = PrecioDebito;
+    }
+
+    public float getPrecioCredito() {
+        return PrecioCredito;
+    }
+
+    public void setPrecioCredito(float PrecioCredito) {
+        this.PrecioCredito = PrecioCredito;
+    }
     private int StockProducto;
 
-    public Producto(int CodigoDeProducto, String NombreProducto, float PrecioUnitario, int StockProducto) {
-        this.CodigoDeProducto = CodigoDeProducto;
-        this.NombreProducto = NombreProducto;
-        this.PrecioUnitario = PrecioUnitario;
-        this.StockProducto = StockProducto;
+    public Producto(int codigoDeProducto, String nombreProducto, float precioContado, float precioDebito, float precioCredito, int stockProducto) {
+        this.CodigoDeProducto = codigoDeProducto;
+        this.NombreProducto = nombreProducto;
+        this.PrecioContado = precioContado;
+        this.PrecioDebito = precioDebito;
+        this.PrecioCredito = precioCredito;
+        this.StockProducto = stockProducto;
     }
 
     public int getCodigoDeProducto() {
