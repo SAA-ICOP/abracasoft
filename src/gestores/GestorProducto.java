@@ -20,18 +20,18 @@ public class GestorProducto {
 
     //Consejo el metodo tiene que recibir un "producto" no los campos en individual. 
     //El metodo tiene que devolver un int para poder utilizarlo para devolver un msj de que se cargo correctamente.
-    public static boolean agregarProducto(int CodigoBarra, String Descripcion, float Precio, int Stock) {
+    public static boolean agregarProducto(long CodigoBarra, String Descripcion, float Precio, int Stock) {
         boolean ok = false;
         String sql = "INSERT INTO producto (IDPRODUCTO,NOMPRODUCTO,PRECIOUNITARIO,STOCK) VALUES (?,?,?,?)";
         //Consejo esto no es mas rapido.
-        int cod = CodigoBarra;
+        long cod = CodigoBarra;
         String descrip = Descripcion;
         int cantidad = Stock;
         float precio = Precio;
         if (cod > 0 && precio > 0 && cantidad >= 0 && descrip != "") {
             try {
                 PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
-                pst.setInt(1, cod);
+                pst.setLong(1, cod);
                 pst.setString(2, descrip);
                 pst.setFloat(3, precio);
                 pst.setInt(4, cantidad);
@@ -39,7 +39,6 @@ public class GestorProducto {
                 ok = true;
             } catch (SQLException e) {
                 System.out.println(e);
-                JOptionPane.showMessageDialog(null, "No se ha podido agregar un nuevo producto");
             }
         } else {
             System.out.println("con los datos ingresados no se puede agregar un nuevo producto");
@@ -56,7 +55,7 @@ public class GestorProducto {
             ResultSet resultSet = pst.executeQuery();
 
             while (resultSet.next()) {
-                Producto producto = new Producto(resultSet.getInt("IDPRODUCTO"), resultSet.getString("NOMPRODUCTO"), 
+                Producto producto = new Producto(resultSet.getLong("IDPRODUCTO"), resultSet.getString("NOMPRODUCTO"), 
                         resultSet.getFloat("PRECIOCONTADO"), resultSet.getFloat("PRECIO2"), resultSet.getFloat("PRECIO3"), 
                         resultSet.getInt("STOCK"));
 
@@ -70,7 +69,7 @@ public class GestorProducto {
         return listaProducto;
     }
 
-    public static Producto ConsultaProducto(int CodigoBarra) { //Método para buscar por código de barra (usado en la pantalla "MenuDeGestionDeProd"
+    public static Producto ConsultaProducto(long CodigoBarra) { //Método para buscar por código de barra (usado en la pantalla "MenuDeGestionDeProd"
 
         String sql = "SELECT * FROM producto WHERE IDPRODUCTO = " + CodigoBarra;
         try {
@@ -78,7 +77,7 @@ public class GestorProducto {
             ResultSet resultSet = pst.executeQuery();
 
             if (resultSet.next()) { //cuando la consulta no da vacia pasa por acá
-                Producto productoEncontrado = new Producto(resultSet.getInt("IDPRODUCTO"), resultSet.getString("NOMPRODUCTO"), 
+                Producto productoEncontrado = new Producto(resultSet.getLong("IDPRODUCTO"), resultSet.getString("NOMPRODUCTO"), 
                         resultSet.getFloat("PRECIOCONTADO"), resultSet.getFloat("PRECIO2"), resultSet.getFloat("PRECIO3"), 
                         resultSet.getInt("STOCK"));
                 return productoEncontrado;
@@ -103,7 +102,7 @@ public class GestorProducto {
             ResultSet resultSet = pst.executeQuery();
 
             while (resultSet.next()) {
-                Producto producto = new Producto(resultSet.getInt("IDPRODUCTO"), resultSet.getString("NOMPRODUCTO"), 
+                Producto producto = new Producto(resultSet.getLong("IDPRODUCTO"), resultSet.getString("NOMPRODUCTO"), 
                         resultSet.getFloat("PRECIOCONTADO"), resultSet.getFloat("PRECIO2"), resultSet.getFloat("PRECIO3"), 
                         resultSet.getInt("STOCK"));
                 listaProductoEncontrado.add(producto);
@@ -115,14 +114,14 @@ public class GestorProducto {
         return listaProductoEncontrado;
     }
 
-    public static int utlimoProducto() { // este método está al dope, lo hice por error y lo dejo por las dudas.
-        int ID = 0;
+    public static long utlimoProducto() { // este método está al dope, lo hice por error y lo dejo por las dudas.
+        long ID = 0;
         String sql = "SELECT max(IDPRODUCTO) as id FROM producto";
         try {
             PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
             ResultSet resultado = pst.executeQuery();
             if (resultado.next()) {
-                ID = resultado.getInt("id");
+                ID = resultado.getLong("id");
             }
             System.out.println(ID);
             return ID;
@@ -133,7 +132,7 @@ public class GestorProducto {
         }
     }
 
-    public static boolean actualizarPrecio(int codProd, int precioACambiar, float importe) {
+    public static boolean actualizarPrecio(long codProd, int precioACambiar, float importe) {
         boolean ok = false;
         String precio;
         switch (precioACambiar) {
@@ -152,13 +151,13 @@ public class GestorProducto {
         }
 
         String sql = "UPDATE producto SET " + precio + " = ? WHERE IDPRODUCTO = ?"; //? STRING PRECIO, ? FLOAT, ? INT
-        int cod = codProd;
+        long cod = codProd;
         float valor = importe;
         try {
             PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
             //pst.setString(1, precio);
             pst.setFloat(1, valor);
-            pst.setInt(2, cod);
+            pst.setLong(2, cod);
             pst.executeUpdate();
             ok = true;
         } catch (SQLException e) {
@@ -168,18 +167,18 @@ public class GestorProducto {
         return ok;
     }
     
-    public static ArrayList<Object> presupuestoProducto(int codigo){
+    public static ArrayList<Object> presupuestoProducto(long codigo){
         ArrayList<Object> presupuestoProducto = new ArrayList();
         
         String sql = "select producto.IDPRODUCTO, producto.NOMPRODUCTO, relation_168.CANTIDAD, relation_168.PRECIOVENTA from relation_168, producto where IDPRESUPUESTO = ? and relation_168.IDPRODUCTO = producto.IDPRODUCTO";
         
         try {
             PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
-            pst.setInt(1, codigo);
+            pst.setLong(1, codigo);
             ResultSet resultSet = pst.executeQuery();
 
            while (resultSet.next()) {
-                Object [] detalle = { resultSet.getInt("IDPRODUCTO"),
+                Object [] detalle = { resultSet.getLong("IDPRODUCTO"),
                         resultSet.getString("NOMPRODUCTO"), 
                         resultSet.getInt("CANTIDAD"), resultSet.getFloat("PRECIOVENTA")};
                 presupuestoProducto.add(detalle);
@@ -191,17 +190,17 @@ public class GestorProducto {
         return presupuestoProducto;
     }
 
-    public static boolean eliminarProducto(int valorCelda) {
+    public static boolean eliminarProducto(long valorCelda) {
         boolean ok = false;
         String sql1 = "DELETE FROM `abracasoftdb`.`relation_168` WHERE `IDPRODUCTO` = ?";
         String sql2 = "DELETE FROM `abracasoftdb`.`producto` WHERE `IDPRODUCTO`=?";
         try {
             PreparedStatement pst = Conexion.conectar().prepareStatement(sql1);
-            pst.setInt(1, valorCelda);
+            pst.setLong(1, valorCelda);
             pst.executeUpdate();
             
             pst = Conexion.conectar().prepareStatement(sql2);
-            pst.setInt(1, valorCelda);
+            pst.setLong(1, valorCelda);
             pst.executeUpdate();
             ok = true;
         } catch (SQLException e) {

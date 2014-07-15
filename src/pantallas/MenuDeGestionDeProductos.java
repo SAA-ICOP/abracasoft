@@ -10,6 +10,8 @@ import java.awt.Color;
 import java.awt.Desktop;
 import java.io.File;
 import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Long.parseLong;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -275,10 +277,10 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
     private void jButtonBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarProductoActionPerformed
         // TODO add your handling code here:
         validar();
-        Integer numero = 0;
+        long numero = 0;
         String descripcion = jTextDescripcion.getText();
         try{
-            numero = parseInt(jTextFieldCodigoDeBarraProducto.getText());
+            numero = parseLong(jTextFieldCodigoDeBarraProducto.getText());
         }catch(NumberFormatException exc) {
         }
         if (numero != 0) {
@@ -450,9 +452,9 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
 
     private void borrarProducto() {
         if(jTable1.getSelectedRows().length > 0 ) {
-            int valorCelda = 0;
+            long valorCelda = 0;
             try{
-                valorCelda = parseInt(jTable1.getValueAt(jTable1.getSelectedRow(),0).toString());
+                valorCelda = parseLong(jTable1.getValueAt(jTable1.getSelectedRow(),0).toString());
             }catch (NumberFormatException e){
                 System.out.println("no se pudo determinar el codigo de barra");
             }

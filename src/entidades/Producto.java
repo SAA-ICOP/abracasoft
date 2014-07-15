@@ -11,7 +11,7 @@ package entidades;
  */
 public class Producto {
 
-    private int CodigoDeProducto;
+    private long CodigoDeProducto;
     private String NombreProducto;
     private float PrecioUnitario;
     private float PrecioContado;
@@ -43,7 +43,7 @@ public class Producto {
     }
     private int StockProducto;
 
-    public Producto(int codigoDeProducto, String nombreProducto, float precioContado, float precioDebito, float precioCredito, int stockProducto) {
+    public Producto(long codigoDeProducto, String nombreProducto, float precioContado, float precioDebito, float precioCredito, int stockProducto) {
         this.CodigoDeProducto = codigoDeProducto;
         this.NombreProducto = nombreProducto;
         this.PrecioContado = precioContado;
@@ -52,7 +52,7 @@ public class Producto {
         this.StockProducto = stockProducto;
     }
 
-    public int getCodigoDeProducto() {
+    public long getCodigoDeProducto() {
         return CodigoDeProducto;
     }
 

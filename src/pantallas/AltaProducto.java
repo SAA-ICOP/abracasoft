@@ -11,6 +11,7 @@ import java.awt.MediaTracker;
 import java.io.*;
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
+import static java.lang.Long.parseLong;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -797,14 +798,14 @@ public class AltaProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_TFidProductoKeyTyped
 
     private void TFidProductoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFidProductoFocusLost
-        int evitaError = 0;
+        long evitaError = 0;
         try {
-            evitaError = GestorProducto.ConsultaProducto(parseInt(TFidProducto.getText())).getCodigoDeProducto();
+            evitaError = GestorProducto.ConsultaProducto(parseLong(TFidProducto.getText())).getCodigoDeProducto();
         }catch (NumberFormatException e){
             evitaError = 0;
         }
         if (evitaError!=0){
-/**/        JOptionPane.showMessageDialog(null, "El producto ya existe: " + GestorProducto.ConsultaProducto(parseInt(TFidProducto.getText())).getNombreProducto());
+/**/        JOptionPane.showMessageDialog(null, "El producto ya existe: " + GestorProducto.ConsultaProducto(parseLong(TFidProducto.getText())).getNombreProducto());
             TFidProducto.requestFocus();
         }
     }//GEN-LAST:event_TFidProductoFocusLost
@@ -967,7 +968,7 @@ public class AltaProducto extends javax.swing.JFrame {
 
         if (camposVacios()) {
             try {
-                int codigoDeBarras = parseInt(TFidProducto.getText());
+                long codigoDeBarras = parseLong(TFidProducto.getText());
                 int stock = parseInt(TFstockProducto.getText());
                 String descripcion = TAdescripcion.getText();
                 float precioCosto = Float.parseFloat(TFDescuento.getText());
@@ -975,6 +976,7 @@ public class AltaProducto extends javax.swing.JFrame {
                     agregarPreciosBD();
                 }
             } catch (NumberFormatException e) {
+                System.out.print(e);
                 JOptionPane.showMessageDialog(null, "En el precio, el separador decimal"
                         + " debe ser un punto '.'  y no debe haber letras");
             }
@@ -1031,7 +1033,7 @@ public class AltaProducto extends javax.swing.JFrame {
     }
     
     private void agregarPreciosBD (){
-        int id = parseInt(TFidProducto.getText());
+        long id = parseLong(TFidProducto.getText());
         float valor;
         if (TFPrecio1.getText().trim().length() != 0){
             valor = parseFloat(TFPrecio1.getText());
