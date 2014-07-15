@@ -6,6 +6,8 @@
 
 package pantallas;
 
+import java.awt.Desktop;
+import java.io.File;
 import static java.lang.Integer.parseInt;
 import javax.swing.JOptionPane;
 
@@ -96,6 +98,11 @@ public class AltaCliente extends javax.swing.JFrame {
         });
 
         jButton3.setText("Ayuda");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("* El código postal por defecto es: 3100");
 
@@ -216,6 +223,10 @@ public class AltaCliente extends javax.swing.JFrame {
         }// TODO add your handling code here:
     }//GEN-LAST:event_BclienteTelefonoKeyTyped
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        abrirAyuda();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -295,5 +306,13 @@ public class AltaCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No se ha podido agregar el cliente");
         }
     }
-    
+        private void abrirAyuda(){
+        String ubicacion = System.getProperty("user.dir");
+        try {
+            File file = new File(System.getProperty("user.dir") + "\\src\\ayuda\\Manual_Agregar_Cliente.pdf");
+            Desktop.getDesktop().open(file);
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(null, "No se puedo abrir el archivo de ayuda");
+        }
+    }
 }
