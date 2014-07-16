@@ -143,8 +143,8 @@
                 <Column editable="false" title="Codigo" type="java.lang.Integer"/>
                 <Column editable="false" title="Cliente" type="java.lang.String"/>
                 <Column editable="false" title="Vendedor" type="java.lang.String"/>
-                <Column editable="true" title="Codigo venta" type="java.lang.Object"/>
-                <Column editable="false" title="Valido hasta" type="java.lang.Object"/>
+                <Column editable="false" title="Codigo venta" type="java.lang.Object"/>
+                <Column editable="true" title="Valido hasta" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

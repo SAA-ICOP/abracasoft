@@ -89,4 +89,22 @@ public class GestorPresupuesto {
         }
         return ok;
     }
+
+    public static boolean modificarPresupuesto(String nuevaVigencia, int valorCelda) {
+        boolean ok = false;
+        
+        String sql = "UPDATE presupuesto SET VIGENPRESUPUESTO = ? WHERE IDPRESUPUESTO = ?";
+        
+        try {
+            PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
+            pst.setString(1,nuevaVigencia);
+            pst.setInt(2, valorCelda);
+            pst.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            System.out.println("No se pudo modificar el presupuesto");
+            ok = false;
+        }
+        return ok;
+    }
 }

@@ -14,11 +14,14 @@ import java.awt.Color;
 import java.awt.Desktop;
 import java.io.File;
 import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import static javax.xml.bind.DatatypeConverter.parseDate;
 
 /**
  *
@@ -79,7 +82,7 @@ public class GestionPresupuesto extends javax.swing.JFrame {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, false
+                false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -323,7 +326,7 @@ public class GestionPresupuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void BpresupuestoEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpresupuestoEditarActionPerformed
-        // TODO add your handling code here:
+        modificarPresupuesto();
     }//GEN-LAST:event_BpresupuestoEditarActionPerformed
 
     private void BpresupuestoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpresupuestoBuscarActionPerformed
@@ -534,5 +537,44 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         } catch(Exception e) {
             JOptionPane.showMessageDialog(null, "No se puedo abrir el archivo de ayuda");
         }
+    }
+
+    private void modificarPresupuesto() {
+        if(Tpresupuesto.getSelectedRows().length > 0 ) {
+            int valorCelda = 0;
+            try{
+                valorCelda = parseInt(Tpresupuesto.getValueAt(Tpresupuesto.getSelectedRow(),0).toString());
+            }catch (NumberFormatException e){
+                System.out.println("no se pudo determinar el codigo presupuesto");
+            }
+            if(valorCelda != 0){
+                DefaultTableModel dtmPresupuesto = (DefaultTableModel) Tpresupuesto.getModel();
+                int confirmado = JOptionPane.showConfirmDialog(BpresupuestoEditar, 
+                    "¿Confirma que desea modificar el presupuesto seleccionado?");
+
+                if (JOptionPane.OK_OPTION == confirmado){
+
+                      try{
+                        SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
+                        String nuevaVigencia = Tpresupuesto.getValueAt(Tpresupuesto.getSelectedRow(),4).toString();
+                        Date fecha = formatoDelTexto.parse(nuevaVigencia);
+                        
+                        if (GestorPresupuesto.modificarPresupuesto(nuevaVigencia, valorCelda)==true){
+                            JOptionPane.showMessageDialog(null, "El presupuesto fue modificado");
+                        }else{
+                            JOptionPane.showMessageDialog(null, "No se pudo modificar el presupuesto");
+                        }
+                    }catch (NumberFormatException e){
+                        JOptionPane.showMessageDialog(null, "Los campos no pueden ser nulos");
+                    }catch (ParseException e) {
+                        JOptionPane.showMessageDialog(null, "La fecha ingresada no es válida");
+                    }
+                      
+                      
+                }else{
+                   System.out.println("no se modifico nada");
+                }
+            }
+         }
     }
 }
