@@ -113,4 +113,27 @@ public class GestorCliente {
         }
         return ok;
     }   
+
+    public static boolean modificarCliente(int valorCelda, String nombre, String direccion, String email, int cp, int tel, int dni) {
+        boolean ok = false;
+        String sql = "UPDATE cliente SET CODIGOPOSTAL = ?, NOMCLIENTE = ?, DIRCLIENTE = ?, MAILCLIENTE = ?, "
+                + "TELCLIENTE = ?, DNICLIENTE = ? WHERE IDCLIENTE = ?";
+        
+        try {
+            PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
+            pst.setInt(1,cp);
+            pst.setString(2, nombre);
+            pst.setString(3, direccion);
+            pst.setString(4, email);
+            pst.setInt(5, tel);
+            pst.setInt(6, dni);
+            pst.setInt(7, valorCelda);
+            pst.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            System.out.println("No se pudo modificar el producto");
+            ok = false;
+        }
+        return ok;
+    }
 }

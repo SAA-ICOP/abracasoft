@@ -72,6 +72,11 @@ public class MenuGestionCliente extends javax.swing.JFrame {
 
         BclienteEditar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         BclienteEditar.setText("/");
+        BclienteEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BclienteEditarActionPerformed(evt);
+            }
+        });
 
         BclienteBorrar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         BclienteBorrar.setText("-");
@@ -116,10 +121,10 @@ public class MenuGestionCliente extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true, true
+                false, true, true, true, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -299,6 +304,10 @@ public class MenuGestionCliente extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         abrirAyuda();
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void BclienteEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BclienteEditarActionPerformed
+        modificarCliente();
+    }//GEN-LAST:event_BclienteEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -480,5 +489,45 @@ public class MenuGestionCliente extends javax.swing.JFrame {
         } catch(Exception e) {
             JOptionPane.showMessageDialog(null, "No se puedo abrir el archivo de ayuda");
         }
+    }
+
+    private void modificarCliente() {
+        if(jTable1.getSelectedRows().length > 0 ) {
+            int valorCelda = 0;
+            try{
+                valorCelda = parseInt(jTable1.getValueAt(jTable1.getSelectedRow(),0).toString());
+            }catch (NumberFormatException e){
+                System.out.println("no se pudo determinar el codigo de cliente");
+            }
+            if(valorCelda != 0){
+                DefaultTableModel dtmCliente = (DefaultTableModel) jTable1.getModel();
+                int confirmado = JOptionPane.showConfirmDialog(BclienteEditar, 
+                    "¿Confirma que desea modificar los datos del cliente seleccionado?");
+
+                if (JOptionPane.OK_OPTION == confirmado){
+
+                    try{
+                        String nombre = jTable1.getValueAt(jTable1.getSelectedRow(),1).toString();
+                        String direccion = jTable1.getValueAt(jTable1.getSelectedRow(),2).toString();
+                        String email = jTable1.getValueAt(jTable1.getSelectedRow(),3).toString();
+                        int cp = parseInt(jTable1.getValueAt(jTable1.getSelectedRow(),4).toString());
+                        int tel = parseInt(jTable1.getValueAt(jTable1.getSelectedRow(),5).toString());
+                        int dni= parseInt(jTable1.getValueAt(jTable1.getSelectedRow(),6).toString());
+                        
+                        if (GestorCliente.modificarCliente(valorCelda, nombre, direccion, email, cp, tel, dni)==true){
+                            JOptionPane.showMessageDialog(null, "El cliente fue modificado");
+                            borrarRenglones(1);
+                            buscarMientrasEscribe();
+                        }else{
+                            JOptionPane.showMessageDialog(null, "No se pudo modificar el cliente");
+                        }
+                    }catch (NumberFormatException e){
+                        JOptionPane.showMessageDialog(null, "Los campos no pueden ser nulos");
+                    }
+                }else{
+                   System.out.println("no se modifico nada");
+                }
+            }
+         }
     }
 }

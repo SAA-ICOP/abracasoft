@@ -224,7 +224,7 @@ public class GestorProducto {
             pst.executeUpdate();
             ok = true;
         } catch (SQLException e) {
-            System.out.println("No se pudo eliminar el producto");
+            System.out.println("No se pudo modificar el producto");
             ok = false;
         }
         return ok;

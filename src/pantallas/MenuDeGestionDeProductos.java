@@ -502,18 +502,22 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
                     jTable1.getValueAt(jTable1.getSelectedRow(),0).toString() + " ?");
 
                 if (JOptionPane.OK_OPTION == confirmado){
-                    String descripcion = jTable1.getValueAt(jTable1.getSelectedRow(),1).toString();
-                    int stock = parseInt(jTable1.getValueAt(jTable1.getSelectedRow(),2).toString());
-                    float pcontado = parseFloat(jTable1.getValueAt(jTable1.getSelectedRow(),3).toString());
-                    float pdebito = parseFloat(jTable1.getValueAt(jTable1.getSelectedRow(),4).toString());
-                    float pcredito = parseFloat(jTable1.getValueAt(jTable1.getSelectedRow(),5).toString());
-                    
-                    if (GestorProducto.modificarProducto(valorCelda, descripcion, stock, pcontado, pdebito, pcredito)==true){
-                        JOptionPane.showMessageDialog(null, "El producto fue modificado");
-                        borrarRenglones();
-                        buscarMientrasEscribe();
-                    }else{
-                        JOptionPane.showMessageDialog(null, "No se pudo modificar el producto");
+                      try{
+                        String descripcion = jTable1.getValueAt(jTable1.getSelectedRow(),1).toString();
+                        int stock = parseInt(jTable1.getValueAt(jTable1.getSelectedRow(),2).toString());
+                        float pcontado = parseFloat(jTable1.getValueAt(jTable1.getSelectedRow(),3).toString());
+                        float pdebito = parseFloat(jTable1.getValueAt(jTable1.getSelectedRow(),4).toString());
+                        float pcredito = parseFloat(jTable1.getValueAt(jTable1.getSelectedRow(),5).toString());
+                        
+                        if (GestorProducto.modificarProducto(valorCelda, descripcion, stock, pcontado, pdebito, pcredito)==true){
+                            JOptionPane.showMessageDialog(null, "El producto fue modificado");
+                            borrarRenglones();
+                            buscarMientrasEscribe();
+                        }else{
+                            JOptionPane.showMessageDialog(null, "No se pudo modificar el producto");
+                        }
+                    }catch (NumberFormatException e){
+                        JOptionPane.showMessageDialog(null, "Los campos no pueden ser nulos");
                     }
                 }else{
                    System.out.println("no se modifico nada");
