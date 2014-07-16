@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -201,6 +200,27 @@ public class GestorProducto {
             
             pst = Conexion.conectar().prepareStatement(sql2);
             pst.setLong(1, valorCelda);
+            pst.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            System.out.println("No se pudo eliminar el producto");
+            ok = false;
+        }
+        return ok;
+    }
+
+    public static boolean modificarProducto(long valorCelda, String descripcion, int stock, float pcontado, float pdebito, float pcredito) {
+        boolean ok = false;
+        String sql = "UPDATE producto SET NOMPRODUCTO = ?, Stock = ?, PrecioContado = ?, precio2 = ?, precio3 = ? WHERE IDPRODUCTO = ?";
+        
+        try {
+            PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
+            pst.setString(1,descripcion);
+            pst.setInt(2, stock);
+            pst.setFloat(3, pcontado);
+            pst.setFloat(4, pdebito);
+            pst.setFloat(5, pcredito);
+            pst.setLong(6, valorCelda);
             pst.executeUpdate();
             ok = true;
         } catch (SQLException e) {

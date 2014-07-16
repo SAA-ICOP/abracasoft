@@ -9,11 +9,15 @@ import gestores.GestorProducto;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.io.File;
+import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
+import static java.lang.Long.parseLong;
+import static java.lang.Long.parseLong;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
 
 /**
  *
@@ -84,6 +88,11 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
         BproductoEditar.setText("/");
         BproductoEditar.setMaximumSize(new java.awt.Dimension(41, 41));
         BproductoEditar.setMinimumSize(new java.awt.Dimension(41, 41));
+        BproductoEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BproductoEditarActionPerformed(evt);
+            }
+        });
 
         BproductoNuevo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         BproductoNuevo.setText("+");
@@ -130,7 +139,7 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
                 java.lang.Integer.class, java.lang.String.class, java.lang.Short.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, true, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -232,9 +241,10 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
                     .addGroup(gestionDeProductojPanelLayout.createSequentialGroup()
                         .addComponent(BproductoEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(112, Short.MAX_VALUE))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 248, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jButton2.setText("Cancelar");
@@ -275,7 +285,6 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldCodigoDeBarraProductoActionPerformed
 
     private void jButtonBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarProductoActionPerformed
-        // TODO add your handling code here:
         validar();
         long numero = 0;
         String descripcion = jTextDescripcion.getText();
@@ -283,21 +292,7 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
             numero = parseLong(jTextFieldCodigoDeBarraProducto.getText());
         }catch(NumberFormatException exc) {
         }
-        if (numero != 0) {
-
-            Object[] productoBuscado = {GestorProducto.ConsultaProducto(numero).getCodigoDeProducto(),
-                GestorProducto.ConsultaProducto(numero).getNombreProducto(),
-                GestorProducto.ConsultaProducto(numero).getStockProducto(),
-                GestorProducto.ConsultaProducto(numero).getPrecioContado(),
-                GestorProducto.ConsultaProducto(numero).getPrecioDebito(),
-                GestorProducto.ConsultaProducto(numero).getPrecioCredito(),
-            };
-
-            DefaultTableModel tabla = (DefaultTableModel) jTable1.getModel();
-
-            borrarRenglones();
-            tabla.insertRow(0, productoBuscado);
-        }
+        buscarPorCodigo(numero);
     }//GEN-LAST:event_jButtonBuscarProductoActionPerformed
 
     private void jTextFieldCodigoDeBarraProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldCodigoDeBarraProductoMouseClicked
@@ -350,6 +345,10 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         abrirAyuda();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void BproductoEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BproductoEditarActionPerformed
+        modificarProducto();
+    }//GEN-LAST:event_BproductoEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -485,6 +484,59 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
             Desktop.getDesktop().open(file);
         } catch(Exception e) {
             JOptionPane.showMessageDialog(null, "No se puedo abrir el archivo de ayuda");
+        }
+    }
+
+    private void modificarProducto() {
+        if(jTable1.getSelectedRows().length > 0 ) {
+            long valorCelda = 0;
+            try{
+                valorCelda = parseLong(jTable1.getValueAt(jTable1.getSelectedRow(),0).toString());
+            }catch (NumberFormatException e){
+                System.out.println("no se pudo determinar el codigo de barra");
+            }
+            if(valorCelda != 0){
+                DefaultTableModel dtmProducto = (DefaultTableModel) jTable1.getModel();
+                int confirmado = JOptionPane.showConfirmDialog(BproductoEditar, 
+                    "¿Confirma que desea modificar el producto cuyo codigo de barra es: " + 
+                    jTable1.getValueAt(jTable1.getSelectedRow(),0).toString() + " ?");
+
+                if (JOptionPane.OK_OPTION == confirmado){
+                    String descripcion = jTable1.getValueAt(jTable1.getSelectedRow(),1).toString();
+                    int stock = parseInt(jTable1.getValueAt(jTable1.getSelectedRow(),2).toString());
+                    float pcontado = parseFloat(jTable1.getValueAt(jTable1.getSelectedRow(),3).toString());
+                    float pdebito = parseFloat(jTable1.getValueAt(jTable1.getSelectedRow(),4).toString());
+                    float pcredito = parseFloat(jTable1.getValueAt(jTable1.getSelectedRow(),5).toString());
+                    
+                    if (GestorProducto.modificarProducto(valorCelda, descripcion, stock, pcontado, pdebito, pcredito)==true){
+                        JOptionPane.showMessageDialog(null, "El producto fue modificado");
+                        borrarRenglones();
+                        buscarMientrasEscribe();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "No se pudo modificar el producto");
+                    }
+                }else{
+                   System.out.println("no se modifico nada");
+                }
+            }
+         }
+    }
+
+    private void buscarPorCodigo(long numero) {
+        if (numero != 0) {
+
+            Object[] productoBuscado = {GestorProducto.ConsultaProducto(numero).getCodigoDeProducto(),
+                GestorProducto.ConsultaProducto(numero).getNombreProducto(),
+                GestorProducto.ConsultaProducto(numero).getStockProducto(),
+                GestorProducto.ConsultaProducto(numero).getPrecioContado(),
+                GestorProducto.ConsultaProducto(numero).getPrecioDebito(),
+                GestorProducto.ConsultaProducto(numero).getPrecioCredito(),
+            };
+
+            DefaultTableModel tabla = (DefaultTableModel) jTable1.getModel();
+
+            borrarRenglones();
+            tabla.insertRow(0, productoBuscado);
         }
     }
 }
