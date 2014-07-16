@@ -11,7 +11,8 @@ import entidades.Presupuesto;
 import gestores.GestorPresupuesto;
 import gestores.GestorProducto;
 import java.awt.Color;
-import static java.lang.Integer.parseInt;
+import java.awt.Desktop;
+import java.io.File;
 import static java.lang.Integer.parseInt;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -157,6 +158,11 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         jButton1.setText("?");
         jButton1.setMaximumSize(new java.awt.Dimension(41, 41));
         jButton1.setMinimumSize(new java.awt.Dimension(41, 41));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancelar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -336,6 +342,10 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         eliminarPresupuesto();
     }//GEN-LAST:event_BpresupuestoEliminarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        abrirAyuda();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -514,6 +524,15 @@ public class GestionPresupuesto extends javax.swing.JFrame {
             buscarPorCodigo();
         }else{
             buscarPorFecha();
+        }
+    }
+    
+    private void abrirAyuda(){
+        try {
+            File file = new File(System.getProperty("user.dir") + "\\src\\ayuda\\Manual_Gestion_Presupuesto.pdf");
+            Desktop.getDesktop().open(file);
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(null, "No se puedo abrir el archivo de ayuda");
         }
     }
 }
