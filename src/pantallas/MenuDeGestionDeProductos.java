@@ -56,7 +56,6 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jTextFieldCodigoDeBarraProducto = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestion de productos");
@@ -247,13 +246,6 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jButton2.setText("Cancelar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -262,19 +254,13 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(gestionDeProductojPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(gestionDeProductojPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(14, 14, 14)
-                .addComponent(jButton2)
-                .addContainerGap())
+                .addGap(48, 48, 48))
         );
 
         pack();
@@ -323,11 +309,6 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_jTextFieldCodigoDeBarraProductoKeyTyped
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void BproductoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BproductoNuevoActionPerformed
         // TODO add your handling code here:
@@ -391,7 +372,6 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
     private javax.swing.JButton BproductoNuevo;
     private javax.swing.JPanel gestionDeProductojPanel;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonBuscarProducto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
