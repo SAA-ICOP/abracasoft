@@ -6,8 +6,10 @@
 package pantallas;
 
 import gestores.GestorProducto; // Las pantallas se comunican con la logica de negocio no les interesa como llegan los datos 
+import java.awt.Desktop;
 import java.awt.Image;
 import java.awt.MediaTracker;
+import java.awt.event.KeyEvent;
 import java.io.*;
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
@@ -159,6 +161,11 @@ public class AltaProducto extends javax.swing.JFrame {
                 TFstockProductoActionPerformed(evt);
             }
         });
+        TFstockProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFstockProductoKeyTyped(evt);
+            }
+        });
 
         jLabel6.setText("Cantidad minima");
 
@@ -280,6 +287,11 @@ public class AltaProducto extends javax.swing.JFrame {
         TFDescuento.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 TFDescuentoFocusLost(evt);
+            }
+        });
+        TFDescuento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFDescuentoKeyTyped(evt);
             }
         });
 
@@ -537,7 +549,7 @@ public class AltaProducto extends javax.swing.JFrame {
                 .addContainerGap(173, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Imágen", jPanel4);
+        jTabbedPane1.addTab("Imagen", jPanel4);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -669,6 +681,11 @@ public class AltaProducto extends javax.swing.JFrame {
         jTabbedPane1.addTab("Promoción", jPanel7);
 
         Bayuda.setText("Ayuda");
+        Bayuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BayudaActionPerformed(evt);
+            }
+        });
 
         BguardarAltaProd.setText("Guardar");
         BguardarAltaProd.addActionListener(new java.awt.event.ActionListener() {
@@ -811,49 +828,34 @@ public class AltaProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_TFidProductoFocusLost
 
     private void BagregarImagenProd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BagregarImagenProd1ActionPerformed
-        JFileChooser selector=new JFileChooser();
-        FileNameExtensionFilter filtro = new FileNameExtensionFilter("JPG, JPEG", "jpg", "jpeg");
-        
-        selector.setFileFilter(filtro);
-        
-        int estado=selector.showOpenDialog(null);
-        File archivoelegido;
-        String ruta;
-        JLabel etiqueta;
-        
-        if(estado==JFileChooser.APPROVE_OPTION){
-            archivoelegido=selector.getSelectedFile();
-            ruta=archivoelegido.getPath();
-        
-            ImageIcon imagen = new ImageIcon(ruta);
-            if(imagen.getImageLoadStatus()!=MediaTracker.COMPLETE){
-                JOptionPane.showMessageDialog(null, "Seleccione un tipo de archivo válido");
-            }else{
-                System.out.println("Se cargo");
-                etiqueta = new JLabel(imagen);
-                etiqueta.setBounds(200,0,250,250);
-                /**/
-                Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(etiqueta.getWidth(), etiqueta.getHeight(), Image.SCALE_DEFAULT));
-                etiqueta.setIcon(icono);
-                this.repaint();
-                /**/
-                jEditorPane1.removeAll();
-                jEditorPane1.add(etiqueta);
-                if(archivoelegido.exists()){
-                    System.out.println("bien");
-                }else{
-                    System.out.println("no bien");
-                }
-            }
-        }
-        
-        
-
+        agregarImagen();
     }//GEN-LAST:event_BagregarImagenProd1ActionPerformed
 
     private void BquitarImagenProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BquitarImagenProdActionPerformed
-        
+        jEditorPane1.removeAll();
+        jEditorPane1.repaint();
     }//GEN-LAST:event_BquitarImagenProdActionPerformed
+
+    private void TFDescuentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFDescuentoKeyTyped
+        char car = evt.getKeyChar();
+        if (((car < '0') || (car > '9')) && (car != KeyEvent.VK_BACK_SPACE) && (car != '.')) {
+            evt.consume();
+        }
+        if (car == '.' && TFDescuento.getText().contains(".")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_TFDescuentoKeyTyped
+
+    private void TFstockProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFstockProductoKeyTyped
+        char car = evt.getKeyChar();
+        if ((car < '0' || car > '9')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_TFstockProductoKeyTyped
+
+    private void BayudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BayudaActionPerformed
+        abrirAyuda();
+    }//GEN-LAST:event_BayudaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1047,5 +1049,53 @@ public class AltaProducto extends javax.swing.JFrame {
             valor = parseFloat(TFPrecio3.getText());
             GestorProducto.actualizarPrecio(id, 3, valor);
         }
+    }
+
+    private void abrirAyuda() {
+        try {
+            File file = new File(System.getProperty("user.dir") + "\\src\\ayuda\\Manual_Agregar_Producto.pdf");
+            Desktop.getDesktop().open(file);
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(null, "No se puedo abrir el archivo de ayuda");
+        }
+    }
+
+    private String agregarImagen() {
+        JFileChooser selector=new JFileChooser();
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("JPG, JPEG", "jpg", "jpeg");
+        
+        selector.setFileFilter(filtro);
+        
+        int estado=selector.showOpenDialog(null);
+        File archivoelegido;
+        String ruta = "";
+        JLabel etiqueta;
+        
+        if(estado==JFileChooser.APPROVE_OPTION){
+            archivoelegido=selector.getSelectedFile();
+            ruta=archivoelegido.getPath();
+        
+            ImageIcon imagen = new ImageIcon(ruta);
+            if(imagen.getImageLoadStatus()!=MediaTracker.COMPLETE){
+                JOptionPane.showMessageDialog(null, "Seleccione un tipo de archivo válido");
+            }else{
+                System.out.println("Se cargo");
+                etiqueta = new JLabel(imagen);
+                etiqueta.setBounds(200,0,250,250);
+                /**/
+                Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(etiqueta.getWidth(), etiqueta.getHeight(), Image.SCALE_DEFAULT));
+                etiqueta.setIcon(icono);
+                this.repaint();
+                /**/
+                jEditorPane1.removeAll();
+                jEditorPane1.add(etiqueta);
+                if(archivoelegido.exists()){
+                    System.out.println("bien");
+                }else{
+                    System.out.println("no bien");
+                }
+            }
+        }
+    return ruta;
     }
 }
