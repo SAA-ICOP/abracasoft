@@ -303,6 +303,7 @@ public class GestionPresupuesto extends javax.swing.JFrame {
 
     private void BpresupuestoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpresupuestoNuevoActionPerformed
         // TODO add your handling code here:
+        new AltaPresupuesto().setVisible(true);
     }//GEN-LAST:event_BpresupuestoNuevoActionPerformed
 
     private void BpresupuestoEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpresupuestoEditarActionPerformed
