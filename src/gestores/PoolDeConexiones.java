@@ -8,7 +8,11 @@ package gestores;
 import java.sql.Connection;
 import java.sql.SQLException;
 import javax.sql.DataSource;
-import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSource; 
+
+//↕↕ Puede que les genere problemas, la versión anterior se encuentra comentada abajo
+
+//import org.apache.commons.dbcp.BasicDataSource;
 
 /**
  *
