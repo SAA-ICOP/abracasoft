@@ -6,6 +6,11 @@
 
 package pantallas;
 
+import gestores.GestorCliente;
+import java.awt.Component;
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author German
@@ -59,6 +64,8 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         formaDePago = new javax.swing.JComboBox();
         jLabel9 = new javax.swing.JLabel();
+        cantidadRenglon = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
 
         jRadioButton3.setText("jRadioButton3");
 
@@ -102,7 +109,7 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         precioTotal.setEditable(false);
         precioTotal.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        guardarPesup.setText("Guardar presupuesto");
+        guardarPesup.setText("Guardar e Imprimir presupuesto");
 
         ayuda.setText("Ayuda");
         ayuda.addActionListener(new java.awt.event.ActionListener() {
@@ -121,6 +128,11 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         listaCliente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         nombreCliente.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, java.awt.Color.lightGray));
+        nombreCliente.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                nombreClienteCaretUpdate(evt);
+            }
+        });
 
         direccionCliente.setEditable(false);
         direccionCliente.setBackground(new java.awt.Color(204, 204, 204));
@@ -152,15 +164,34 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         jLabel7.setText("Cliente:");
 
         codigoBarra.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        codigoBarra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                codigoBarraKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                codigoBarraKeyTyped(evt);
+            }
+        });
 
         jLabel8.setText("Codigo:");
 
         jButton5.setFont(new java.awt.Font("Times", 1, 12)); // NOI18N
         jButton5.setText("+");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         formaDePago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel9.setText("Forma de Pago:");
+
+        cantidadRenglon.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        cantidadRenglon.setText("1");
+        cantidadRenglon.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel10.setText("x");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -170,24 +201,8 @@ public class AltaPresupuesto extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(cancelarPresup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(guardarPesup))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(formaDePago, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addComponent(ayuda)
-                                .addGap(458, 458, 458)
-                                .addComponent(aVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(20, 20, 20)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,25 +229,46 @@ public class AltaPresupuesto extends javax.swing.JFrame {
                                     .addComponent(dniCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(telCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(56, 56, 56)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(codigoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(72, 72, 72)
-                                .addComponent(BeliminarProducto)
-                                .addGap(135, 135, 135)
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(precioTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addGap(18, 18, 18)
                                 .addComponent(nombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(listaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton5)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(jButton5))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(ayuda)
+                                        .addGap(458, 458, 458)
+                                        .addComponent(aVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(BeliminarProducto)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(cancelarPresup)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(guardarPesup))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(codigoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jLabel10)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(cantidadRenglon, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(324, 324, 324)
+                                                .addComponent(jLabel1)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(precioTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(formaDePago, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -273,16 +309,18 @@ public class AltaPresupuesto extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(codigoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8)
-                            .addComponent(BeliminarProducto))))
-                .addGap(50, 50, 50)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(guardarPesup)
-                    .addComponent(cancelarPresup))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(cantidadRenglon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10))))
+                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(formaDePago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cancelarPresup)
+                    .addComponent(BeliminarProducto)
+                    .addComponent(guardarPesup, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(aVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ayuda))
@@ -311,6 +349,28 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_cancelarPresupActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        new AltaCliente().setVisible(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void codigoBarraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoBarraKeyTyped
+        
+    }//GEN-LAST:event_codigoBarraKeyTyped
+
+    private void codigoBarraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoBarraKeyReleased
+        char car = evt.getKeyChar();
+        if ((car < '0' || car > '9')) {
+            evt.consume();
+        }
+        if (codigoBarra.getText().trim().length() == 13){
+            agregarRenglon();
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_codigoBarraKeyReleased
+
+    private void nombreClienteCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_nombreClienteCaretUpdate
+        buscarMientrasEscribe();
+    }//GEN-LAST:event_nombreClienteCaretUpdate
 
     /**
      * @param args the command line arguments
@@ -352,6 +412,7 @@ public class AltaPresupuesto extends javax.swing.JFrame {
     private javax.swing.JButton aVenta;
     private javax.swing.JButton ayuda;
     private javax.swing.JButton cancelarPresup;
+    private javax.swing.JTextField cantidadRenglon;
     private javax.swing.JTextField clienteElegido;
     private javax.swing.JTextField codigoBarra;
     private javax.swing.JTable detalleProducto;
@@ -361,6 +422,7 @@ public class AltaPresupuesto extends javax.swing.JFrame {
     private javax.swing.JButton guardarPesup;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -378,4 +440,31 @@ public class AltaPresupuesto extends javax.swing.JFrame {
     private javax.swing.JTextField precioTotal;
     private javax.swing.JTextField telCliente;
     // End of variables declaration//GEN-END:variables
+    private String paraBuscar="";
+    
+    
+    private void agregarRenglon() {
+        System.out.println(codigoBarra.getText());
+        codigoBarra.setText("");
+        cantidadRenglon.setText("1");
+    }
+
+    private void buscarMientrasEscribe() {
+        paraBuscar = nombreCliente.getText();
+        if (GestorCliente.ConsultaPorDescripcion(paraBuscar).size() != 0) {
+            for (int i = 0; i < GestorCliente.ConsultaPorDescripcion(paraBuscar).size(); i++) {
+                Object[] fila = {GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getIdCliente(),
+                    GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getNombreCliente(),
+                    GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getDireccionCliente(),
+                    GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getMailCliente(),
+                    GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getCodigoPostalCliente(),
+                    GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getTelefonoCliente(),
+                    GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getDniCuilCuit(),
+                    GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getEsatdo(),
+                };
+                listaCliente.removeAllItems();
+                listaCliente.addItem(fila[1]);
+            }
+        }
+    }
 }
