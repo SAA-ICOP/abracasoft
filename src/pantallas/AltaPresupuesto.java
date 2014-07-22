@@ -207,6 +207,11 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         });
 
         formaDePago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Efectivo", "Débito", "Crédito", "Cuenta Corriente", "Pago Parcial" }));
+        formaDePago.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                formaDePagoItemStateChanged(evt);
+            }
+        });
 
         jLabel9.setText("Forma de Pago:");
 
@@ -355,7 +360,7 @@ public class AltaPresupuesto extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(BeliminarProducto))
                 .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(guardarPesup, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cancelarPresup))
                 .addGap(21, 21, 21)
@@ -446,6 +451,10 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         nombreCliente.setText("");
         listaCliente.removeAllItems();
     }//GEN-LAST:event_jbClienteCasualActionPerformed
+
+    private void formaDePagoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_formaDePagoItemStateChanged
+        recalcularImporte();
+    }//GEN-LAST:event_formaDePagoItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -553,7 +562,7 @@ public class AltaPresupuesto extends javax.swing.JFrame {
                         precio=prod.getPrecioContado();
                     }
                 }
-                break;
+            break;
         }
         
         int senia = 0;
@@ -620,5 +629,48 @@ public class AltaPresupuesto extends javax.swing.JFrame {
                         + " a eliminar");
             }
         }
+    }
+
+    private void recalcularImporte() {
+        DefaultTableModel tabla = (DefaultTableModel) detalleProducto.getModel();
+
+        
+        if (tabla.getRowCount()!=0){
+        
+            for (int i = 0; i<tabla.getRowCount(); i++){
+                Producto prod = GestorProducto.ConsultaProducto(parseLong(detalleProducto.getValueAt(i, 0).toString()));
+                float precio;
+                int op = formaDePago.getSelectedIndex();
+                switch (op){
+                    case 0:
+                        precio=prod.getPrecioContado(); 
+                        break;
+                    case 1:
+                        if (prod.getPrecioDebito()!=0){
+                            precio=prod.getPrecioDebito();
+                        }else{
+                            precio=prod.getPrecioContado();
+                        }
+                        break;
+                    default: //Credito y otros
+                        if (prod.getPrecioCredito()!=0){
+                            precio=prod.getPrecioCredito();
+                        }else{
+                            if (prod.getPrecioDebito()!=0){
+                                precio=prod.getPrecioDebito();
+                            }else{
+                                precio=prod.getPrecioContado();
+                            }
+                        }
+                    break;
+                }
+                    float precioTotalNuevo = parseFloat(tabla.getValueAt(i,3).toString())*parseInt(detalleProducto.getValueAt(i, 2).toString());
+                    Object [] row = {prod.getCodigoDeProducto(), prod.getNombreProducto(), 
+                    parseInt(detalleProducto.getValueAt(i, 2).toString()), precio, precioTotalNuevo};
+                    tabla.removeRow(i);
+                    tabla.addRow(row);
+            } 
+        }
+        actualizarTotal();
     }
 }
