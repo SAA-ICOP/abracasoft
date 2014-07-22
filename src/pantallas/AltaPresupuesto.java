@@ -565,13 +565,25 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         int op = formaDePago.getSelectedIndex();
         switch (op){
             case 0:
-                precio=prod.getPrecioContado(); 
+                if (prod.getPrecioContado()!=0){
+                    precio=prod.getPrecioContado();
+                }else{
+                    if (prod.getPrecioDebito()!=0){
+                        precio=prod.getPrecioDebito();
+                    }else{
+                        precio=prod.getPrecioCredito();
+                    }
+                }
                 break;
             case 1:
                 if (prod.getPrecioDebito()!=0){
                     precio=prod.getPrecioDebito();
                 }else{
-                    precio=prod.getPrecioContado();
+                    if (prod.getPrecioCredito()!=0){
+                        precio=prod.getPrecioCredito();
+                    }else{
+                        precio=prod.getPrecioContado();
+                    }
                 }
                 break;
             default: //Credito y otros
@@ -664,28 +676,40 @@ public class AltaPresupuesto extends javax.swing.JFrame {
                 float precio;
                 int op = formaDePago.getSelectedIndex();
                 switch (op){
-                    case 0:
-                        precio=prod.getPrecioContado(); 
-                        break;
-                    case 1:
+                case 0:
+                    if (prod.getPrecioContado()!=0){
+                        precio=prod.getPrecioContado();
+                    }else{
+                        if (prod.getPrecioDebito()!=0){
+                            precio=prod.getPrecioDebito();
+                        }else{
+                            precio=prod.getPrecioCredito();
+                        }
+                    }
+                    break;
+                case 1:
+                    if (prod.getPrecioDebito()!=0){
+                        precio=prod.getPrecioDebito();
+                    }else{
+                        if (prod.getPrecioCredito()!=0){
+                            precio=prod.getPrecioCredito();
+                        }else{
+                            precio=prod.getPrecioContado();
+                        }
+                    }
+                    break;
+                default: //Credito y otros
+                    if (prod.getPrecioCredito()!=0){
+                        precio=prod.getPrecioCredito();
+                    }else{
                         if (prod.getPrecioDebito()!=0){
                             precio=prod.getPrecioDebito();
                         }else{
                             precio=prod.getPrecioContado();
                         }
-                        break;
-                    default: //Credito y otros
-                        if (prod.getPrecioCredito()!=0){
-                            precio=prod.getPrecioCredito();
-                        }else{
-                            if (prod.getPrecioDebito()!=0){
-                                precio=prod.getPrecioDebito();
-                            }else{
-                                precio=prod.getPrecioContado();
-                            }
-                        }
-                    break;
-                }
+                    }
+                break;
+            }
                     float precioTotalNuevo = parseFloat(tabla.getValueAt(i,3).toString())*parseInt(detalleProducto.getValueAt(i, 2).toString());
                     Object [] row = {prod.getCodigoDeProducto(), prod.getNombreProducto(), 
                     parseInt(detalleProducto.getValueAt(i, 2).toString()), precio, precioTotalNuevo};
