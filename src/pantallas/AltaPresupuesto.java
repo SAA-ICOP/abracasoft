@@ -129,6 +129,11 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         precioTotal.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         guardarPesup.setText("Guardar e Imprimir presupuesto");
+        guardarPesup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarPesupActionPerformed(evt);
+            }
+        });
 
         ayuda.setText("Ayuda");
         ayuda.addActionListener(new java.awt.event.ActionListener() {
@@ -183,6 +188,11 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         mailCliente.setBackground(new java.awt.Color(204, 204, 204));
 
         aVenta.setText("Transformar en Venta e Imprimir");
+        aVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aVentaActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Cliente:");
 
@@ -456,6 +466,18 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         recalcularImporte();
     }//GEN-LAST:event_formaDePagoItemStateChanged
 
+    private void guardarPesupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarPesupActionPerformed
+        if (validar()==true){
+            
+        }
+    }//GEN-LAST:event_guardarPesupActionPerformed
+
+    private void aVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aVentaActionPerformed
+        if (validar()==true){
+            
+        }
+    }//GEN-LAST:event_aVentaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -672,5 +694,20 @@ public class AltaPresupuesto extends javax.swing.JFrame {
             } 
         }
         actualizarTotal();
+    }
+
+    private boolean validar() {
+        boolean validar = true;
+        DefaultTableModel tabla = (DefaultTableModel) detalleProducto.getModel();
+        if (tabla.getRowCount()==0){
+            JOptionPane.showMessageDialog(null, "No hay ningún renglón");
+            validar = false;
+        }
+
+        if (clienteElegido.getText().equalsIgnoreCase("") && (formaDePago.getSelectedIndex()==3 || formaDePago.getSelectedIndex()==4)){
+            JOptionPane.showMessageDialog(null, "La forma de pago seleccionada requiere seleccionar un cliente");
+            validar = false;
+        }
+        return validar;
     }
 }

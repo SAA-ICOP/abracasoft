@@ -298,6 +298,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Guardar e Imprimir presupuesto"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="guardarPesupActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="ayuda">
           <Properties>
@@ -408,6 +411,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Transformar en Venta e Imprimir"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aVentaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
