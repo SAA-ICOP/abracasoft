@@ -82,14 +82,20 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         cantidadRenglon = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
+        jbClienteCasual = new javax.swing.JButton();
 
         jRadioButton3.setText("jRadioButton3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Nuevo presupuesto - Abracasoft");
 
-        BeliminarProducto.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
-        BeliminarProducto.setText("Eliminar Producto");
+        BeliminarProducto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        BeliminarProducto.setText("Quitar Producto Seleccionado");
+        BeliminarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BeliminarProductoActionPerformed(evt);
+            }
+        });
 
         detalleProducto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -200,7 +206,7 @@ public class AltaPresupuesto extends javax.swing.JFrame {
             }
         });
 
-        formaDePago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        formaDePago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Efectivo", "Débito", "Crédito", "Cuenta Corriente", "Pago Parcial" }));
 
         jLabel9.setText("Forma de Pago:");
 
@@ -214,6 +220,14 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         });
 
         jLabel10.setText("x");
+
+        jbClienteCasual.setFont(new java.awt.Font("Times", 1, 12)); // NOI18N
+        jbClienteCasual.setText("Cliente Casual");
+        jbClienteCasual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbClienteCasualActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -257,7 +271,9 @@ public class AltaPresupuesto extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(listaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton5))
+                                .addComponent(jButton5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jbClienteCasual))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(39, 39, 39)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,9 +285,7 @@ public class AltaPresupuesto extends javax.swing.JFrame {
                                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(BeliminarProducto)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                                 .addComponent(cancelarPresup)
                                                 .addGap(18, 18, 18)
                                                 .addComponent(guardarPesup))
@@ -284,13 +298,14 @@ public class AltaPresupuesto extends javax.swing.JFrame {
                                                 .addGap(324, 324, 324)
                                                 .addComponent(jLabel1)
                                                 .addGap(18, 18, 18)
-                                                .addComponent(precioTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(formaDePago, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(precioTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                .addComponent(BeliminarProducto)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabel9)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(formaDePago, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -301,7 +316,8 @@ public class AltaPresupuesto extends javax.swing.JFrame {
                     .addComponent(nombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(listaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(jButton5))
+                    .addComponent(jButton5)
+                    .addComponent(jbClienteCasual))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(clienteElegido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -333,16 +349,15 @@ public class AltaPresupuesto extends javax.swing.JFrame {
                             .addComponent(jLabel8)
                             .addComponent(cantidadRenglon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10))))
-                .addGap(21, 21, 21)
+                .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(formaDePago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addGap(27, 27, 27)
+                    .addComponent(jLabel9)
+                    .addComponent(BeliminarProducto))
+                .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(guardarPesup, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cancelarPresup)
-                        .addComponent(BeliminarProducto)))
+                    .addComponent(cancelarPresup))
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(aVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -418,6 +433,20 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cantidadRenglonKeyTyped
 
+    private void BeliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BeliminarProductoActionPerformed
+        eliminarItemProducto();
+    }//GEN-LAST:event_BeliminarProductoActionPerformed
+
+    private void jbClienteCasualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbClienteCasualActionPerformed
+        clienteElegido.setText("");
+        direccionCliente.setText("");
+        telCliente.setText("");
+        mailCliente.setText("");
+        dniCliente.setText("");
+        nombreCliente.setText("");
+        listaCliente.removeAllItems();
+    }//GEN-LAST:event_jbClienteCasualActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -480,6 +509,7 @@ public class AltaPresupuesto extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton jbClienteCasual;
     private javax.swing.JComboBox listaCliente;
     private javax.swing.JTextField mailCliente;
     private javax.swing.JTextField nombreCliente;
@@ -490,49 +520,66 @@ public class AltaPresupuesto extends javax.swing.JFrame {
     private Cliente cli;
     
     private void agregarRenglon() {
-        System.out.println(codigoBarra.getText());
         DefaultTableModel tabla = (DefaultTableModel) detalleProducto.getModel();
-        
         long codProducto = parseLong(codigoBarra.getText());
         Producto prod = GestorProducto.ConsultaProducto(codProducto);
-        
         int cantidad = 0;
+        
         try{
             cantidad = parseInt(cantidadRenglon.getText());
         }catch (NumberFormatException e){
             JOptionPane.showMessageDialog(null, "Ingrese una cantidad");
         }
+        float precio;
+        int op = formaDePago.getSelectedIndex();
+        switch (op){
+            case 0:
+                precio=prod.getPrecioContado(); 
+                break;
+            case 1:
+                if (prod.getPrecioDebito()!=0){
+                    precio=prod.getPrecioDebito();
+                }else{
+                    precio=prod.getPrecioContado();
+                }
+                break;
+            default: //Credito y otros
+                if (prod.getPrecioCredito()!=0){
+                    precio=prod.getPrecioCredito();
+                }else{
+                    if (prod.getPrecioDebito()!=0){
+                        precio=prod.getPrecioDebito();
+                    }else{
+                        precio=prod.getPrecioContado();
+                    }
+                }
+                break;
+        }
         
         int senia = 0;
-        
-        for (int i = 0; i<tabla.getRowCount(); i++){
-            
-            if ((tabla.getValueAt(i, 0).toString()).equalsIgnoreCase(valueOf(prod.getCodigoDeProducto())) && senia == 0){
-                
-                int nuevaCantidad = parseInt(tabla.getValueAt(i,2).toString())+cantidad;
-                
-                System.out.println(nuevaCantidad);
-                
-                float precioTotalNuevo = parseFloat(tabla.getValueAt(i,3).toString())*nuevaCantidad;
-                
-                System.out.println(precioTotalNuevo);
-                
+        if (prod.getCodigoDeProducto() != 0){
+            for (int i = 0; i<tabla.getRowCount(); i++){
+                if ((tabla.getValueAt(i, 0).toString()).equalsIgnoreCase(valueOf(prod.getCodigoDeProducto())) && senia == 0){
+                    int nuevaCantidad = parseInt(tabla.getValueAt(i,2).toString())+cantidad;
+                    float precioTotalNuevo = parseFloat(tabla.getValueAt(i,3).toString())*nuevaCantidad;
+                    Object [] row = {prod.getCodigoDeProducto(), prod.getNombreProducto(), 
+                    nuevaCantidad, precio, precioTotalNuevo};
+                    senia=1;
+                    tabla.removeRow(i);
+                    tabla.addRow(row);
+                }
+            }
+            if (senia == 0){ 
                 Object [] row = {prod.getCodigoDeProducto(), prod.getNombreProducto(), 
-                nuevaCantidad, prod.getPrecioContado(), precioTotalNuevo};
-                senia=1;
-                tabla.removeRow(i);
+                cantidad, precio, precio*cantidad};
                 tabla.addRow(row);
             }
-        }if (senia == 0){ 
-            Object [] row = {prod.getCodigoDeProducto(), prod.getNombreProducto(), 
-            cantidad, prod.getPrecioContado(), prod.getPrecioContado()*cantidad};
-            tabla.addRow(row);
+        }else{
+            JOptionPane.showMessageDialog(null, "Error en la lectura del código "
+                    + "o producto inexistente");
         }
-
         
-        
-        
-        
+        actualizarTotal();
         codigoBarra.setText("");
         cantidadRenglon.setText("1");
     }
@@ -550,6 +597,27 @@ public class AltaPresupuesto extends javax.swing.JFrame {
                     GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getDniCuilCuit(),
                     GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getMailCliente());
                 listaCliente.addItem(cli);
+            }
+        }
+    }
+
+    private void actualizarTotal() {
+        DefaultTableModel tabla = (DefaultTableModel) detalleProducto.getModel();
+        float suma = 0;
+        for (int i = 0; i<tabla.getRowCount(); i++){
+            suma += parseFloat(tabla.getValueAt(i,4).toString());
+        }
+        precioTotal.setText("$ " + valueOf(suma));
+    }
+
+    private void eliminarItemProducto() {
+        DefaultTableModel tabla = (DefaultTableModel) detalleProducto.getModel();
+        if (tabla.getRowCount()!=0){
+            try{
+                tabla.removeRow(detalleProducto.getSelectedRow());
+            }catch (ArrayIndexOutOfBoundsException e){
+                JOptionPane.showMessageDialog(null, "Debe seleccionar el producto"
+                        + " a eliminar");
             }
         }
     }
