@@ -128,5 +128,9 @@ public class Cliente {
     public void setMailCliente(String mailCliente) {
         MailCliente = mailCliente;
     }
+    
+    public String toString() {
+        return NombreCliente;
+    }
 
 }

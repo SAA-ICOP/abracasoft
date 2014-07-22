@@ -6,10 +6,26 @@
 
 package pantallas;
 
+import entidades.Cliente;
+import entidades.Producto;
 import gestores.GestorCliente;
+import gestores.GestorProducto;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
+import static java.lang.Float.parseFloat;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Long.parseLong;
+import static java.lang.Long.parseLong;
+import static java.lang.Long.parseLong;
+import static java.lang.Long.parseLong;
+import static java.lang.String.valueOf;
+import static java.lang.String.valueOf;
+import static java.lang.String.valueOf;
+import static java.lang.String.valueOf;
+import static java.lang.String.valueOf;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -77,20 +93,17 @@ public class AltaPresupuesto extends javax.swing.JFrame {
 
         detalleProducto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Producto", "Cantidad", "Precio"
+                "Codigo", "Producto", "Cantidad", "Precio Unitario", "Precio Total"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Float.class
+                java.lang.Long.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class, java.lang.Float.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                true, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -125,7 +138,11 @@ public class AltaPresupuesto extends javax.swing.JFrame {
             }
         });
 
-        listaCliente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        listaCliente.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                listaClienteItemStateChanged(evt);
+            }
+        });
 
         nombreCliente.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, java.awt.Color.lightGray));
         nombreCliente.addCaretListener(new javax.swing.event.CaretListener() {
@@ -190,6 +207,11 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         cantidadRenglon.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cantidadRenglon.setText("1");
         cantidadRenglon.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        cantidadRenglon.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cantidadRenglonKeyTyped(evt);
+            }
+        });
 
         jLabel10.setText("x");
 
@@ -316,10 +338,11 @@ public class AltaPresupuesto extends javax.swing.JFrame {
                     .addComponent(formaDePago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelarPresup)
-                    .addComponent(BeliminarProducto)
-                    .addComponent(guardarPesup, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(guardarPesup, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cancelarPresup)
+                        .addComponent(BeliminarProducto)))
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(aVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -355,7 +378,13 @@ public class AltaPresupuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void codigoBarraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoBarraKeyTyped
-        
+        char car = evt.getKeyChar();
+        if ((car < '0' || car > '9')) {
+            evt.consume();
+        }
+        if (codigoBarra.getText().trim().length() == 13){
+            agregarRenglon();
+        }
     }//GEN-LAST:event_codigoBarraKeyTyped
 
     private void codigoBarraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoBarraKeyReleased
@@ -371,6 +400,23 @@ public class AltaPresupuesto extends javax.swing.JFrame {
     private void nombreClienteCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_nombreClienteCaretUpdate
         buscarMientrasEscribe();
     }//GEN-LAST:event_nombreClienteCaretUpdate
+
+    private void listaClienteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_listaClienteItemStateChanged
+        if (listaCliente.getSelectedItem()!=null){
+            Cliente c = (Cliente) listaCliente.getSelectedItem();
+            clienteElegido.setText(c.getNombreCliente());
+            telCliente.setText(valueOf(c.getTelefonoCliente()));
+            direccionCliente.setText(c.getDireccionCliente());
+            mailCliente.setText(c.getMailCliente());
+        };        
+    }//GEN-LAST:event_listaClienteItemStateChanged
+
+    private void cantidadRenglonKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadRenglonKeyTyped
+        char car = evt.getKeyChar();
+        if ((car < '0' || car > '9')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_cantidadRenglonKeyTyped
 
     /**
      * @param args the command line arguments
@@ -441,10 +487,52 @@ public class AltaPresupuesto extends javax.swing.JFrame {
     private javax.swing.JTextField telCliente;
     // End of variables declaration//GEN-END:variables
     private String paraBuscar="";
-    
+    private Cliente cli;
     
     private void agregarRenglon() {
         System.out.println(codigoBarra.getText());
+        DefaultTableModel tabla = (DefaultTableModel) detalleProducto.getModel();
+        
+        long codProducto = parseLong(codigoBarra.getText());
+        Producto prod = GestorProducto.ConsultaProducto(codProducto);
+        
+        int cantidad = 0;
+        try{
+            cantidad = parseInt(cantidadRenglon.getText());
+        }catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "Ingrese una cantidad");
+        }
+        
+        int senia = 0;
+        
+        for (int i = 0; i<tabla.getRowCount(); i++){
+            
+            if ((tabla.getValueAt(i, 0).toString()).equalsIgnoreCase(valueOf(prod.getCodigoDeProducto())) && senia == 0){
+                
+                int nuevaCantidad = parseInt(tabla.getValueAt(i,2).toString())+cantidad;
+                
+                System.out.println(nuevaCantidad);
+                
+                float precioTotalNuevo = parseFloat(tabla.getValueAt(i,3).toString())*nuevaCantidad;
+                
+                System.out.println(precioTotalNuevo);
+                
+                Object [] row = {prod.getCodigoDeProducto(), prod.getNombreProducto(), 
+                nuevaCantidad, prod.getPrecioContado(), precioTotalNuevo};
+                senia=1;
+                tabla.removeRow(i);
+                tabla.addRow(row);
+            }
+        }if (senia == 0){ 
+            Object [] row = {prod.getCodigoDeProducto(), prod.getNombreProducto(), 
+            cantidad, prod.getPrecioContado(), prod.getPrecioContado()*cantidad};
+            tabla.addRow(row);
+        }
+
+        
+        
+        
+        
         codigoBarra.setText("");
         cantidadRenglon.setText("1");
     }
@@ -452,18 +540,16 @@ public class AltaPresupuesto extends javax.swing.JFrame {
     private void buscarMientrasEscribe() {
         paraBuscar = nombreCliente.getText();
         if (GestorCliente.ConsultaPorDescripcion(paraBuscar).size() != 0) {
+            listaCliente.removeAllItems();
             for (int i = 0; i < GestorCliente.ConsultaPorDescripcion(paraBuscar).size(); i++) {
-                Object[] fila = {GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getIdCliente(),
+                cli = new Cliente(GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getIdCliente(),
                     GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getNombreCliente(),
                     GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getDireccionCliente(),
-                    GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getMailCliente(),
                     GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getCodigoPostalCliente(),
                     GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getTelefonoCliente(),
                     GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getDniCuilCuit(),
-                    GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getEsatdo(),
-                };
-                listaCliente.removeAllItems();
-                listaCliente.addItem(fila[1]);
+                    GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getMailCliente());
+                listaCliente.addItem(cli);
             }
         }
     }
