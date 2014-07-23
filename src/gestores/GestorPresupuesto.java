@@ -107,4 +107,66 @@ public class GestorPresupuesto {
         }
         return ok;
     }
+    
+    public static int agregarPresupuesto(int codiCli, String vigencia) {
+        int nuevoPresupuesto = 0;
+        String sql = "insert into presupuesto (IDCLIENTE, VIGENPRESUPUESTO) values (?,?)";
+        String sql2 = "SELECT max(IDPRESUPUESTO) as id FROM presupuesto";
+        System.out.println(codiCli + vigencia);
+        try {
+            PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
+            pst.setInt(1,codiCli);
+            pst.setString(2, vigencia);
+            pst.executeUpdate();
+            
+            pst = Conexion.conectar().prepareStatement(sql2);
+            ResultSet resultado = pst.executeQuery();
+            if (resultado.next()) {
+                nuevoPresupuesto = resultado.getInt("id");
+            }
+        } catch (SQLException e) {
+            System.out.println("No se pudo agregar el presupuesto");
+        }
+        return nuevoPresupuesto;
+    }
+    
+    public static int agregarPresupuesto(String vigencia) {
+        int nuevoPresupuesto = 0;
+        String sql = "insert into presupuesto (VIGENPRESUPUESTO) values (?)";
+        String sql2 = "SELECT max(IDPRESUPUESTO) as id FROM presupuesto";
+        System.out.println(vigencia);
+        try {
+            PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
+            pst.setString(1, vigencia);
+            pst.executeUpdate();
+            
+            pst = Conexion.conectar().prepareStatement(sql2);
+            ResultSet resultado = pst.executeQuery();
+            if (resultado.next()) {
+                nuevoPresupuesto = resultado.getInt("id");
+            }
+        } catch (SQLException e) {
+            System.out.println("No se pudo agregar el presupuesto");
+        }
+        return nuevoPresupuesto;
+    }
+    
+    public static boolean productoPresupuesto(int codPresu, long codProd, int cantidad, float precio) {
+        boolean ok = false;
+        
+        String sql = "insert into relation_168 (IDPRESUPUESTO,IDPRODUCTO,CANTIDAD,PRECIOVENTA) values (?,?,?,?)";
+        
+        try {
+            PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
+            pst.setInt(1,codPresu);
+            pst.setLong(2, codProd);
+            pst.setInt(3, cantidad);
+            pst.setFloat(4, precio);
+            pst.executeUpdate();
+            ok=true;
+        } catch (SQLException e) {
+            System.out.println("No se pudo agregar el presupuesto");
+        }
+        return ok;
+    }
 }

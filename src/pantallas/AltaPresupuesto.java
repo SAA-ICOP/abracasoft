@@ -9,21 +9,17 @@ package pantallas;
 import entidades.Cliente;
 import entidades.Producto;
 import gestores.GestorCliente;
+import gestores.GestorPresupuesto;
 import gestores.GestorProducto;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
-import static java.lang.Integer.parseInt;
-import static java.lang.Long.parseLong;
-import static java.lang.Long.parseLong;
-import static java.lang.Long.parseLong;
 import static java.lang.Long.parseLong;
 import static java.lang.String.valueOf;
-import static java.lang.String.valueOf;
-import static java.lang.String.valueOf;
-import static java.lang.String.valueOf;
-import static java.lang.String.valueOf;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -468,7 +464,7 @@ public class AltaPresupuesto extends javax.swing.JFrame {
 
     private void guardarPesupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarPesupActionPerformed
         if (validar()==true){
-            
+            crearPresupuesto();
         }
     }//GEN-LAST:event_guardarPesupActionPerformed
 
@@ -667,8 +663,6 @@ public class AltaPresupuesto extends javax.swing.JFrame {
 
     private void recalcularImporte() {
         DefaultTableModel tabla = (DefaultTableModel) detalleProducto.getModel();
-
-        
         if (tabla.getRowCount()!=0){
         
             for (int i = 0; i<tabla.getRowCount(); i++){
@@ -733,5 +727,49 @@ public class AltaPresupuesto extends javax.swing.JFrame {
             validar = false;
         }
         return validar;
+    }
+
+    private boolean crearPresupuesto() {
+        boolean status = true;
+        DefaultTableModel tabla = (DefaultTableModel) detalleProducto.getModel();
+        int nuevoPresupuesto;
+        
+        Date fecha = new Date();      
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fecha); 
+        calendar.add(Calendar.DAY_OF_YEAR, 30); 
+        SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaVigencia = formateador.format(calendar.getTime());
+        
+        int codCliente = 0;
+        if (listaCliente.getSelectedItem()!=null){
+            Cliente c = (Cliente) listaCliente.getSelectedItem();
+            codCliente = c.getIdCliente();
+        }
+        
+        if(codCliente!=0){
+            nuevoPresupuesto = GestorPresupuesto.agregarPresupuesto(codCliente, fechaVigencia);
+        }else{
+            nuevoPresupuesto = GestorPresupuesto.agregarPresupuesto(fechaVigencia);
+        }
+        
+        if (nuevoPresupuesto!=0){
+            System.out.println("nuevo presupuesto creado");
+            for (int i = 0; i<tabla.getRowCount(); i++){
+                long codiProd = parseLong(tabla.getValueAt(i,0).toString());
+                int cantidad = parseInt(tabla.getValueAt(i,2).toString());
+                float precioRenglon = parseFloat(tabla.getValueAt(i,4).toString());
+                
+                if(GestorPresupuesto.productoPresupuesto(nuevoPresupuesto, codiProd, cantidad, precioRenglon)){
+                    System.out.println("Cargo relation_168 pasada " + i);
+                }
+                if(GestorProducto.restarCantidadProducto(codiProd, cantidad)){
+                    System.out.println("Resto Producto pasada " + i);
+                }
+            }
+        }
+          
+          
+        return status;
     }
 }

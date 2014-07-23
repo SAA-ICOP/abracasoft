@@ -229,4 +229,32 @@ public class GestorProducto {
         }
         return ok;
     }
+    
+    public static boolean restarCantidadProducto(long idProd, int cantidad) {
+        boolean ok = false;
+        String sql1 = "SELECT STOCK-? as cant from producto where idproducto=?";
+        String sql2 = "UPDATE producto SET STOCK = ? where idproducto=?";
+        int nuevaCantidad = -888888888;
+        try{
+            PreparedStatement pst = Conexion.conectar().prepareStatement(sql1);
+            pst.setInt(1, cantidad);
+            pst.setLong(2, idProd);
+            ResultSet resultSet = pst.executeQuery();
+            if (resultSet.next()){
+                nuevaCantidad = resultSet.getInt("cant");
+            }
+            
+            if (nuevaCantidad!=-888888888){
+                pst=Conexion.conectar().prepareStatement(sql2);
+                pst.setInt(1, nuevaCantidad);
+                pst.setLong(2,idProd);
+                pst.executeUpdate();
+            }
+            ok=true;
+        } catch (SQLException e) {
+            System.out.println("No se pudo modificar el producto");
+        }
+            
+        return ok;
+    }
 }
