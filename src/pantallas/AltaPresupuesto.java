@@ -15,11 +15,43 @@ import java.awt.Component;
 import java.awt.event.KeyEvent;
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Long.parseLong;
+import static java.lang.Long.parseLong;
+import static java.lang.Long.parseLong;
+import static java.lang.Long.parseLong;
+import static java.lang.Long.parseLong;
+import static java.lang.Long.parseLong;
+import static java.lang.Long.parseLong;
+import static java.lang.Long.parseLong;
 import static java.lang.Long.parseLong;
 import static java.lang.String.valueOf;
+import static java.lang.String.valueOf;
+import static java.lang.String.valueOf;
+import static java.lang.String.valueOf;
+import static java.lang.String.valueOf;
+import static java.lang.String.valueOf;
+import static java.lang.String.valueOf;
+import static java.lang.String.valueOf;
+import static java.lang.String.valueOf;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import javax.print.Doc;
+import javax.print.DocFlavor;
+import javax.print.DocPrintJob;
+import javax.print.PrintException;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.SimpleDoc;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -434,7 +466,7 @@ public class AltaPresupuesto extends javax.swing.JFrame {
             telCliente.setText(valueOf(c.getTelefonoCliente()));
             direccionCliente.setText(c.getDireccionCliente());
             mailCliente.setText(c.getMailCliente());
-        };        
+        }        
     }//GEN-LAST:event_listaClienteItemStateChanged
 
     private void cantidadRenglonKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadRenglonKeyTyped
@@ -754,22 +786,59 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         }
         
         if (nuevoPresupuesto!=0){
-            System.out.println("nuevo presupuesto creado");
+            ArrayList<String> renglon = new ArrayList();
             for (int i = 0; i<tabla.getRowCount(); i++){
                 long codiProd = parseLong(tabla.getValueAt(i,0).toString());
                 int cantidad = parseInt(tabla.getValueAt(i,2).toString());
                 float precioRenglon = parseFloat(tabla.getValueAt(i,4).toString());
                 
-                if(GestorPresupuesto.productoPresupuesto(nuevoPresupuesto, codiProd, cantidad, precioRenglon)){
-                    System.out.println("Cargo relation_168 pasada " + i);
-                }
-                if(GestorProducto.restarCantidadProducto(codiProd, cantidad)){
-                    System.out.println("Resto Producto pasada " + i);
-                }
+                GestorPresupuesto.productoPresupuesto(nuevoPresupuesto, codiProd, cantidad, precioRenglon);
+/* esto deberìa ir en el boton venta ------>*/GestorProducto.restarCantidadProducto(codiProd, cantidad);
+                
+                renglon.add(tabla.getValueAt(i,1).toString() + " x " + tabla.getValueAt(i,2).toString()
+                + "\n\r\t\t\t\t" + tabla.getValueAt(i,3).toString() + " = " + tabla.getValueAt(i,4).toString());
             }
+            imprimir(renglon,precioTotal.getText(), nuevoPresupuesto);
         }
-          
-          
-        return status;
+    return status;
+    }
+    
+    private void imprimir(ArrayList<String> renglon, String total, int nuPresup){
+        
+        DocFlavor byar = DocFlavor.BYTE_ARRAY.AUTOSENSE;
+        
+        //Aqui selecciona tu impresora, el ejemplo tomará la impresora predeterminada.
+        PrintService impresoraDefa = PrintServiceLookup.lookupDefaultPrintService();
+        DocPrintJob trabajoImpresora = impresoraDefa.createPrintJob();
+        
+        String detalle = "-------------------------\n\r"
+                + "Abracadabra Cotillon de \n\r"
+                + "Demichelis Cintia \n\r" 
+                + "CUIT: 27-29759893-2 \n\r"
+                + "Domicilio: Saenz Peña 1240 \n\r"
+                + "Telefono: 03437-15440136 \n\n\r"
+                + "Presupuesto Numero: " + valueOf(nuPresup)
+                + "\n\r DETALLE: \n\r";
+        
+        
+        for (int i=0; i<renglon.size();i++){
+            detalle += renglon.get(i) + "\n\r";
+        }
+        
+        detalle += "\n Monto Total: " + total;
+        
+        String mostrar = detalle.replaceAll("á","a").replaceAll("é", "e")
+                .replaceAll("í", "i").replaceAll("ó", "o").replaceAll("ú", "u")
+                .replaceAll("ü", "u");
+                
+        byte[] bytes = mostrar.getBytes();
+        
+        Doc doc = new SimpleDoc(bytes, byar, null);
+        
+        try {
+            trabajoImpresora.print(doc, null);
+        } catch (PrintException e) {
+            System.out.println(e);
+        }
     }
 }

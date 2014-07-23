@@ -112,7 +112,6 @@ public class GestorPresupuesto {
         int nuevoPresupuesto = 0;
         String sql = "insert into presupuesto (IDCLIENTE, VIGENPRESUPUESTO) values (?,?)";
         String sql2 = "SELECT max(IDPRESUPUESTO) as id FROM presupuesto";
-        System.out.println(codiCli + vigencia);
         try {
             PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
             pst.setInt(1,codiCli);
@@ -134,7 +133,6 @@ public class GestorPresupuesto {
         int nuevoPresupuesto = 0;
         String sql = "insert into presupuesto (VIGENPRESUPUESTO) values (?)";
         String sql2 = "SELECT max(IDPRESUPUESTO) as id FROM presupuesto";
-        System.out.println(vigencia);
         try {
             PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
             pst.setString(1, vigencia);
