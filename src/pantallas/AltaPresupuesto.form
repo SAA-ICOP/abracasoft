@@ -234,16 +234,22 @@
             <Component class="javax.swing.JTable" name="detalleProducto">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="5" rowCount="0">
-                    <Column editable="true" title="Codigo" type="java.lang.Long"/>
+                  <Table columnCount="6" rowCount="0">
+                    <Column editable="false" title="Codigo" type="java.lang.Long"/>
                     <Column editable="false" title="Producto" type="java.lang.String"/>
                     <Column editable="false" title="Cantidad" type="java.lang.Integer"/>
                     <Column editable="false" title="Precio Unitario" type="java.lang.Float"/>
-                    <Column editable="false" title="Precio Total" type="java.lang.Float"/>
+                    <Column editable="false" title="Precio Neto Total" type="java.lang.Float"/>
+                    <Column editable="false" title="Precio con IVA" type="java.lang.Float"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>

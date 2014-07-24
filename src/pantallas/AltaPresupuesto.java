@@ -11,35 +11,12 @@ import entidades.Producto;
 import gestores.GestorCliente;
 import gestores.GestorPresupuesto;
 import gestores.GestorProducto;
+import gestores.GestorVenta;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
-import static java.lang.Integer.parseInt;
-import static java.lang.Integer.parseInt;
-import static java.lang.Integer.parseInt;
-import static java.lang.Integer.parseInt;
-import static java.lang.Integer.parseInt;
-import static java.lang.Integer.parseInt;
-import static java.lang.Integer.parseInt;
-import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
-import static java.lang.Long.parseLong;
-import static java.lang.Long.parseLong;
-import static java.lang.Long.parseLong;
-import static java.lang.Long.parseLong;
-import static java.lang.Long.parseLong;
-import static java.lang.Long.parseLong;
-import static java.lang.Long.parseLong;
-import static java.lang.Long.parseLong;
-import static java.lang.String.valueOf;
-import static java.lang.String.valueOf;
-import static java.lang.String.valueOf;
-import static java.lang.String.valueOf;
-import static java.lang.String.valueOf;
-import static java.lang.String.valueOf;
-import static java.lang.String.valueOf;
-import static java.lang.String.valueOf;
 import static java.lang.String.valueOf;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -130,14 +107,14 @@ public class AltaPresupuesto extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Codigo", "Producto", "Cantidad", "Precio Unitario", "Precio Total"
+                "Codigo", "Producto", "Cantidad", "Precio Unitario", "Precio Neto Total", "Precio con IVA"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class, java.lang.Float.class
+                java.lang.Long.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -478,6 +455,7 @@ public class AltaPresupuesto extends javax.swing.JFrame {
 
     private void BeliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BeliminarProductoActionPerformed
         eliminarItemProducto();
+        actualizarTotal();
     }//GEN-LAST:event_BeliminarProductoActionPerformed
 
     private void jbClienteCasualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbClienteCasualActionPerformed
@@ -502,7 +480,13 @@ public class AltaPresupuesto extends javax.swing.JFrame {
 
     private void aVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aVentaActionPerformed
         if (validar()==true){
-            
+            int codigoPresupuesto;
+            try{
+                codigoPresupuesto=crearPresupuesto();
+                concretarVenta(codigoPresupuesto);
+            }catch(Error e){
+                JOptionPane.showMessageDialog(null, "No se pudo registrar la venta");
+            }
         }
     }//GEN-LAST:event_aVentaActionPerformed
 
@@ -577,6 +561,7 @@ public class AltaPresupuesto extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private String paraBuscar="";
     private Cliente cli;
+    private float iva = (float) 1.21;
     
     private void agregarRenglon() {
         DefaultTableModel tabla = (DefaultTableModel) detalleProducto.getModel();
@@ -634,7 +619,7 @@ public class AltaPresupuesto extends javax.swing.JFrame {
                     int nuevaCantidad = parseInt(tabla.getValueAt(i,2).toString())+cantidad;
                     float precioTotalNuevo = parseFloat(tabla.getValueAt(i,3).toString())*nuevaCantidad;
                     Object [] row = {prod.getCodigoDeProducto(), prod.getNombreProducto(), 
-                    nuevaCantidad, precio, precioTotalNuevo};
+                    nuevaCantidad, precio, precioTotalNuevo, precioTotalNuevo*iva};
                     senia=1;
                     tabla.removeRow(i);
                     tabla.addRow(row);
@@ -642,7 +627,7 @@ public class AltaPresupuesto extends javax.swing.JFrame {
             }
             if (senia == 0){ 
                 Object [] row = {prod.getCodigoDeProducto(), prod.getNombreProducto(), 
-                cantidad, precio, precio*cantidad};
+                cantidad, precio, precio*cantidad, precio*cantidad*iva};
                 tabla.addRow(row);
             }
         }else{
@@ -676,9 +661,13 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         DefaultTableModel tabla = (DefaultTableModel) detalleProducto.getModel();
         float suma = 0;
         for (int i = 0; i<tabla.getRowCount(); i++){
-            suma += parseFloat(tabla.getValueAt(i,4).toString());
+            suma += parseFloat(tabla.getValueAt(i,5).toString());
         }
-        precioTotal.setText("$ " + valueOf(suma));
+        try{
+            precioTotal.setText("$ " + valueOf(suma).substring(0, valueOf(suma).indexOf(".")+3));
+        }catch (StringIndexOutOfBoundsException e){
+            precioTotal.setText("$ " + valueOf(suma));
+        }
     }
 
     private void eliminarItemProducto() {
@@ -738,7 +727,7 @@ public class AltaPresupuesto extends javax.swing.JFrame {
             }
                     float precioTotalNuevo = parseFloat(tabla.getValueAt(i,3).toString())*parseInt(detalleProducto.getValueAt(i, 2).toString());
                     Object [] row = {prod.getCodigoDeProducto(), prod.getNombreProducto(), 
-                    parseInt(detalleProducto.getValueAt(i, 2).toString()), precio, precioTotalNuevo};
+                    parseInt(detalleProducto.getValueAt(i, 2).toString()), precio, precioTotalNuevo, precioTotalNuevo*iva};
                     tabla.removeRow(i);
                     tabla.addRow(row);
             } 
@@ -755,14 +744,14 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         }
 
         if (clienteElegido.getText().equalsIgnoreCase("") && (formaDePago.getSelectedIndex()==3 || formaDePago.getSelectedIndex()==4)){
-            JOptionPane.showMessageDialog(null, "La forma de pago seleccionada requiere seleccionar un cliente");
+            JOptionPane.showMessageDialog(null, "La forma de pago requiere seleccionar un cliente");
             validar = false;
         }
         return validar;
     }
 
-    private boolean crearPresupuesto() {
-        boolean status = true;
+    private int crearPresupuesto() {
+        int status = 0;
         DefaultTableModel tabla = (DefaultTableModel) detalleProducto.getModel();
         int nuevoPresupuesto;
         
@@ -790,20 +779,27 @@ public class AltaPresupuesto extends javax.swing.JFrame {
             for (int i = 0; i<tabla.getRowCount(); i++){
                 long codiProd = parseLong(tabla.getValueAt(i,0).toString());
                 int cantidad = parseInt(tabla.getValueAt(i,2).toString());
-                float precioRenglon = parseFloat(tabla.getValueAt(i,4).toString());
+                float precioRenglon = parseFloat(tabla.getValueAt(i,5).toString());
+                String precioUnitarioConIVa = valueOf(parseFloat(tabla.getValueAt(i,3).toString())*iva);
                 
                 GestorPresupuesto.productoPresupuesto(nuevoPresupuesto, codiProd, cantidad, precioRenglon);
-/* esto deberìa ir en el boton venta ------>*/GestorProducto.restarCantidadProducto(codiProd, cantidad);
+
+                String descripcionProd = tabla.getValueAt(i,1).toString();
+                try{
+                    descripcionProd= tabla.getValueAt(i,1).toString().substring(0, 30);
+                }catch (StringIndexOutOfBoundsException e){
+                }
                 
-                renglon.add(tabla.getValueAt(i,1).toString() + " x " + tabla.getValueAt(i,2).toString()
-                + "\n\r\t\t\t\t" + tabla.getValueAt(i,3).toString() + " = " + tabla.getValueAt(i,4).toString());
+                renglon.add(descripcionProd + "\n\r x " + tabla.getValueAt(i,2).toString()
+                + "\t\t" + precioUnitarioConIVa + " = " + tabla.getValueAt(i,5).toString());
             }
             imprimir(renglon,precioTotal.getText(), nuevoPresupuesto);
+            status = nuevoPresupuesto;
         }
     return status;
     }
     
-    private void imprimir(ArrayList<String> renglon, String total, int nuPresup){
+    private void imprimir(ArrayList<String> renglonPresupuesto, String total, int nuPresup){
         
         DocFlavor byar = DocFlavor.BYTE_ARRAY.AUTOSENSE;
         
@@ -811,25 +807,98 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         PrintService impresoraDefa = PrintServiceLookup.lookupDefaultPrintService();
         DocPrintJob trabajoImpresora = impresoraDefa.createPrintJob();
         
-        String detalle = "-------------------------\n\r"
+        String detalle = "---------------------------\n\r"
                 + "Abracadabra Cotillon de \n\r"
                 + "Demichelis Cintia \n\r" 
                 + "CUIT: 27-29759893-2 \n\r"
                 + "Domicilio: Saenz Peña 1240 \n\r"
                 + "Telefono: 03437-15440136 \n\n\r"
-                + "Presupuesto Numero: " + valueOf(nuPresup)
+                + "Ticket Numero: " + valueOf(nuPresup)
                 + "\n\r DETALLE: \n\r";
         
         
-        for (int i=0; i<renglon.size();i++){
-            detalle += renglon.get(i) + "\n\r";
+        for (int i=0; i<renglonPresupuesto.size();i++){
+            detalle += renglonPresupuesto.get(i) + "\n\r";
         }
         
         detalle += "\n Monto Total: " + total;
         
         String mostrar = detalle.replaceAll("á","a").replaceAll("é", "e")
                 .replaceAll("í", "i").replaceAll("ó", "o").replaceAll("ú", "u")
-                .replaceAll("ü", "u");
+                .replaceAll("ü", "u").replaceAll("ñ", "n");
+                
+        byte[] bytes = mostrar.getBytes();
+        
+        Doc doc = new SimpleDoc(bytes, byar, null);
+        
+        try {
+            trabajoImpresora.print(doc, null);
+        } catch (PrintException e) {
+            System.out.println(e);
+        }
+    }
+
+    private void concretarVenta(int codiProd) {
+        DefaultTableModel tabla = (DefaultTableModel) detalleProducto.getModel();
+        int cantidad;
+        long producto;
+        int nuevaVenta=0;
+        
+        for (int i = 0; i<tabla.getRowCount(); i++){
+            producto = parseLong(tabla.getValueAt(i,0).toString());
+            cantidad = parseInt(tabla.getValueAt(i,2).toString());
+            GestorProducto.restarCantidadProducto(producto, cantidad);
+        }
+        
+        try{
+            nuevaVenta=GestorVenta.registrarVenta(codiProd, parseFloat(precioTotal.getText().substring(2)));
+        }catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "Error al registrar la  venta");
+        }
+        
+        if (nuevaVenta!=0){
+            String renglonVenta="";
+            switch (formaDePago.getSelectedIndex()){
+                case 0: 
+                    //Debería abrir una ventana en la cual se ponga el importe de pago y calcule el vuelto
+                    break;
+                    
+                case 1: 
+                    JOptionPane.showMessageDialog (null, "Venta Concretada", "Pago con Tarjeta de Débito", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                    
+                case 2: 
+                    JOptionPane.showMessageDialog (null, "Venta Concretada", "Pago con Tarjeta de Crédito", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                    
+                case 3:
+                   JOptionPane.showMessageDialog (null, "Venta Concretada, pago pendiente", "Pago con Tarjeta de Credito", JOptionPane.INFORMATION_MESSAGE);
+                   break;
+                    
+                case 4: 
+                    //Debería abrir una ventana que tome el monto de lo pagado
+                    break;
+                    
+                default: break;
+            }
+            GestorPresupuesto.presupusetoAVenta(nuevaVenta, codiProd);
+            
+            imprimir(renglonVenta);
+        }
+    }
+
+    private void imprimir(String renglonVenta) {
+                
+        DocFlavor byar = DocFlavor.BYTE_ARRAY.AUTOSENSE;
+        
+        PrintService impresoraDefa = PrintServiceLookup.lookupDefaultPrintService();
+        DocPrintJob trabajoImpresora = impresoraDefa.createPrintJob();
+        
+        String detalle = "\n\r Gracias por su compra \n\r" + renglonVenta;
+        
+        String mostrar = detalle.replaceAll("á","a").replaceAll("é", "e")
+                .replaceAll("í", "i").replaceAll("ó", "o").replaceAll("ú", "u")
+                .replaceAll("ü", "u").replaceAll("ñ", "n");
                 
         byte[] bytes = mostrar.getBytes();
         

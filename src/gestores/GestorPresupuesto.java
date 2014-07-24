@@ -167,4 +167,20 @@ public class GestorPresupuesto {
         }
         return ok;
     }
+    
+    public static boolean presupusetoAVenta(int idVenta, int idPresupuesto){
+        boolean ok = false;
+        String sql = "update presupuesto set IDVENTA = ? where idpresupuesto=?";
+        
+        try {
+            PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
+            pst.setInt(1,idVenta);
+            pst.setInt(2, idPresupuesto);
+            pst.executeUpdate();
+        }catch (SQLException e){
+            System.out.println("Fallo presupuestoAVenta");
+        }
+        
+        return ok;
+    }
 }
