@@ -83,4 +83,8 @@ public class Producto {
     public void setStockProducto(int stockProducto) {
         StockProducto = stockProducto;
     }
+    
+    public String toString() {
+        return NombreProducto;
+    }
 }
