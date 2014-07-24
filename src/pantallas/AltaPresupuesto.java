@@ -523,7 +523,9 @@ public class AltaPresupuesto extends javax.swing.JFrame {
 
     private void guardarPesupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarPesupActionPerformed
         if (validar()==true){
-            crearPresupuesto();
+            if (crearPresupuesto()!=0){
+                this.dispose();
+            }
         }
     }//GEN-LAST:event_guardarPesupActionPerformed
 
@@ -942,7 +944,7 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         }
         
         if (nuevaVenta!=0){
-            String renglonVenta="";
+            String textoVenta="";
             switch (formaDePago.getSelectedIndex()){
                 case 0: 
                     //Debería abrir una ventana en la cual se ponga el importe de pago y calcule el vuelto
@@ -950,14 +952,17 @@ public class AltaPresupuesto extends javax.swing.JFrame {
                     
                 case 1: 
                     JOptionPane.showMessageDialog (null, "Venta Concretada", "Pago con Tarjeta de Débito", JOptionPane.INFORMATION_MESSAGE);
+                    textoVenta = "\n\r Pago realizado \n\r Gracias por su compra";
                     break;
                     
                 case 2: 
                     JOptionPane.showMessageDialog (null, "Venta Concretada", "Pago con Tarjeta de Crédito", JOptionPane.INFORMATION_MESSAGE);
+                    textoVenta = "\n\r Pago realizado \n\r Gracias por su compra";
                     break;
                     
                 case 3:
                    JOptionPane.showMessageDialog (null, "Venta Concretada, pago pendiente", "Pago con Tarjeta de Credito", JOptionPane.INFORMATION_MESSAGE);
+                   textoVenta = "\n\r Pendiente de pago\n\r " + cli.getNombreCliente() + "\n\r";
                    break;
                     
                 case 4: 
@@ -968,18 +973,33 @@ public class AltaPresupuesto extends javax.swing.JFrame {
             }
             GestorPresupuesto.presupusetoAVenta(nuevaVenta, codiProd);
             
-            imprimir(renglonVenta);
+            int retry = 0;
+            
+            while (retry==0){
+                if (imprimir(textoVenta)==true){
+                    retry=1;
+                    this.dispose();
+                }else{
+                    int confirmado = JOptionPane.showConfirmDialog(aVenta, 
+                    "No se pudo imprimir ¿Desea reintentar?");
+                    if (JOptionPane.OK_OPTION == confirmado){
+                        retry=0;
+                    }else{
+                        retry=1;
+                    }
+                }
+            }
         }
     }
 
-    private void imprimir(String renglonVenta) {
-                
+    private boolean imprimir(String textoVenta) {
+        boolean impresion = false;
         DocFlavor byar = DocFlavor.BYTE_ARRAY.AUTOSENSE;
         
         PrintService impresoraDefa = PrintServiceLookup.lookupDefaultPrintService();
         DocPrintJob trabajoImpresora = impresoraDefa.createPrintJob();
         
-        String detalle = "\n\r Gracias por su compra \n\r" + renglonVenta;
+        String detalle = textoVenta;
         
         String mostrar = detalle.replaceAll("á","a").replaceAll("é", "e")
                 .replaceAll("í", "i").replaceAll("ó", "o").replaceAll("ú", "u")
@@ -991,8 +1011,10 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         
         try {
             trabajoImpresora.print(doc, null);
+            impresion = true;
         } catch (PrintException e) {
             System.out.println(e);
         }
+        return impresion;
     }
 }
