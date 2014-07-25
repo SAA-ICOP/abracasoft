@@ -805,11 +805,12 @@ public class AltaPresupuesto extends javax.swing.JFrame {
                     }
                 break;
             }
-                    float precioTotalNuevo = parseFloat(tabla.getValueAt(i,3).toString())*parseInt(detalleProducto.getValueAt(i, 2).toString());
+                    //float precioTotalNuevo = parseFloat(tabla.getValueAt(i,3).toString())*parseInt(detalleProducto.getValueAt(i, 2).toString());
+                    float precioTotalNuevo = precio*parseInt(detalleProducto.getValueAt(i, 2).toString());
                     Object [] row = {prod.getCodigoDeProducto(), prod.getNombreProducto(), 
                     parseInt(detalleProducto.getValueAt(i, 2).toString()), precio, precioTotalNuevo, precioTotalNuevo*iva};
-                    tabla.removeRow(i);
-                    tabla.addRow(row);
+                    tabla.insertRow(i, row);
+                    tabla.removeRow(i+1);
             } 
         }
         actualizarTotal();
