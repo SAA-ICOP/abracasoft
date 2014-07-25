@@ -39,4 +39,21 @@ public class GestorPago {
         }
         return cuentaPagoCliente;
     }
+    
+    public static boolean ingresarPago(int codCli, float pagoRealizado, int tipoPago){
+        boolean ok = false;
+        String sql = "insert into pago (IDCLIENTE,MONTOPAGO, FECHAPAGO, TIPOPAGO) values (?,?,now(),?)";
+        
+        try {
+            PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
+            pst.setInt(1, codCli);
+            pst.setFloat(2, pagoRealizado);
+            pst.setInt(3, tipoPago);
+            pst.executeUpdate();
+            ok=true;
+        } catch (SQLException e) {
+            System.out.println("No se pudo registrar el pago");
+        }
+        return ok;
+    }
 }

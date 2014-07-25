@@ -9,11 +9,10 @@ package pantallas;
 import entidades.Cliente;
 import entidades.Producto;
 import gestores.GestorCliente;
+import gestores.GestorPago;
 import gestores.GestorPresupuesto;
 import gestores.GestorProducto;
 import gestores.GestorVenta;
-import java.awt.Component;
-import java.awt.event.KeyEvent;
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
@@ -45,6 +44,7 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
+        codigoBarra.requestFocus();
     }
 
     /**
@@ -471,14 +471,7 @@ public class AltaPresupuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_codigoBarraKeyTyped
 
     private void codigoBarraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoBarraKeyReleased
-    /*    char car = evt.getKeyChar();
-        if ((car < '0' || car > '9')) {
-            evt.consume();
-        }
-        if (codigoBarra.getText().trim().length() == 13){
-            long codProducto = parseLong(codigoBarra.getText());
-            agregarRenglon(codProducto);
-        }*/        // TODO add your handling code here:
+    
     }//GEN-LAST:event_codigoBarraKeyReleased
 
     private void nombreClienteCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_nombreClienteCaretUpdate
@@ -945,33 +938,88 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         
         if (nuevaVenta!=0){
             String textoVenta="";
+            Cliente q;
+            String nomCli ="";
+            int idCli = 0;
+            try { 
+                q = (Cliente) listaCliente.getSelectedItem();
+                nomCli = q.getNombreCliente();
+                idCli = q.getIdCliente();
+            }catch (Error e){
+                System.out.println("Error al adquirir datos de cliente");
+            }
+            
             switch (formaDePago.getSelectedIndex()){
-                case 0: 
-                    //Debería abrir una ventana en la cual se ponga el importe de pago y calcule el vuelto
+                case 0:
+                    if (idCli!=0){
+                        try{
+                            GestorPago.ingresarPago(idCli, parseFloat(precioTotal.getText().substring(2)), 1);
+                        }catch (NullPointerException e){
+                            System.out.println("No hay cliente seleccionado");
+                        }
+                    }
+                    textoVenta = "\n\r Pago realizado \n\r Gracias por su compra \n\r Comprobante Nr " + valueOf(nuevaVenta);
                     break;
                     
                 case 1: 
                     JOptionPane.showMessageDialog (null, "Venta Concretada", "Pago con Tarjeta de Débito", JOptionPane.INFORMATION_MESSAGE);
-                    textoVenta = "\n\r Pago realizado \n\r Gracias por su compra";
+                    textoVenta = "\n\r Pago realizado \n\r Gracias por su compra \n\r Comprobante Nr " + valueOf(nuevaVenta);
+                    if (idCli!=0){
+                        try{
+                            GestorPago.ingresarPago(idCli, parseFloat(precioTotal.getText().substring(2)), 1);
+                        }catch (NullPointerException e){
+                            System.out.println("No hay cliente seleccionado");
+                        }
+                    }
                     break;
                     
                 case 2: 
                     JOptionPane.showMessageDialog (null, "Venta Concretada", "Pago con Tarjeta de Crédito", JOptionPane.INFORMATION_MESSAGE);
-                    textoVenta = "\n\r Pago realizado \n\r Gracias por su compra";
+                    textoVenta = "\n\r Pago realizado \n\r Gracias por su compra\n\r Comprobante Nr " + valueOf(nuevaVenta);
+                    if (idCli!=0){
+                        try{
+                            GestorPago.ingresarPago(idCli, parseFloat(precioTotal.getText().substring(2)), 1);
+                        }catch (NullPointerException e){
+                            System.out.println("No hay cliente seleccionado");
+                        }
+                    }
                     break;
                     
                 case 3:
-                   JOptionPane.showMessageDialog (null, "Venta Concretada, pago pendiente", "Pago con Tarjeta de Credito", JOptionPane.INFORMATION_MESSAGE);
-                   textoVenta = "\n\r Pendiente de pago\n\r " + cli.getNombreCliente() + "\n\r";
+                   JOptionPane.showMessageDialog (null, "Venta Concretada, pago pendiente", 
+                           "Cuenta Corriente", JOptionPane.INFORMATION_MESSAGE);
+                   textoVenta = "\n\r Gracias por su compra \n\r Comprobante Nr " + valueOf(nuevaVenta) + "\n\r pago pendiente \n\r"
+                           + nomCli+ "\n\r";
                    break;
                     
                 case 4: 
-                    //Debería abrir una ventana que tome el monto de lo pagado
+                    String result = "";
+                    float anticipo = 0;
+                    while (result == ""){
+                        result = JOptionPane.showInputDialog(jScrollPane2, "Ingrese el importe abonado como anticipo");
+                        try{
+                            anticipo=parseFloat(result);
+                        }catch (NumberFormatException e){
+                            result="";
+                        }catch (NullPointerException e){
+                            result="";
+                        }
+                    }
+                    
+                    if (anticipo!=0){
+                        try{
+                            GestorPago.ingresarPago(idCli, anticipo, 1);
+                        }catch (NullPointerException e){
+                            System.out.println("No hay cliente seleccionado");
+                        }
+                    }
+                    textoVenta = "\n\r Gracias por su compra\n\r Comprobante Nr " + valueOf(nuevaVenta) + "\n\r Cliente: "
+                            + nomCli + "\n\r Anticipo abonado: $" + valueOf(anticipo);
                     break;
                     
                 default: break;
             }
-            GestorPresupuesto.presupusetoAVenta(nuevaVenta, codiProd);
+            GestorPresupuesto.presupuestoAVenta(nuevaVenta, codiProd);
             
             int retry = 0;
             

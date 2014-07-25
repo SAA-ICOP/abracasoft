@@ -168,7 +168,7 @@ public class GestorPresupuesto {
         return ok;
     }
     
-    public static boolean presupusetoAVenta(int idVenta, int idPresupuesto){
+    public static boolean presupuestoAVenta(int idVenta, int idPresupuesto){
         boolean ok = false;
         String sql = "update presupuesto set IDVENTA = ? where idpresupuesto=?";
         
