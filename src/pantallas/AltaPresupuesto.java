@@ -92,6 +92,7 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         listaProducto = new javax.swing.JComboBox();
         jLabel11 = new javax.swing.JLabel();
         descripcionAgregar = new javax.swing.JButton();
+        vAgregarProducto = new javax.swing.JButton();
 
         jRadioButton3.setText("jRadioButton3");
 
@@ -274,6 +275,14 @@ public class AltaPresupuesto extends javax.swing.JFrame {
             }
         });
 
+        vAgregarProducto.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        vAgregarProducto.setText("Nuevo Producto");
+        vAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vAgregarProductoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -310,21 +319,25 @@ public class AltaPresupuesto extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jLabel10)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addComponent(cantidadRenglon, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(324, 324, 324)
-                                                .addComponent(jLabel1)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(precioTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(vAgregarProducto))
+                                            .addComponent(listaProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(listaProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(descripcionAgregar)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(jLabel9)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(formaDePago, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                                .addComponent(formaDePago, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                .addGap(192, 192, 192)
+                                                .addComponent(jLabel1)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(precioTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -406,7 +419,8 @@ public class AltaPresupuesto extends javax.swing.JFrame {
                                 .addComponent(codigoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(cantidadRenglon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel10))
-                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(vAgregarProducto, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
@@ -550,6 +564,10 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_descripcionAgregarActionPerformed
 
+    private void vAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vAgregarProductoActionPerformed
+        new AltaProducto().setVisible(true);
+    }//GEN-LAST:event_vAgregarProductoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -622,6 +640,7 @@ public class AltaPresupuesto extends javax.swing.JFrame {
     private javax.swing.JTextField nombreCliente;
     private javax.swing.JTextField precioTotal;
     private javax.swing.JTextField telCliente;
+    private javax.swing.JButton vAgregarProducto;
     // End of variables declaration//GEN-END:variables
     private String paraBuscar="";
     private Cliente cli;
