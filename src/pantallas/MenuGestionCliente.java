@@ -14,6 +14,13 @@ import java.io.File;
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 import static java.lang.String.valueOf;
+import javax.print.Doc;
+import javax.print.DocFlavor;
+import javax.print.DocPrintJob;
+import javax.print.PrintException;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.SimpleDoc;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -443,6 +450,8 @@ public class MenuGestionCliente extends javax.swing.JFrame {
                     };
                     cliVenPag.addRow(fila2);
                     TableRowSorter<TableModel> ordenar = new TableRowSorter<TableModel>(cliVenPag);
+                    ordenar.toggleSortOrder(1);
+                    ordenar.toggleSortOrder(1);
                     ordenar.toggleSortOrder(2);
                     ordenar.toggleSortOrder(2); // esto tiene que estar dos veces para que lo ordene de mayor a menor
                     tCuentaCorriente.setRowSorter(ordenar);
@@ -524,26 +533,73 @@ public class MenuGestionCliente extends javax.swing.JFrame {
     private void agregarPagoCliente() {
         DefaultTableModel tabla = (DefaultTableModel) jTable1.getModel();
         if (tabla.getRowCount()!=0){
-            int idCliente=parseInt(jTable1.getValueAt(jTable1.getSelectedRow(),0).toString());
-            
-            String result = "";
-            float cuota = 0;
-            result = JOptionPane.showInputDialog(jScrollPane2, "Ingrese importe abonado");
+            int idCliente=0;
             try{
-                cuota=parseFloat(result);
-            }catch (NumberFormatException e){
-            }catch (NullPointerException e){
+                idCliente=parseInt(jTable1.getValueAt(jTable1.getSelectedRow(),0).toString());
+            }catch (ArrayIndexOutOfBoundsException e){
+                JOptionPane.showMessageDialog(jScrollPane2, "Seleccione un cliente");
             }
-
-            if (cuota!=0){
+            if (idCliente!=0){
+                String result = "";
+                float cuota = 0;
+                result = JOptionPane.showInputDialog(jScrollPane2, "Ingrese importe abonado");
                 try{
-                    GestorPago.ingresarPago(idCliente, cuota, 1);
+                    cuota=parseFloat(result);
+                }catch (NumberFormatException e){
                 }catch (NullPointerException e){
-                    System.out.println("No hay cliente seleccionado");
+                }
+
+                if (cuota!=0){
+                    try{
+                        if(GestorPago.ingresarPago(idCliente, cuota, 1)){
+                            float montoNuevo = (parseFloat(saldoCliente.getText().substring(7))*-1)-cuota;
+                            String textoMonto=valueOf(montoNuevo).substring(0, valueOf(montoNuevo).indexOf(".")+2);
+                            try{
+                                textoMonto=valueOf(montoNuevo).substring(0, valueOf(montoNuevo).indexOf(".")+3);
+                            }catch(StringIndexOutOfBoundsException e){
+                            }
+                            String textoPago = 
+                                    "------------------------------\n\r" +
+                                    "Se ha reducido la cta cte de: \n\r" +
+                                    jTable1.getValueAt(jTable1.getSelectedRow(),1).toString() +
+                                    "\n\ren $ " + valueOf(cuota) + " resta pagar: " + 
+                                    textoMonto;
+
+                            imprimirPago(textoPago);
+                        }
+                    }catch (NullPointerException e){
+                        System.out.println("No hay cliente seleccionado");
+                    }
                 }
             }
         }
         clienteVentaPago();
         saldoCliente();
+    }
+    
+    private boolean imprimirPago(String textoPago){
+        boolean impresion = false;
+        DocFlavor byar = DocFlavor.BYTE_ARRAY.AUTOSENSE;
+        
+        PrintService impresoraDefa = PrintServiceLookup.lookupDefaultPrintService();
+        DocPrintJob trabajoImpresora = impresoraDefa.createPrintJob();
+        
+        String detalle = textoPago;
+        
+        String mostrar = detalle.replaceAll("á","a").replaceAll("é", "e")
+                .replaceAll("í", "i").replaceAll("ó", "o").replaceAll("ú", "u")
+                .replaceAll("ü", "u").replaceAll("ñ", "n");
+                
+        byte[] bytes = mostrar.getBytes();
+        
+        Doc doc = new SimpleDoc(bytes, byar, null);
+        
+        try {
+            trabajoImpresora.print(doc, null);
+            impresion = true;
+        } catch (PrintException e) {
+            System.out.println(e);
+        }
+        return impresion;
     }
 }
