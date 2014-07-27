@@ -6,6 +6,7 @@
 //DROPBOX
 package pantallas;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import negocio.UsuarioNegocio;
 
@@ -23,7 +24,7 @@ public class LogIn extends javax.swing.JFrame {
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
-        
+        setIconImage(new ImageIcon(getClass().getResource("../images/logop.png")).getImage());
         //new gestores.AbraBackUp().CrearBackup();
         //new gestores.AbraBackUp().RestaurarBackup("24 de junio de 2014");
     }
