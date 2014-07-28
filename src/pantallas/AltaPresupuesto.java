@@ -1092,49 +1092,37 @@ public class AltaPresupuesto extends javax.swing.JFrame {
     public void cargarPresupuesto(Presupuesto pre){
         DefaultTableModel tabla = (DefaultTableModel) detalleProducto.getModel();
         try{
-            //nombreCliente.setText("---");
-            //nombreCliente.repaint();
-            //nombreCliente.setEditable(false);
-            //jbClienteCasual.setEnabled(false);
-            //jButton5.setEnabled(false);
-            //vAgregarProducto.setEnabled(false);
-            //descripcionAgregar.setEnabled(false);
-            //guardarPesup.setEnabled(false);
-            
-            
             listaCliente.addItem(GestorCliente.ConsultaPorDescripcion(pre.getIdCliente()).get(0));
-            long codPrueva = 0;
-            float prePrueva = 0;
-            int cantPrueva = 0;
-            
-            for (int i=0; i<GestorProducto.presupuestoProducto(pre.getIdPresupuesto()).size(); i++){
-                tabla.addRow((Object[]) GestorProducto.presupuestoProducto(pre.getIdPresupuesto()).get(i));
-                codPrueva = parseLong(detalleProducto.getValueAt(i, 0).toString());
-                prePrueva = parseFloat(detalleProducto.getValueAt(i, 3).toString());
-                cantPrueva= parseInt(detalleProducto.getValueAt(i, 2).toString());
-                //detalleProducto.setValueAt(detalleProducto.getValueAt(i, 3),i,5); //pone el valor de la posición 3 en la posición 5 -> precio Total
-                //detalleProducto.setValueAt(null,i,3); //borra la posición 3 (en verdad debería poner la posición 5 dividida la cantidad
-            }
-            
-            Producto pro = GestorProducto.ConsultaProducto(codPrueva);
-            if (pro.getPrecioContado()*iva==(prePrueva/cantPrueva)){
-                formaDePago.setSelectedIndex(0);
-            }else{
-                if (pro.getPrecioDebito()*iva==(prePrueva/cantPrueva)){
-                    formaDePago.setSelectedIndex(1);
-                }else{
-                    formaDePago.setSelectedIndex(2);
-                }
-            }
-            
-            
-            System.out.println("codigo: " + codPrueva + "precio: " + prePrueva + "cantidad: " + cantPrueva);
-            System.out.println("precio contado: " + pro.getPrecioContado() + "resultado: " + prePrueva/cantPrueva);
-            recalcularImporte();
-            actualizarTotal();
-            
         }catch (Exception e){
-            this.dispose();
         }
+        long codPrueva = 0;
+        float prePrueva = 0;
+        int cantPrueva = 0;
+
+        for (int i=0; i<GestorProducto.presupuestoProducto(pre.getIdPresupuesto()).size(); i++){
+            tabla.addRow((Object[]) GestorProducto.presupuestoProducto(pre.getIdPresupuesto()).get(i));
+            codPrueva = parseLong(detalleProducto.getValueAt(i, 0).toString());
+            prePrueva = parseFloat(detalleProducto.getValueAt(i, 3).toString());
+            cantPrueva= parseInt(detalleProducto.getValueAt(i, 2).toString());
+            //detalleProducto.setValueAt(detalleProducto.getValueAt(i, 3),i,5); //pone el valor de la posición 3 en la posición 5 -> precio Total
+            //detalleProducto.setValueAt(null,i,3); //borra la posición 3 (en verdad debería poner la posición 5 dividida la cantidad
+        }
+
+        Producto pro = GestorProducto.ConsultaProducto(codPrueva);
+        if (pro.getPrecioContado()*iva==(prePrueva/cantPrueva)){
+            formaDePago.setSelectedIndex(0);
+        }else{
+            if (pro.getPrecioDebito()*iva==(prePrueva/cantPrueva)){
+                formaDePago.setSelectedIndex(1);
+            }else{
+                formaDePago.setSelectedIndex(2);
+            }
+        }
+
+
+        System.out.println("codigo: " + codPrueva + "precio: " + prePrueva + "cantidad: " + cantPrueva);
+        System.out.println("precio contado: " + pro.getPrecioContado() + "resultado: " + prePrueva/cantPrueva);
+        recalcularImporte();
+        actualizarTotal();
     }
 }

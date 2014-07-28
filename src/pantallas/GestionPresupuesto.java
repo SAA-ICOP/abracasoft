@@ -582,8 +582,6 @@ public class GestionPresupuesto extends javax.swing.JFrame {
     private void abrirPresupuesto() {
         AltaPresupuesto apa = new AltaPresupuesto();
         apa.cargarPresupuesto(GestorPresupuesto.buscarPresupuesto(parseInt(Tpresupuesto.getValueAt(Tpresupuesto.getSelectedRow(),0).toString())).get(0));
-        
-        
         apa.setVisible(true);
     }
 }
