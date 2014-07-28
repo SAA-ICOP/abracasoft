@@ -8,6 +8,7 @@ package pantallas;
 
 import com.toedter.calendar.JDateChooser;
 import entidades.Presupuesto;
+import gestores.GestorCliente;
 import gestores.GestorPresupuesto;
 import gestores.GestorProducto;
 import java.awt.Color;
@@ -17,6 +18,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.String.valueOf;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -438,8 +441,15 @@ public class GestionPresupuesto extends javax.swing.JFrame {
     private void agregarProductoATabla(ArrayList<Presupuesto> buscarPorFecha) {
         DefaultTableModel tabla = (DefaultTableModel) Tpresupuesto.getModel();
         for (int i = 0; i < buscarPorFecha.size(); i++) {
+            String nombreCliente = "";
+            try{
+                nombreCliente = GestorCliente.ConsultaPorDescripcion(buscarPorFecha.get(i).getIdCliente()).get(0).getNombreCliente();
+            }catch (IndexOutOfBoundsException e){
+                nombreCliente = valueOf(buscarPorFecha.get(i).getIdCliente());
+            }
+            
             Object[] fila = { buscarPorFecha.get(i).getIdPresupuesto(),
-                buscarPorFecha.get(i).getIdCliente(),
+                nombreCliente,
                 buscarPorFecha.get(i).getIdVendedor(),
                 "",
                 buscarPorFecha.get(i).getVigenciaDePresupuesto()
