@@ -136,4 +136,27 @@ public class GestorCliente {
         }
         return ok;
     }
+    
+    public static ArrayList<Cliente> ConsultaPorDescripcion(int CodCliente) { //Intento de busqueda predictiva
+        ArrayList<Cliente> listaClienteEncontrado = new ArrayList<>();
+        
+        String sql = "SELECT * FROM cliente WHERE IDCLIENTE=?";
+        try {
+            PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
+            pst.setInt(1, CodCliente);
+            ResultSet resultSet = pst.executeQuery();
+
+            while (resultSet.next()) {
+                Cliente cliente = new Cliente(resultSet.getInt("IDCLIENTE"),
+                        resultSet.getString("NOMCLIENTE"),
+                        resultSet.getString("DIRCLIENTE"), resultSet.getInt("CODIGOPOSTAL"), 
+                        resultSet.getInt("TELCLIENTE"),resultSet.getInt("DNICLIENTE"),
+                        resultSet.getString("MAILCLIENTE"));
+                listaClienteEncontrado.add(cliente);
+            }
+        } catch (SQLException e) {
+            System.out.println("No se pudo efectuar la busqueda por descripcion en cliente -por codigo-");
+        }
+        return listaClienteEncontrado;
+    }
 }

@@ -17,7 +17,6 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import static java.lang.Integer.parseInt;
-import static java.lang.Integer.parseInt;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -310,7 +309,8 @@ public class GestionPresupuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_BpresupuestoNuevoActionPerformed
 
     private void BpresupuestoEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpresupuestoEditarActionPerformed
-        modificarPresupuesto();
+        //modificarPresupuesto();
+        abrirPresupuesto();
     }//GEN-LAST:event_BpresupuestoEditarActionPerformed
 
     private void BpresupuestoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpresupuestoBuscarActionPerformed
@@ -577,5 +577,13 @@ public class GestionPresupuesto extends javax.swing.JFrame {
                 }
             }
          }
+    }
+
+    private void abrirPresupuesto() {
+        AltaPresupuesto apa = new AltaPresupuesto();
+        apa.cargarPresupuesto(GestorPresupuesto.buscarPresupuesto(parseInt(Tpresupuesto.getValueAt(Tpresupuesto.getSelectedRow(),0).toString())).get(0));
+        
+        
+        apa.setVisible(true);
     }
 }
