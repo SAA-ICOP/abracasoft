@@ -470,10 +470,10 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
             //File file = new File(System.getProperty("user.dir") + "\\src\\ayuda\\Manual_Gestion_Producto.pdf");
             //Desktop.getDesktop().open(file);
             if (Desktop.isDesktopSupported()) {
-            File file = new File("Manual_Gestion_Producto.pdf");
+            File file = new File("Ayuda_Gestion_Producto.pdf");
             if (!file.exists()) {
                 InputStream inputStream = ClassLoader.getSystemClassLoader()
-                                    .getResourceAsStream("ayuda/Manual_Gestion_Producto.pdf");
+                                    .getResourceAsStream("ayuda/Ayuda_Gestion_Producto.pdf");
                 OutputStream outputStream = new FileOutputStream(file);
                 byte[] buffer = new byte[1024];
                 int length;
