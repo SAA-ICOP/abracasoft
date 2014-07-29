@@ -495,10 +495,10 @@ public class MenuGestionCliente extends javax.swing.JFrame {
             //Desktop.getDesktop().open(file);
             
             if (Desktop.isDesktopSupported()) {
-            File file = new File("Manual_Gestion_Clientes.pdf");
+            File file = new File("Ayuda_Gestion_Cliente.pdf");
             if (!file.exists()) {
                 InputStream inputStream = ClassLoader.getSystemClassLoader()
-                                    .getResourceAsStream("ayuda/Manual_Gestion_Clientes.pdf");
+                                    .getResourceAsStream("ayuda/Ayuda_Gestion_Cliente.pdf");
                 OutputStream outputStream = new FileOutputStream(file);
                 byte[] buffer = new byte[1024];
                 int length;

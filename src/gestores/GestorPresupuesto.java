@@ -36,6 +36,7 @@ public class GestorPresupuesto {
                     presupuesto.setIdCliente(resultSet.getInt("IDCLIENTE"));
                     presupuesto.setIdPresupuesto(resultSet.getInt("IDPRESUPUESTO"));
                     presupuesto.setIdVendedor(resultSet.getInt("IDUSU"));
+                    presupuesto.setRelVenta(resultSet.getInt("IDVENTA"));
                 listaPresupuesto.add(presupuesto);
             }
         } catch (SQLException e) {
@@ -61,6 +62,7 @@ public class GestorPresupuesto {
                     presupuesto.setIdCliente(resultSet.getInt("IDCLIENTE"));
                     presupuesto.setIdPresupuesto(resultSet.getInt("IDPRESUPUESTO"));
                     presupuesto.setIdVendedor(resultSet.getInt("IDUSU"));
+                    presupuesto.setRelVenta(resultSet.getInt("IDVENTA"));
                 listaPresupuesto.add(presupuesto);
             }
         } catch (SQLException e) {
@@ -177,6 +179,7 @@ public class GestorPresupuesto {
             pst.setInt(1,idVenta);
             pst.setInt(2, idPresupuesto);
             pst.executeUpdate();
+            return ok = true;
         }catch (SQLException e){
             System.out.println("Fallo presupuestoAVenta");
         }

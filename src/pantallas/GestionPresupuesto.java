@@ -18,7 +18,6 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import static java.lang.Integer.parseInt;
-import static java.lang.Integer.parseInt;
 import static java.lang.String.valueOf;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -79,7 +78,7 @@ public class GestionPresupuesto extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Codigo", "Cliente", "Vendedor", "Codigo venta", "Valido hasta"
+                "Código", "Cliente", "Vendedor", "Código venta", "Válido hasta"
             }
         ) {
             Class[] types = new Class [] {
@@ -111,6 +110,20 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         });
         SPpresupuesto.setViewportView(Tpresupuesto);
         Tpresupuesto.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        if (Tpresupuesto.getColumnModel().getColumnCount() > 0) {
+            Tpresupuesto.getColumnModel().getColumn(0).setMinWidth(70);
+            Tpresupuesto.getColumnModel().getColumn(0).setPreferredWidth(80);
+            Tpresupuesto.getColumnModel().getColumn(0).setMaxWidth(90);
+            Tpresupuesto.getColumnModel().getColumn(2).setMinWidth(70);
+            Tpresupuesto.getColumnModel().getColumn(2).setPreferredWidth(80);
+            Tpresupuesto.getColumnModel().getColumn(2).setMaxWidth(90);
+            Tpresupuesto.getColumnModel().getColumn(3).setMinWidth(80);
+            Tpresupuesto.getColumnModel().getColumn(3).setPreferredWidth(90);
+            Tpresupuesto.getColumnModel().getColumn(3).setMaxWidth(100);
+            Tpresupuesto.getColumnModel().getColumn(4).setMinWidth(90);
+            Tpresupuesto.getColumnModel().getColumn(4).setPreferredWidth(100);
+            Tpresupuesto.getColumnModel().getColumn(4).setMaxWidth(110);
+        }
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -118,7 +131,7 @@ public class GestionPresupuesto extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("Codigo");
+        jLabel2.setText("Código");
 
         TFpresupuestoCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -186,7 +199,7 @@ public class GestionPresupuesto extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Codigo", "Producto", "Cantidad", "Subtotal"
+                "Código", "Producto", "Cantidad", "Subtotal"
             }
         ) {
             Class[] types = new Class [] {
@@ -448,10 +461,14 @@ public class GestionPresupuesto extends javax.swing.JFrame {
                 nombreCliente = valueOf(buscarPorFecha.get(i).getIdCliente());
             }
             
+            if (nombreCliente.equalsIgnoreCase("0")){
+                nombreCliente = "-";
+            }
+            
             Object[] fila = { buscarPorFecha.get(i).getIdPresupuesto(),
                 nombreCliente,
                 buscarPorFecha.get(i).getIdVendedor(),
-                "",
+                buscarPorFecha.get(i).getRelVenta(),
                 buscarPorFecha.get(i).getVigenciaDePresupuesto()
             };
             tabla.addRow(fila);
@@ -529,10 +546,10 @@ public class GestionPresupuesto extends javax.swing.JFrame {
             //Desktop.getDesktop().open(file);
             
             if (Desktop.isDesktopSupported()) {
-            File file = new File("Manual_Gestion_Presupuesto.pdf");
+            File file = new File("Ayuda_Gestion_Presupuesto.pdf");
             if (!file.exists()) {
                 InputStream inputStream = ClassLoader.getSystemClassLoader()
-                                    .getResourceAsStream("ayuda/Manual_Gestion_Presupuesto.pdf");
+                                    .getResourceAsStream("ayuda/Ayuda_Gestion_Presupuesto.pdf");
                 OutputStream outputStream = new FileOutputStream(file);
                 byte[] buffer = new byte[1024];
                 int length;

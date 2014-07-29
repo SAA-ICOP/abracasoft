@@ -14,6 +14,11 @@ import gestores.GestorPago;
 import gestores.GestorPresupuesto;
 import gestores.GestorProducto;
 import gestores.GestorVenta;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
@@ -463,7 +468,7 @@ public class AltaPresupuesto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ayudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ayudaActionPerformed
-        // TODO add your handling code here:
+       abrirAyuda();
     }//GEN-LAST:event_ayudaActionPerformed
 
     private void cancelarPresupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarPresupActionPerformed
@@ -1119,5 +1124,32 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         }
         recalcularImporte();
         actualizarTotal();
+    }
+    
+        private void abrirAyuda(){
+        try {
+            //File file = new File(System.getProperty("user.dir") + "\\src\\ayuda\\Manual_Gestion_Presupuesto.pdf");
+            //Desktop.getDesktop().open(file);
+            
+            if (Desktop.isDesktopSupported()) {
+            File file = new File("Ayuda_Nuevo_Presupuesto.pdf");
+            if (!file.exists()) {
+                InputStream inputStream = ClassLoader.getSystemClassLoader()
+                                    .getResourceAsStream("ayuda/Ayuda_Nuevo_Presupuesto.pdf");
+                OutputStream outputStream = new FileOutputStream(file);
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = inputStream.read(buffer)) > 0) {
+                    outputStream.write(buffer, 0, length);
+                }
+                outputStream.close();
+                inputStream.close();
+            }
+            Desktop.getDesktop().open(file);
+            }
+            
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(null, "No se puedo abrir el archivo de ayuda");
+        }
     }
 }

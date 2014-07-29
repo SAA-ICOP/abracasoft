@@ -17,14 +17,15 @@ public class Presupuesto {
     private Date VigenciaDePresupuesto;
     private int IdPresupuesto;
     private int IdCliente;
-    private int idVendedor;
+    private int IdVendedor;
+    private int RelVenta;
 
     public int getIdVendedor() {
-        return idVendedor;
+        return IdVendedor;
     }
 
     public void setIdVendedor(int idVendedor) {
-        this.idVendedor = idVendedor;
+        this.IdVendedor = idVendedor;
     }
 
     public Date getFechaDePresupuesto() {
@@ -58,7 +59,12 @@ public class Presupuesto {
     public void setIdCliente(int IdCliente) {
         this.IdCliente = IdCliente;
     }
-    
-    
 
+    public void setRelVenta(int aInt) {
+        this.RelVenta = aInt;
+    }
+
+    public Object getRelVenta() {
+        return RelVenta;
+    }
 }

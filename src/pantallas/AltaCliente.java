@@ -319,10 +319,10 @@ public class AltaCliente extends javax.swing.JFrame {
             //Desktop.getDesktop().open(file);
             
             if (Desktop.isDesktopSupported()) {
-            File file = new File("Manual_Agregar_Cliente.pdf");
+            File file = new File("Ayuda_Agregar_Cliente.pdf");
             if (!file.exists()) {
                 InputStream inputStream = ClassLoader.getSystemClassLoader()
-                                    .getResourceAsStream("ayuda/Manual_Agregar_Cliente.pdf");
+                                    .getResourceAsStream("ayuda/Ayuda_Agregar_Cliente.pdf");
                 OutputStream outputStream = new FileOutputStream(file);
                 byte[] buffer = new byte[1024];
                 int length;

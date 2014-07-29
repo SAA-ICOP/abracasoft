@@ -139,28 +139,13 @@ public class AltaProducto extends javax.swing.JFrame {
         jLabel3.setText("Rubro");
 
         CBseleccionRubro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Zapatos", "Zapatillas", "Zapatitos" }));
-        CBseleccionRubro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CBseleccionRubroActionPerformed(evt);
-            }
-        });
 
         jLabel4.setText("Proveedor");
 
         CBseleccionProveedor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nike", "John Foos", "Pepe", "Adidas" }));
-        CBseleccionProveedor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CBseleccionProveedorActionPerformed(evt);
-            }
-        });
 
         jLabel5.setText("Existencia (cantidad actual)");
 
-        TFstockProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFstockProductoActionPerformed(evt);
-            }
-        });
         TFstockProducto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TFstockProductoKeyTyped(evt);
@@ -303,11 +288,6 @@ public class AltaProducto extends javax.swing.JFrame {
 
         jLabel19.setText("Porcentaje de utilidad");
 
-        TFporcentajeUtilidad1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFporcentajeUtilidad1ActionPerformed(evt);
-            }
-        });
         TFporcentajeUtilidad1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 TFporcentajeUtilidad1FocusLost(evt);
@@ -319,11 +299,6 @@ public class AltaProducto extends javax.swing.JFrame {
             }
         });
 
-        TFporcentajeUtilidad2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFporcentajeUtilidad2ActionPerformed(evt);
-            }
-        });
         TFporcentajeUtilidad2.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 TFporcentajeUtilidad2FocusLost(evt);
@@ -357,11 +332,6 @@ public class AltaProducto extends javax.swing.JFrame {
         TFPrecio2.setEditable(false);
 
         TFPrecio3.setEditable(false);
-        TFPrecio3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFPrecio3ActionPerformed(evt);
-            }
-        });
 
         jLabel11.setText("Con debito");
 
@@ -460,11 +430,6 @@ public class AltaProducto extends javax.swing.JFrame {
         RBnoComision.setText("No usar comisión para este producto");
 
         RBcomisionRegistroVendedor.setText("Usar la comisión definida en el registro del vendedor");
-        RBcomisionRegistroVendedor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RBcomisionRegistroVendedorActionPerformed(evt);
-            }
-        });
 
         jLabel15.setText("Monto");
 
@@ -733,42 +698,18 @@ public class AltaProducto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void CBseleccionRubroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBseleccionRubroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CBseleccionRubroActionPerformed
-
-    private void CBseleccionProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBseleccionProveedorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CBseleccionProveedorActionPerformed
-
-    private void TFstockProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFstockProductoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TFstockProductoActionPerformed
-
     private void BguardarAltaProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BguardarAltaProdActionPerformed
-        validar();// TODO add your handling code here:
+        if(validar()){
+            this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(null, "No se ha podido agregar el nuevo producto"
+                    + " \n\rrevise que los campos estén correctamente completados");
+        }
     }//GEN-LAST:event_BguardarAltaProdActionPerformed
 
-    private void RBcomisionRegistroVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RBcomisionRegistroVendedorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_RBcomisionRegistroVendedorActionPerformed
-
     private void BcancelarAltaProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BcancelarAltaProdActionPerformed
-        //System.exit(0); --> Cierra TODO el programa
-        this.dispose(); //Cierra la ventana actual
+        this.dispose();
     }//GEN-LAST:event_BcancelarAltaProdActionPerformed
-
-    private void TFporcentajeUtilidad1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFporcentajeUtilidad1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TFporcentajeUtilidad1ActionPerformed
-
-    private void TFporcentajeUtilidad2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFporcentajeUtilidad2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TFporcentajeUtilidad2ActionPerformed
-
-    private void TFPrecio3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFPrecio3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TFPrecio3ActionPerformed
 
     private void TFporcentajeUtilidad1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFporcentajeUtilidad1KeyTyped
         char car = evt.getKeyChar();
@@ -822,7 +763,7 @@ public class AltaProducto extends javax.swing.JFrame {
             evitaError = 0;
         }
         if (evitaError!=0){
-/**/        JOptionPane.showMessageDialog(null, "El producto ya existe: " + GestorProducto.ConsultaProducto(parseLong(TFidProducto.getText())).getNombreProducto());
+            JOptionPane.showMessageDialog(null, "El producto ya existe: " + GestorProducto.ConsultaProducto(parseLong(TFidProducto.getText())).getNombreProducto());
             TFidProducto.requestFocus();
         }
     }//GEN-LAST:event_TFidProductoFocusLost
@@ -966,8 +907,8 @@ public class AltaProducto extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
-    private void validar() {
-
+    private boolean validar() {
+        boolean ok=false;
         if (camposVacios()) {
             try {
                 long codigoDeBarras = parseLong(TFidProducto.getText());
@@ -977,12 +918,12 @@ public class AltaProducto extends javax.swing.JFrame {
                 if (GestorProducto.agregarProducto(codigoDeBarras, descripcion, precioCosto, stock)){
                     agregarPreciosBD();
                 }
+                ok=true;
             } catch (NumberFormatException e) {
                 System.out.print(e);
-                JOptionPane.showMessageDialog(null, "En el precio, el separador decimal"
-                        + " debe ser un punto '.'  y no debe haber letras");
             }
         }
+        return ok;
     }
 
     private boolean camposVacios() {
@@ -1057,10 +998,10 @@ public class AltaProducto extends javax.swing.JFrame {
             //Desktop.getDesktop().open(file);
             
             if (Desktop.isDesktopSupported()) {
-            File file = new File("Manual_Agregar_Producto.pdf");
+            File file = new File("Ayuda_Agregar_Producto.pdf");
             if (!file.exists()) {
                 InputStream inputStream = ClassLoader.getSystemClassLoader()
-                                    .getResourceAsStream("ayuda/Manual_Agregar_Producto.pdf");
+                                    .getResourceAsStream("ayuda/Ayuda_Agregar_Producto.pdf");
                 OutputStream outputStream = new FileOutputStream(file);
                 byte[] buffer = new byte[1024];
                 int length;
