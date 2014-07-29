@@ -59,7 +59,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
         SalirjButton = new javax.swing.JButton();
         Bayuda = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agregar un nuevo usuario");
         setExtendedState(AltaDeUsuario.MAXIMIZED_BOTH);
         setResizable(false);

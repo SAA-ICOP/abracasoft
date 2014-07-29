@@ -70,7 +70,7 @@ public class MenuGestionCliente extends javax.swing.JFrame {
         saldoCliente = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestion de clientes");
         setMinimumSize(new java.awt.Dimension(713, 510));
 

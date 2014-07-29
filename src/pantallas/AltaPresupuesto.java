@@ -14,7 +14,6 @@ import gestores.GestorPago;
 import gestores.GestorPresupuesto;
 import gestores.GestorProducto;
 import gestores.GestorVenta;
-import java.awt.event.ActionListener;
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
@@ -99,7 +98,7 @@ public class AltaPresupuesto extends javax.swing.JFrame {
 
         jRadioButton3.setText("jRadioButton3");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nuevo presupuesto - Abracasoft");
 
         BeliminarProducto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -1118,10 +1117,6 @@ public class AltaPresupuesto extends javax.swing.JFrame {
                 formaDePago.setSelectedIndex(2);
             }
         }
-
-
-        System.out.println("codigo: " + codPrueva + "precio: " + prePrueva + "cantidad: " + cantPrueva);
-        System.out.println("precio contado: " + pro.getPrecioContado() + "resultado: " + prePrueva/cantPrueva);
         recalcularImporte();
         actualizarTotal();
     }
