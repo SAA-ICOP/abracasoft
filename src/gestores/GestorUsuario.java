@@ -30,7 +30,7 @@ public class GestorUsuario {
     static Date fecha = new Date();
 
     /*
-     * Este metodo recibe un usuario (Usuario usuario) y los IDPrivilegio (int[] idprivilegio) y guarda el usuario en la 
+     * Este metodo recibe un usuario (Usuario usuario) y los privilegios (ArrayList<Privilegio> privilegios) y guarda el usuario en la 
      tabla usuario de la base de datos, llama al metodo consultarIDUsuario() que devuelve el ID del usuario creado.
      Crea una instancia de la clase privilegio y llama al metodo AltaPrivilegioDeUsuarioEnBD(int ID, Privilegio privilegio).
      El metodo devuelve un int(entre 1 y 0) confirmando si se guardo el usuario con los privilegios.

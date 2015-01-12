@@ -51,7 +51,7 @@ public class GestorCliente {
         return estado;
     }
     
-        public static ArrayList<Cliente> listarClientesDB() {//Método para que se listen los productos en la pantalla "MenuDeGestionDeProducto"
+        public static ArrayList<Cliente> listarClientesDB() {//Método para que se listen los productos en la pantalla "MenuDeGestionDeProductos"
 
         ArrayList<Cliente> listaCliente = new ArrayList<>();
         String sql = "SELECT * FROM cliente";
