@@ -279,6 +279,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
                     jTable1.convertRowIndexToModel(i);
                     if (jTable1.getModel().getValueAt(i, 2).equals(true)) {
                         privilegio.setID((int) (jTable1.getValueAt(i, 0)));
+                        privilegio.setDescripcionDePrivilegio(jTable1.getValueAt(i, 1).toString());
                     }
                     privilegios.add(i, privilegio);
                 }
