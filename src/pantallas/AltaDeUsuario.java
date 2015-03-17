@@ -220,7 +220,10 @@ public class AltaDeUsuario extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-//Metodo que capta cuando el jComboBox cambia de estado 
+/*
+    * Metodo que capta cuando el jComboBox cambia de estado.
+    
+    */ 
     private void TipoDeUsuariojComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_TipoDeUsuariojComboBox1ItemStateChanged
         //Obtiene el item seleccionado del jComboBox, lo pasa a String y pregunta
         //si es igual a la palabra "Administrador" lo mismo hace para ver si es "Empleado"
