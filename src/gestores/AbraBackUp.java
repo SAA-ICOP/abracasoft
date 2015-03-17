@@ -10,7 +10,7 @@ Este gestor funciona bien, habría que idear la forma de no necesitar crear el d
 Lo métodos los dejé así nomás para darles libertad de recibir o no algún dato adicional para crear la base de
 datos (podrían decirle al usuario que agregue el nombre del archivo u otra cosa
 
-Creo que si mysqldump y mysql son agragados a las "variables del entorno" pueden utilizarse sin mencionar toda 
+Creo que si mysqldump y mysql son agregados a las "variables del entorno" pueden utilizarse sin mencionar toda 
 la ruta de ubicación del archivo.
 
 */
@@ -44,7 +44,12 @@ public class AbraBackUp {
     private FileWriter  fichero = null;
     private PrintWriter pw = null;
     
-    public boolean CrearBackup(){ //Crea un backup en "C:\backup\abracasoftDB+fecha.sql", esta previsto que sea solo uno por dia y si se ejecuta dos veces pisa al anterior
+    /*
+    * Crea un backup en "C:\backup\abracasoftDB+fecha.sql",
+    esta previsto que sea solo uno por dia y si se ejecuta dos veces 
+    pisa al anterior
+    */    
+    public boolean CrearBackup(){ 
         boolean ok=false;
         Date hoy = new Date();
         DateFormat formato = DateFormat.getDateInstance(DateFormat.LONG);
