@@ -249,7 +249,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
                     jTable1.getModel().setValueAt(false, i, 2);
                 }
             }
-            //si dueño es lo que se selecciona asigna true a todas las celdas exepto a BackUp
+            //si es dueño es lo que se selecciona asigna true a todas las celdas exepto a BackUp
         } else {
             for (int i = 0; i < jTable1.getRowCount(); i++) {
                 jTable1.convertRowIndexToModel(i);
