@@ -30,10 +30,11 @@ public class GestorUsuario {
     static Date fecha = new Date();
 
     /*
-     * Este metodo recibe un usuario (Usuario usuario) y los privilegios (ArrayList<Privilegio> privilegios) y guarda el usuario en la 
-     tabla usuario de la base de datos, llama al metodo consultarIDUsuario() que devuelve el ID del usuario creado.
-     Crea una instancia de la clase privilegio y llama al metodo AltaPrivilegioDeUsuarioEnBD(int ID, Privilegio privilegio).
-     El metodo devuelve un int(entre 1 y 0) confirmando si se guardo el usuario con los privilegios.
+     * Este metodo recibe un usuario (Usuario usuario) y los privilegios (ArrayList<Privilegio> privilegios)
+    y guarda el usuario en la tabla usuario de la base de datos, llama al metodo consultarIDUsuario() 
+    que devuelve el ID del usuario creado. Crea una instancia de la clase privilegio y llama al metodo 
+    AltaPrivilegioDeUsuarioEnBD(int ID, Privilegio privilegio). El metodo devuelve un int(entre 1 y 0) 
+    confirmando si se guardo el usuario con los privilegios.
      */
     public static int altaUsuarioEnBD(Usuario usuario, ArrayList<Privilegio> privilegios) {
         int usuarioGuardado = 0;
@@ -78,8 +79,9 @@ public class GestorUsuario {
     }
 
     /*
-     * Este metodo recibe 1 String y 1 Interger, compara esos 2 datos con los que se encuentran en la base de datos en
-     la tabla usuario. Si son iguales retorna el IDUsuario que es un Integer.
+     * Este metodo recibe 1 String y 1 Interger, compara esos 2 datos con los que 
+    se encuentran en la base de datos en la tabla usuario. Si son iguales retorna
+    el IDUsuario que es un Integer.
      */
     public static int logIn(String usuario, int pass) {
         int idUsuario = 0;
