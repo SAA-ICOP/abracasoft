@@ -40,7 +40,7 @@ public class GestorUsuario {
         int usuarioGuardado = 0;
         int resultado = 0;
         int ID = 0;
-        GestorPrivilegio privilegio = new GestorPrivilegio();
+        //GestorPrivilegio gestorPrivilegio = new GestorPrivilegio();
         String sql = "INSERT INTO usuario (NOMUSUARIO,PASSUSUARIO,FECHACREACION)"
                 + "VALUES(?,?,?)";
         try {
@@ -54,9 +54,7 @@ public class GestorUsuario {
             }
             if (ID != 0) {
                 boolean guardoLosPrivilegios = false;
-                for (int i = 0; i < privilegios.toArray().length; i++) {
-                    guardoLosPrivilegios = privilegio.AltaPrivilegioDeUsuarioEnBD(ID, privilegios.get(i).getID());
-                }
+                guardoLosPrivilegios = GestorPrivilegio.AltaPrivilegioDeUsuarioEnBD(ID, privilegios);
                 if (guardoLosPrivilegios) {
                     resultado = 1;
                 }else{

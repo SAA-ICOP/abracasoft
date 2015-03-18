@@ -277,13 +277,14 @@ public class AltaDeUsuario extends javax.swing.JFrame {
                 usuario.setNombreUsuario(NombreDeUsuariojTextField1.getText().toUpperCase());
                 usuario.setPassUsuario(Integer.parseInt(ContraseniajTextField3.getText()));
                 ArrayList<Privilegio> privilegios = new ArrayList<Privilegio>();
-                Privilegio privilegio = new Privilegio();
-                for (int i = 0; i < jTable1.getRowCount(); i++) {
+                Privilegio privilegio = null;
+                for (int i = 0; i < jTable1.getRowCount(); i++) {                    
                     jTable1.convertRowIndexToModel(i);
                     if (jTable1.getModel().getValueAt(i, 2).equals(true)) {
+                        privilegio = new Privilegio();
                         privilegio.setID((int) (jTable1.getValueAt(i, 0)));
-                    }
-                    privilegios.add(i, privilegio);
+                        privilegios.add(privilegio);
+                    }                    
                 }
                 resultado = usuario.altaDeUsuarioNegocio(usuario, privilegios);
                 if (resultado == 1) {
@@ -407,8 +408,9 @@ public class AltaDeUsuario extends javax.swing.JFrame {
                 if (!privilegios.listarPrivilegios().get(i).getDescripcionDePrivilegio().equals("BackUp")) {
                     datos[2] = true;
                 }
-                tabla.addRow(datos);
+                tabla.addRow(datos);                
             }
+            tabla.setValueAt(false, privilegios.listarPrivilegios().size()-1, 2);
         } else {
             JOptionPane.showMessageDialog(null, "Error: No se pudieron cargar los privilegios");
         }
