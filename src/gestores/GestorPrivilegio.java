@@ -17,20 +17,18 @@ import java.util.ArrayList;
  */
 public class GestorPrivilegio {
 
-    public static boolean AltaPrivilegioDeUsuarioEnBD(int idusuario, ArrayList<Privilegio> privilegios) {
+    public static boolean AltaPrivilegioDeUsuarioEnBD(int idusuario, int idprivilegio) {
         boolean resultado = false;
         PreparedStatement pst = null;
         String sql = "INSERT INTO relation_582 (IDUSU,IDPRIVILEGIO) VALUES(?,?)";
-        for (int i = 0; i < privilegios.size(); i++) {
-            try {
-                pst = PoolDeConexiones.pedirConexion().prepareStatement(sql);
-                pst.setInt(1, idusuario);
-                pst.setInt(2, privilegios.get(i).getID());
-                resultado = pst.execute(sql);
-            } catch (SQLException e) {
-                e.printStackTrace();
-                resultado = false;
-            }
+        try {
+            pst = PoolDeConexiones.pedirConexion().prepareStatement(sql);
+            pst.setInt(1, idusuario);
+            pst.setInt(2, idprivilegio);
+            resultado = pst.execute(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            resultado = false;
         }
         return resultado;
     }
