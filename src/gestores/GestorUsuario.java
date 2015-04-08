@@ -55,7 +55,7 @@ public class GestorUsuario {
             if (ID != 0) {
                 boolean guardoLosPrivilegios = false;
                 for (int i = 0; i < privilegios.size(); i++) {
-                    guardoLosPrivilegios = GestorPrivilegio.AltaPrivilegioDeUsuarioEnBD(ID, privilegios.get(i).getID());
+                    guardoLosPrivilegios = GestorPrivilegio.altaPrivilegioDeUsuarioEnBD(ID, privilegios.get(i).getID());
                 }
                 if (guardoLosPrivilegios) {
                     resultado = 1;
