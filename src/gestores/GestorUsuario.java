@@ -53,11 +53,11 @@ public class GestorUsuario {
                 ID = consultarIDUsuario(pst);
             }
             if (ID != 0) {
-                boolean guardoLosPrivilegios = false;
+                int guardoLosPrivilegios = 0;
                 for (int i = 0; i < privilegios.size(); i++) {
                     guardoLosPrivilegios = GestorPrivilegio.altaPrivilegioDeUsuarioEnBD(ID, privilegios.get(i).getID());
                 }
-                if (guardoLosPrivilegios) {
+                if (guardoLosPrivilegios == 0) {
                     resultado = 0;
                 } else {
                     resultado = 1;
