@@ -17,19 +17,17 @@ import java.util.ArrayList;
  */
 public class GestorPrivilegio {
 
-    public static int altaPrivilegioDeUsuarioEnBD(int idusuario, int idprivilegio) {
+    public static int altaPrivilegioDeUsuarioEnBD(int idusuario, ArrayList<Privilegio> idprivilegios) throws SQLException {
         int r;
         PreparedStatement pst = null;
         String sql = "INSERT INTO relation_582 (IDUSU,IDPRIVILEGIO) VALUES(?,?)";
-        try {
             pst = PoolDeConexiones.pedirConexion().prepareStatement(sql);
             pst.setInt(1, idusuario);
-            pst.setInt(2, idprivilegio);
+            for (int i = 0; i < idprivilegios.size(); i++) {
+                pst.setInt(2, idprivilegios.get(i).getID());
+            }
             r = pst.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            r = 0;
-        }
+            
         return r;
     }
 
@@ -52,6 +50,18 @@ public class GestorPrivilegio {
             System.out.print(e.toString());
         }
         return listaPrivilegio;
+    }
+
+    static int modificarPrivilegiosEnBD(ArrayList<Privilegio> idPrivilegios, int idUsuario) throws SQLException {
+        int resultado;
+        String sql = "UPDATE relation_582 SET idprivilegio = '?' WHERE idusuario = '?'";
+        PreparedStatement pst = PoolDeConexiones.pedirConexion().prepareStatement(sql);
+        for (int i = 0; i < idPrivilegios.size(); i++) {
+            pst.setInt(1, idPrivilegios.get(i).getID());
+        }
+        pst.setInt(2, idUsuario);
+        resultado = pst.executeUpdate();
+        return resultado;
     }
 
 }

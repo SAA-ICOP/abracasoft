@@ -36,43 +36,57 @@ public class GestorUsuario {
      AltaPrivilegioDeUsuarioEnBD(int ID, Privilegio privilegio). El metodo devuelve un int(entre 1 y 0) 
      confirmando si se guardo el usuario con los privilegios.
      */
-    public static int altaUsuarioEnBD(Usuario usuario, ArrayList<Privilegio> privilegios) {
+    public static int altaUsuarioEnBD(Usuario usuario, ArrayList<Privilegio> privilegios) throws SQLException {
         int usuarioGuardado = 0;
         int resultado = 0;
         int ID = 0;
 
-        //GestorPrivilegio gestorPrivilegio = new GestorPrivilegio();
         String sql = "INSERT INTO usuario (NOMUSUARIO,PASSUSUARIO,FECHACREACION)"
                 + "VALUES(?,?,?)";
-        try {
-            PreparedStatement pst = PoolDeConexiones.pedirConexion().prepareStatement(sql);
-            pst.setString(1, usuario.getNombreUsuario());
-            pst.setInt(2, usuario.getPassUsuario());
-            pst.setDate(3, new java.sql.Date(fecha.getTime()));
-            usuarioGuardado = pst.executeUpdate();
-            if (usuarioGuardado == 1) {
-                ID = consultarIDUsuario(pst);
+
+        PreparedStatement pst = PoolDeConexiones.pedirConexion().prepareStatement(sql);
+        pst.setString(1, usuario.getNombreUsuario());
+        pst.setInt(2, usuario.getPassUsuario());
+        pst.setDate(3, new java.sql.Date(fecha.getTime()));
+        usuarioGuardado = pst.executeUpdate();
+        if (usuarioGuardado == 1) {
+            ID = consultarIDUsuario(pst);
+        }
+        if (ID != 0) {
+            int guardoLosPrivilegios = 0;
+            guardoLosPrivilegios = GestorPrivilegio.altaPrivilegioDeUsuarioEnBD(ID, privilegios);
+
+            if (guardoLosPrivilegios == 0) {
+                resultado = 0;
+            } else {
+                resultado = 1;
             }
-            if (ID != 0) {
-                int guardoLosPrivilegios = 0;
-                for (int i = 0; i < privilegios.size(); i++) {
-                    guardoLosPrivilegios = GestorPrivilegio.altaPrivilegioDeUsuarioEnBD(ID, privilegios.get(i).getID());
-                }
-                if (guardoLosPrivilegios == 0) {
-                    resultado = 0;
-                } else {
-                    resultado = 1;
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.print(e.toString());
         }
         return resultado;
     }
 
-    public static void ModificarUsuarioEnBD(Usuario usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public static int ModificarUsuarioEnBD(Usuario usuario, ArrayList<Privilegio> privilegios) throws SQLException {
+        int privilegiosGuardados = 0;
+        int usuarioGuardado = 0;
+        int resultado = 0;
+
+        String sql = "UPDATE usuario SET nomusuario = '?' AND passusuario = '?'"
+                + "WHERE idusu = '?'";
+
+        PreparedStatement pst = PoolDeConexiones.pedirConexion().prepareStatement(sql);
+        int idUsuario = consultarIDUsuario(pst);
+        pst.setString(1, usuario.getNombreUsuario());
+        pst.setInt(2, usuario.getPassUsuario());
+        pst.setInt(3, idUsuario);
+        usuarioGuardado = pst.executeUpdate();
+        if (usuarioGuardado == 1) {
+            privilegiosGuardados = GestorPrivilegio.modificarPrivilegiosEnBD(privilegios, idUsuario);
+        }
+        if (privilegiosGuardados == 1)
+        {
+            resultado = 1;
+        }
+        return resultado;
     }
 
     public static void BajaUsuarioEnBD(Usuario usuario) {
@@ -107,7 +121,7 @@ public class GestorUsuario {
 
     /*
      * Este metodo consulta el ID del usuario recientemente creado y lo retorna, recibe la conexion como 
-       parametro.
+     parametro.
      */
     private static int consultarIDUsuario(PreparedStatement pst) {
         int ID;

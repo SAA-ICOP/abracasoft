@@ -80,8 +80,10 @@ public class Usuario extends Privilegio {
         gestores.GestorUsuario.BajaUsuarioEnBD(usuario);
     }
 
-    public static void ModificarUsuario(Usuario usuario) {
-        gestores.GestorUsuario.ModificarUsuarioEnBD(usuario);
+    public static int ModificarUsuario(Usuario usuario, ArrayList<Privilegio> privilegios) throws SQLException {
+        int resultado = 0;
+        resultado = gestores.GestorUsuario.ModificarUsuarioEnBD(usuario, privilegios);
+        return resultado;        
     }
 
     public static int LogIn(String nombreDeUsuario, int pass) {
