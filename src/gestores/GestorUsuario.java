@@ -40,7 +40,7 @@ public class GestorUsuario {
         int usuarioGuardado = 0;
         int resultado = 0;
         int ID = 0;
-        
+
         //GestorPrivilegio gestorPrivilegio = new GestorPrivilegio();
         String sql = "INSERT INTO usuario (NOMUSUARIO,PASSUSUARIO,FECHACREACION)"
                 + "VALUES(?,?,?)";
@@ -106,7 +106,8 @@ public class GestorUsuario {
     }
 
     /*
-     * Este metodo consulta el ID del usuario recientemente creado y lo retorna, no recibe parametros.
+     * Este metodo consulta el ID del usuario recientemente creado y lo retorna, recibe la conexion como 
+       parametro.
      */
     private static int consultarIDUsuario(PreparedStatement pst) {
         int ID;
