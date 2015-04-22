@@ -86,7 +86,7 @@ public class Usuario extends Privilegio {
         return resultado;        
     }
 
-    public static int LogIn(String nombreDeUsuario, int pass) {
+    public static int LogIn(String nombreDeUsuario, int pass) throws SQLException {
         int idUsuario;
         idUsuario = gestores.GestorUsuario.logIn(nombreDeUsuario, pass);
         return idUsuario;
