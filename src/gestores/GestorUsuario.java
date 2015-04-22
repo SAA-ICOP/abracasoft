@@ -23,18 +23,16 @@ import javax.swing.JFrame;
  * @since 1.0
  */
 public class GestorUsuario {
-    /*
-     * Se crea un atributo estatico que guarda la fecha actual tomada del sistema. 
-     */
 
     static Date fecha = new Date();
 
-    /*
-     * Este metodo recibe un usuario (Usuario usuario) y los privilegios (ArrayList<Privilegio> privilegios)
-     y guarda el usuario en la tabla usuario de la base de datos, llama al metodo consultarIDUsuario() 
-     que devuelve el ID del usuario creado. Crea una instancia de la clase privilegio y llama al metodo 
-     AltaPrivilegioDeUsuarioEnBD(int ID, Privilegio privilegio). El metodo devuelve un int(entre 1 y 0) 
-     confirmando si se guardo el usuario con los privilegios.
+    /**
+     * Metodo para guardar un usuario con sus privilegios en la base de datos
+     *
+     * @param usuario
+     * @param privilegios
+     * @return 
+     * @throws SQLException
      */
     public static int altaUsuarioEnBD(Usuario usuario, ArrayList<Privilegio> privilegios) throws SQLException {
         int usuarioGuardado = 0;
@@ -65,6 +63,15 @@ public class GestorUsuario {
         return resultado;
     }
 
+    /**
+     * Metodo para modificar un usuario y sus respectivos privilegios en la base
+     * de datos.
+     *
+     * @param usuario
+     * @param privilegios
+     * @return
+     * @throws SQLException
+     */
     public static int ModificarUsuarioEnBD(Usuario usuario, ArrayList<Privilegio> privilegios) throws SQLException {
         int privilegiosGuardados = 0;
         int usuarioGuardado = 0;
@@ -82,47 +89,43 @@ public class GestorUsuario {
         if (usuarioGuardado == 1) {
             privilegiosGuardados = GestorPrivilegio.modificarPrivilegiosEnBD(privilegios, idUsuario);
         }
-        if (privilegiosGuardados == 1)
-        {
+        if (privilegiosGuardados == 1) {
             resultado = 1;
         }
         return resultado;
     }
 
+    /**
+     * Metodo para dar de baja un usuario y los privilegios en la base de datos.
+     *
+     * @param usuario
+     */
     public static void BajaUsuarioEnBD(Usuario usuario) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    /*
-     * Este metodo recibe 1 String y 1 Interger, compara esos 2 datos con los que 
-     se encuentran en la base de datos en la tabla usuario. Si son iguales retorna
-     el IDUsuario que es un Integer.
+    /**
+     * Metodo de logIn
+     *
+     * @param usuario
+     * @param pass
+     * @return
+     * @throws java.sql.SQLException
      */
-    public static int logIn(String usuario, int pass) {
+    public static int logIn(String usuario, int pass) throws SQLException {
         int idUsuario = 0;
-
         String sql = "SELECT IDUSU FROM usuario WHERE NOMUSUARIO = ? and PASSUSUARIO = ?";
-        try {
-            PreparedStatement pst = PoolDeConexiones.pedirConexion().prepareStatement(sql);
-            pst.setString(1, usuario);
-            pst.setInt(2, pass);
-            ResultSet resultado = pst.executeQuery();
-            if (resultado.next()) { //cuando la consulta no da vacia pasa por acá
-                idUsuario = resultado.getInt("IDUSU");
-                return idUsuario;
-            } else { //si la consulta SQL no encuentra resultados devuelve 0
-                return idUsuario;
-            }
 
-        } catch (Exception e) {
-            return idUsuario;
+        PreparedStatement pst = PoolDeConexiones.pedirConexion().prepareStatement(sql);
+        pst.setString(1, usuario);
+        pst.setInt(2, pass);
+        ResultSet resultado = pst.executeQuery();
+        if (resultado.next()) { //cuando la consulta no da vacia pasa por acá
+            idUsuario = resultado.getInt("IDUSU");
         }
+        return idUsuario;
     }
 
-    /*
-     * Este metodo consulta el ID del usuario recientemente creado y lo retorna, recibe la conexion como 
-     parametro.
-     */
     private static int consultarIDUsuario(PreparedStatement pst) {
         int ID;
         String sql = "SELECT max(idusu) as id FROM usuario";
