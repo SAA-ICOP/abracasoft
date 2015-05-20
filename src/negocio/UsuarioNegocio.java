@@ -30,6 +30,39 @@ public class UsuarioNegocio extends Usuario {
         return resultado;
     }
 
+    public int modificarUsuarioNegocio(Usuario usuario, ArrayList<Privilegio> privilegios) {
+        int resultado = 0;
+        try {
+            resultado = usuario.ModificarUsuario(usuario, privilegios);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        return resultado;
+    }
+
+    public int modificarUsuarioNegocio(int idUsuario, Usuario usuario, ArrayList<Privilegio> privilegios) {
+        int resultado = 0;
+        try {
+            resultado = usuario.ModificarUsuario(idUsuario, usuario.getNombreUsuario(), privilegios);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        return resultado;
+    }
+
+    public int modificarUsuarioNegocio(int idUsuario, Usuario usuario, ArrayList<Privilegio> privilegios) {
+        int resultado = 0;
+        try {
+            resultado = usuario.ModificarUsuario(idUsuario, usuario.getPassUsuario(), privilegios);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        return resultado;
+    }
+
     public int logIn(String nombreDeUsuario, int contraseña) {
         int idUsuario = 0;
         try {

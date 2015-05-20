@@ -71,19 +71,31 @@ public class Usuario extends Privilegio {
         PassUsuario = passUsuario;
     }
 
-    public static int altaDeUsuario(Usuario usuario, ArrayList<Privilegio> privilegios) throws SQLException {
-       int resultado = GestorUsuario.altaUsuarioEnBD(usuario, privilegios);
-       return resultado;
+    public int altaDeUsuario(Usuario usuario, ArrayList<Privilegio> privilegios) throws SQLException {
+        int resultado = GestorUsuario.altaUsuarioEnBD(usuario, privilegios);
+        return resultado;
     }
 
-    public static void BajaDeUsuario(Usuario usuario) {
+    public void BajaDeUsuario(Usuario usuario) {
         gestores.GestorUsuario.BajaUsuarioEnBD(usuario);
     }
 
-    public static int ModificarUsuario(Usuario usuario, ArrayList<Privilegio> privilegios) throws SQLException {
+    public int ModificarUsuario(Usuario usuario, ArrayList<Privilegio> privilegios) throws SQLException {
         int resultado = 0;
         resultado = gestores.GestorUsuario.ModificarUsuarioEnBD(usuario, privilegios);
-        return resultado;        
+        return resultado;
+    }
+
+    public int ModificarUsuario(int idUsuario, String nombre, ArrayList<Privilegio> privilegios) throws SQLException {
+        int resultado = 0;
+        resultado = gestores.GestorUsuario.ModificarUsuarioEnBD(idUsuario, nombre, privilegios);
+        return resultado;
+    }
+
+    public int ModificarUsuario(int idUsuario, int pass, ArrayList<Privilegio> privilegios) throws SQLException {
+        int resultado = 0;
+        resultado = gestores.GestorUsuario.ModificarUsuarioEnBD(idUsuario, pass, privilegios);
+        return resultado;
     }
 
     public static int LogIn(String nombreDeUsuario, int pass) throws SQLException {
@@ -95,10 +107,10 @@ public class Usuario extends Privilegio {
     public static boolean backUp() {
         boolean ok;
         AbraBackUp backUpData = new AbraBackUp();
-    //    ok = backUpData.CrearBackup("localhost", "3306", "root", "password", "abracasoftDB", "c:/abracasoftDB.sql");
-        if(new AbraBackUp().CrearBackup()){
+        //    ok = backUpData.CrearBackup("localhost", "3306", "root", "password", "abracasoftDB", "c:/abracasoftDB.sql");
+        if (new AbraBackUp().CrearBackup()) {
             ok = true;
-        }else{
+        } else {
             ok = false;
         }
         return ok;

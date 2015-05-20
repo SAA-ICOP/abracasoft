@@ -94,6 +94,48 @@ public class GestorUsuario {
         }
         return resultado;
     }
+        public static int ModificarUsuarioEnBD(int idUsuario, String nombre, ArrayList<Privilegio> privilegios) throws SQLException {
+        int privilegiosGuardados = 0;
+        int usuarioGuardado = 0;
+        int resultado = 0;
+
+        String sql = "UPDATE usuario SET nomusuario = '?'"
+                + "WHERE idusu = '?'";
+
+        PreparedStatement pst = PoolDeConexiones.pedirConexion().prepareStatement(sql);
+        pst.setString(1, nombre);
+        pst.setInt(2, idUsuario);
+        usuarioGuardado = pst.executeUpdate();
+        if (usuarioGuardado == 1) {
+            privilegiosGuardados = GestorPrivilegio.modificarPrivilegiosEnBD(privilegios, idUsuario);
+        }
+        if (privilegiosGuardados == 1) {
+            resultado = 1;
+        }
+        return resultado;
+    }
+   
+    
+        public static int ModificarUsuarioEnBD(int idUsuario, int pass, ArrayList<Privilegio> privilegios) throws SQLException {
+        int privilegiosGuardados = 0;
+        int usuarioGuardado = 0;
+        int resultado = 0;
+
+        String sql = "UPDATE usuario SET passusuario = '?'"
+                + "WHERE idusu = '?'";
+
+        PreparedStatement pst = PoolDeConexiones.pedirConexion().prepareStatement(sql);
+        pst.setInt(1, pass);
+        pst.setInt(2, idUsuario);
+        usuarioGuardado = pst.executeUpdate();
+        if (usuarioGuardado == 1) {
+            privilegiosGuardados = GestorPrivilegio.modificarPrivilegiosEnBD(privilegios, idUsuario);
+        }
+        if (privilegiosGuardados == 1) {
+            resultado = 1;
+        }
+        return resultado;
+    }
 
     /**
      * Metodo para dar de baja un usuario y los privilegios en la base de datos.
