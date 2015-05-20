@@ -6,6 +6,9 @@
 //DROPBOX
 package pantallas;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import negocio.UsuarioNegocio;
@@ -231,7 +234,12 @@ public class LogIn extends javax.swing.JFrame {
     }
     
     private int ingresar(String usuario, int pass){
-        int idUsuario = UsuarioNegocio.LogIn(usuario, pass);
+        int idUsuario = 0;
+        try {
+            idUsuario = UsuarioNegocio.LogIn(usuario, pass);
+        } catch (SQLException ex) {
+            Logger.getLogger(LogIn.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         if (idUsuario != 0){
             //acá habría que hacer un "case" que active la pantalla correcta según los privilegios del empleado
