@@ -76,7 +76,7 @@ public class Usuario extends Privilegio {
         return resultado;
     }
 
-    public void BajaDeUsuario(Usuario usuario) {
+    public void BajaDeUsuario(Usuario usuario) throws SQLException {
         gestores.GestorUsuario.BajaUsuarioEnBD(usuario);
     }
 

@@ -191,8 +191,20 @@ public class GestorUsuario {
      *
      * @param usuario
      */
-    public static void BajaUsuarioEnBD(Usuario usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public static int BajaUsuarioEnBD(Usuario usuario) throws SQLException {
+        PreparedStatement pst;
+        int idUsuario = usuario.getID();
+        int ok = 0;
+        int privilegiosBorrados = 0;
+
+        privilegiosBorrados = GestorPrivilegio.bajaPrivilegiosEnBD(idUsuario);
+        if (privilegiosBorrados == 1) {
+            String sql2 = "DELETE * FROM usuario WHERE IDUSU='?'";
+            pst = PoolDeConexiones.pedirConexion().prepareStatement(sql2);
+            pst.setInt(1, idUsuario);
+            ok = pst.executeUpdate();
+        }
+        return ok;
     }
 
     /**
