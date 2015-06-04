@@ -86,15 +86,15 @@ public class Usuario extends Privilegio {
         return resultado;
     }
 
-    public int ModificarUsuario(int idUsuario, String nombre, ArrayList<Privilegio> privilegios) throws SQLException {
+    public int ModificarUsuario(String nombre, ArrayList<Privilegio> privilegios) throws SQLException {
         int resultado = 0;
-        resultado = gestores.GestorUsuario.ModificarUsuarioEnBD(idUsuario, nombre, privilegios);
+        resultado = gestores.GestorUsuario.ModificarUsuarioEnBD(nombre, privilegios);
         return resultado;
     }
 
-    public int ModificarUsuario(int idUsuario, int pass, ArrayList<Privilegio> privilegios) throws SQLException {
+    public int ModificarUsuario(int pass, ArrayList<Privilegio> privilegios) throws SQLException {
         int resultado = 0;
-        resultado = gestores.GestorUsuario.ModificarUsuarioEnBD(idUsuario, pass, privilegios);
+        resultado = gestores.GestorUsuario.ModificarUsuarioEnBD(pass, privilegios);
         return resultado;
     }
 
