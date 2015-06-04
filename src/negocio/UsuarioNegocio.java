@@ -41,10 +41,11 @@ public class UsuarioNegocio extends Usuario {
         return resultado;
     }
 
-    public int modificarUsuarioNegocio(int idUsuario, Usuario usuario, ArrayList<Privilegio> privilegios) {
+    public int modificarUsuarioNegocio(int idUsuario, String nombreUsuario, ArrayList<Privilegio> privilegios) {
         int resultado = 0;
+        UsuarioNegocio usuario = new UsuarioNegocio();
         try {
-            resultado = usuario.ModificarUsuario(idUsuario, usuario.getNombreUsuario(), privilegios);
+            resultado = usuario.ModificarUsuario(idUsuario, nombreUsuario, privilegios);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -52,10 +53,11 @@ public class UsuarioNegocio extends Usuario {
         return resultado;
     }
 
-    public int modificarUsuarioNegocio(int idUsuario, Usuario usuario, ArrayList<Privilegio> privilegios) {
+    public int modificarUsuarioNegocio(int idUsuario, int passUsuario, ArrayList<Privilegio> privilegios) {
         int resultado = 0;
+        UsuarioNegocio usuario = new UsuarioNegocio();
         try {
-            resultado = usuario.ModificarUsuario(idUsuario, usuario.getPassUsuario(), privilegios);
+            resultado = usuario.ModificarUsuario(idUsuario, passUsuario, privilegios);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
