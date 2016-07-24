@@ -27,11 +27,11 @@ public class LogIn extends javax.swing.JFrame {
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
-        try{
-            setIconImage(new ImageIcon(getClass().getResource("../images/logop.png")).getImage());
-        }catch (Exception e){
+        setIconImage(new ImageIcon(getClass().getResource("../images/logop.png")).getImage());
+        setLocationRelativeTo(null);
+        getRootPane().setDefaultButton(BlogIn);
             
-        }
+        
         //new gestores.AbraBackUp().CrearBackup();
         //new gestores.AbraBackUp().RestaurarBackup("24 de junio de 2014");
     }
