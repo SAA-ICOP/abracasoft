@@ -227,7 +227,7 @@ public class GestorUsuario {
         if (resultado.next()) { //cuando la consulta no da vacia pasa por acá
             idUsuario = resultado.getInt("IDUSU");
             pst = PoolDeConexiones.pedirConexion().prepareStatement(sql2);
-            pst.setInt(2, idUsuario);
+            pst.setInt(1, idUsuario);
         }
         return idUsuario;
     }
