@@ -10,10 +10,8 @@ import entidades.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import javax.swing.JFrame;
 
 /**
  * Esta clase gestiona la comunicación del sistema con la base de datos desde la
@@ -190,20 +188,18 @@ public class GestorUsuario {
      * Metodo para dar de baja un usuario y los privilegios en la base de datos.
      *
      * @param usuario
+     * @return boolean
+     * @throws java.sql.SQLException
      */
-    public static int BajaUsuarioEnBD(Usuario usuario) throws SQLException {
+    public static boolean BajaUsuarioEnBD(Usuario usuario) throws SQLException {
         PreparedStatement pst;
         int idUsuario = usuario.getID();
-        int ok = 0;
-        int privilegiosBorrados = 0;
-
-        privilegiosBorrados = GestorPrivilegio.bajaPrivilegiosEnBD(idUsuario);
-        if (privilegiosBorrados == 1) {
-            String sql2 = "DELETE * FROM usuario WHERE IDUSU='?'";
-            pst = PoolDeConexiones.pedirConexion().prepareStatement(sql2);
-            pst.setInt(1, idUsuario);
-            ok = pst.executeUpdate();
-        }
+        boolean ok;
+        String sql = "UPDATE usuario SET fechabaja = '?' WHERE idusu = ?";
+        pst = PoolDeConexiones.pedirConexion().prepareStatement(sql);
+        pst.setDate(1, new java.sql.Date(fecha.getTime()));
+        pst.setInt(2, idUsuario);
+        ok = pst.execute(sql);
         return ok;
     }
 
@@ -217,7 +213,8 @@ public class GestorUsuario {
      */
     public static int logIn(String usuario, int pass) throws SQLException {
         int idUsuario = 0;
-        String sql = "SELECT IDUSU FROM usuario WHERE NOMUSUARIO = ? and PASSUSUARIO = ?";
+        String sql = "SELECT IDUSU FROM usuario WHERE NOMUSUARIO = ? and PASSUSUARIO = ? "
+                + "AND FECHABAJA IS NULL";
 
         PreparedStatement pst = PoolDeConexiones.pedirConexion().prepareStatement(sql);
         pst.setString(1, usuario);

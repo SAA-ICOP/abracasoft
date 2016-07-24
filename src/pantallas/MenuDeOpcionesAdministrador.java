@@ -31,12 +31,12 @@ public class MenuDeOpcionesAdministrador extends javax.swing.JFrame {
         CerrarSesionAdministrador = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         GestionDeUsuarioAministrador = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        altaUsuarioMenuItem = new javax.swing.JMenuItem();
+        modificarUsuarioMenuItem = new javax.swing.JMenuItem();
+        borraUsuarioMenuItem = new javax.swing.JMenuItem();
+        backUPMenu = new javax.swing.JMenu();
+        realizarBackUPMenuItem = new javax.swing.JMenuItem();
+        levantarBackUPMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu de Opciones del Administrador");
@@ -47,26 +47,31 @@ public class MenuDeOpcionesAdministrador extends javax.swing.JFrame {
 
         GestionDeUsuarioAministrador.setText("Gestion de Usuarios");
 
-        jMenuItem1.setText("Alta Usuario");
-        GestionDeUsuarioAministrador.add(jMenuItem1);
+        altaUsuarioMenuItem.setText("Alta Usuario");
+        altaUsuarioMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                altaUsuarioMenuItemActionPerformed(evt);
+            }
+        });
+        GestionDeUsuarioAministrador.add(altaUsuarioMenuItem);
 
-        jMenuItem2.setText("Modificar Privilegios");
-        GestionDeUsuarioAministrador.add(jMenuItem2);
+        modificarUsuarioMenuItem.setText("Modificar Privilegios");
+        GestionDeUsuarioAministrador.add(modificarUsuarioMenuItem);
 
-        jMenuItem3.setText("Eliminar Usuario");
-        GestionDeUsuarioAministrador.add(jMenuItem3);
+        borraUsuarioMenuItem.setText("Eliminar Usuario");
+        GestionDeUsuarioAministrador.add(borraUsuarioMenuItem);
 
         jMenuBar1.add(GestionDeUsuarioAministrador);
 
-        jMenu2.setText("BackUp");
+        backUPMenu.setText("BackUp");
 
-        jMenuItem4.setText("Hacer BackUp");
-        jMenu2.add(jMenuItem4);
+        realizarBackUPMenuItem.setText("Hacer BackUp");
+        backUPMenu.add(realizarBackUPMenuItem);
 
-        jMenuItem5.setText("Abrir BackUp");
-        jMenu2.add(jMenuItem5);
+        levantarBackUPMenuItem.setText("Abrir BackUp");
+        backUPMenu.add(levantarBackUPMenuItem);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(backUPMenu);
 
         setJMenuBar(jMenuBar1);
 
@@ -89,6 +94,10 @@ public class MenuDeOpcionesAdministrador extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void altaUsuarioMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaUsuarioMenuItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_altaUsuarioMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -128,12 +137,12 @@ public class MenuDeOpcionesAdministrador extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CerrarSesionAdministrador;
     private javax.swing.JMenu GestionDeUsuarioAministrador;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuItem altaUsuarioMenuItem;
+    private javax.swing.JMenu backUPMenu;
+    private javax.swing.JMenuItem borraUsuarioMenuItem;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem levantarBackUPMenuItem;
+    private javax.swing.JMenuItem modificarUsuarioMenuItem;
+    private javax.swing.JMenuItem realizarBackUPMenuItem;
     // End of variables declaration//GEN-END:variables
 }

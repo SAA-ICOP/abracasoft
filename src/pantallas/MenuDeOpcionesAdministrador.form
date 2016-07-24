@@ -9,34 +9,37 @@
             <Property name="text" type="java.lang.String" value="Gestion de Usuarios"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+            <MenuItem class="javax.swing.JMenuItem" name="altaUsuarioMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Alta Usuario"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="altaUsuarioMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+            <MenuItem class="javax.swing.JMenuItem" name="modificarUsuarioMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Modificar Privilegios"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+            <MenuItem class="javax.swing.JMenuItem" name="borraUsuarioMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Eliminar Usuario"/>
               </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu2">
+        <Menu class="javax.swing.JMenu" name="backUPMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="BackUp"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
+            <MenuItem class="javax.swing.JMenuItem" name="realizarBackUPMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Hacer BackUp"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
+            <MenuItem class="javax.swing.JMenuItem" name="levantarBackUPMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Abrir BackUp"/>
               </Properties>
