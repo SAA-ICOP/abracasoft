@@ -31,7 +31,7 @@ public class PoolDeConexiones {
             basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
             basicDataSource.setUrl("jdbc:mysql://localhost:3306/abracasoftdb");
             basicDataSource.setUsername("root");
-            basicDataSource.setPassword("");
+            basicDataSource.setPassword("admin");
 
             conexion = basicDataSource.getConnection();
         } catch (SQLException e) {
