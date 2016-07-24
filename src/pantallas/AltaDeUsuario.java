@@ -67,27 +67,17 @@ public class AltaDeUsuario extends javax.swing.JFrame {
         UsuariojLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         UsuariojLabel.setText("Nombre");
 
-        NombreDeUsuariojTextField1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        NombreDeUsuariojTextField1.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
 
         PassjLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         PassjLabel.setText("Contraseña");
 
         ContraseniajTextField2.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        ContraseniajTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                ContraseniajTextField2KeyTyped(evt);
-            }
-        });
 
         RepitaPassjLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         RepitaPassjLabel.setText("Repetir contraseña");
 
         ContraseniajTextField3.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        ContraseniajTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                ContraseniajTextField3KeyTyped(evt);
-            }
-        });
 
         TipoUsuariojLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         TipoUsuariojLabel.setText("Tipo");
@@ -162,7 +152,6 @@ public class AltaDeUsuario extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Bayuda)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -184,7 +173,8 @@ public class AltaDeUsuario extends javax.swing.JFrame {
                             .addComponent(PrivilegiosjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(TipoUsuariojLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(TipoDeUsuariojComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -198,7 +188,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(PassjLabel)
                     .addComponent(RepitaPassjLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ContraseniajTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ContraseniajTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -303,22 +293,6 @@ public class AltaDeUsuario extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_SalirjButtonActionPerformed
-
-    private void ContraseniajTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ContraseniajTextField2KeyTyped
-        // TODO add your handling code here:
-        char car = evt.getKeyChar();
-        if ((car < '0' || car > '9')) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_ContraseniajTextField2KeyTyped
-
-    private void ContraseniajTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ContraseniajTextField3KeyTyped
-        // TODO add your handling code here:
-        char car = evt.getKeyChar();
-        if ((car < '0' || car > '9')) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_ContraseniajTextField3KeyTyped
 
     /**
      * @param args the command line arguments
