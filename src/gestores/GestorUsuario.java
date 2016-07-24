@@ -218,7 +218,6 @@ public class GestorUsuario {
     public static int logIn(String usuario, int pass) throws SQLException {
         int idUsuario = 0;
         String sql = "SELECT IDUSU FROM usuario WHERE NOMUSUARIO = ? and PASSUSUARIO = ?";
-        String sql2 = "INSERT INTO log (IDUSU) VALUES (?)";
 
         PreparedStatement pst = PoolDeConexiones.pedirConexion().prepareStatement(sql);
         pst.setString(1, usuario);
@@ -226,8 +225,6 @@ public class GestorUsuario {
         ResultSet resultado = pst.executeQuery();
         if (resultado.next()) { //cuando la consulta no da vacia pasa por acá
             idUsuario = resultado.getInt("IDUSU");
-            pst = PoolDeConexiones.pedirConexion().prepareStatement(sql2);
-            pst.setInt(1, idUsuario);
         }
         return idUsuario;
     }
@@ -243,7 +240,6 @@ public class GestorUsuario {
                 ID = 0;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             System.out.println(e.toString());
             ID = 0;
         }
