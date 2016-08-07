@@ -6,6 +6,7 @@
 //DROPBOX
 package pantallas;
 
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -55,7 +56,7 @@ public class LogIn extends javax.swing.JFrame {
         TFloginPass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("AbracaSoft");
+        setTitle("Abracasoft");
         setResizable(false);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -85,6 +86,12 @@ public class LogIn extends javax.swing.JFrame {
         Bexit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BexitActionPerformed(evt);
+            }
+        });
+
+        TFloginPass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TFloginPassKeyPressed(evt);
             }
         });
 
@@ -171,6 +178,14 @@ public class LogIn extends javax.swing.JFrame {
         this.dispose();
 
     }//GEN-LAST:event_BlogInActionPerformed
+
+    private void TFloginPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFloginPassKeyPressed
+        // TODO add your handling code here:
+        char cTeclaPresionada=evt.getKeyChar();
+        if (cTeclaPresionada==KeyEvent.VK_ENTER){
+            BlogIn.doClick();
+        }
+    }//GEN-LAST:event_TFloginPassKeyPressed
 
     /**
      * @param args the command line arguments
