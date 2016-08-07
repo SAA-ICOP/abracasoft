@@ -5,6 +5,7 @@
  */
 package pantallas;
 
+import gestores.GestorUsuario;
 import javax.swing.JTabbedPane;
 
 /**
@@ -51,6 +52,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         setAutoRequestFocus(false);
         setExtendedState(MenuDeOpcionesEmpleado.MAXIMIZED_BOTH);
 
+        jToolBar1.setFloatable(false);
         jToolBar1.setBorderPainted(false);
         jToolBar1.setOpaque(false);
 
@@ -94,7 +96,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         jToolBar1.add(jSeparator3);
 
         jButton5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton5.setText("Gestion de usuarios");
+        jButton5.setText("Gestión de usuarios");
         jButton5.setFocusable(false);
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton5.setPreferredSize(new java.awt.Dimension(200, 29));
@@ -220,7 +222,11 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        GestorUsuario gestiondeusuario = new GestorUsuario();
+        if (señalPresu == 0) {
+            jTabbedPane1.addTab("Gestion Presupuesto", gestiondeusuario.getContentPane());
+           señalPresu = 1;
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
