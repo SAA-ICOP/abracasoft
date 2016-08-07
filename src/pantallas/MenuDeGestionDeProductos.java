@@ -8,6 +8,7 @@ package pantallas;
 import gestores.GestorProducto;
 import java.awt.Color;
 import java.awt.Desktop;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -106,6 +107,11 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
             }
         });
 
+        jTextFieldCodigoDeBarraProducto.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                jTextFieldCodigoDeBarraProductoCaretUpdate(evt);
+            }
+        });
         jTextFieldCodigoDeBarraProducto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextFieldCodigoDeBarraProductoFocusGained(evt);
@@ -122,6 +128,9 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
             }
         });
         jTextFieldCodigoDeBarraProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldCodigoDeBarraProductoKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldCodigoDeBarraProductoKeyTyped(evt);
             }
@@ -183,14 +192,19 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
                 jTextDescripcionCaretUpdate(evt);
             }
         });
+        jTextDescripcion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextDescripcionFocusGained(evt);
+            }
+        });
         jTextDescripcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextDescripcionActionPerformed(evt);
             }
         });
-        jTextDescripcion.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextDescripcionFocusGained(evt);
+        jTextDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextDescripcionKeyPressed(evt);
             }
         });
 
@@ -299,6 +313,11 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
         if ((car < '0' || car > '9')) {
             evt.consume();
         }
+        
+        char cTeclaPresionada=evt.getKeyChar();
+        if (cTeclaPresionada==KeyEvent.VK_ENTER){
+            jButtonBuscarProducto.doClick();
+        }
     }//GEN-LAST:event_jTextFieldCodigoDeBarraProductoKeyTyped
 
     private void BproductoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BproductoNuevoActionPerformed
@@ -321,6 +340,28 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
     private void BproductoEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BproductoEditarActionPerformed
         modificarProducto();
     }//GEN-LAST:event_BproductoEditarActionPerformed
+
+    private void jTextDescripcionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextDescripcionKeyPressed
+        // TODO add your handling code here:
+        char cTeclaPresionada=evt.getKeyChar();
+        if (cTeclaPresionada==KeyEvent.VK_ENTER){
+            jButtonBuscarProducto.doClick();
+        }
+    }//GEN-LAST:event_jTextDescripcionKeyPressed
+
+    private void jTextFieldCodigoDeBarraProductoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextFieldCodigoDeBarraProductoCaretUpdate
+        // TODO add your handling code here:
+        borrarRenglones();
+        buscarMientrasEscribe();
+    }//GEN-LAST:event_jTextFieldCodigoDeBarraProductoCaretUpdate
+
+    private void jTextFieldCodigoDeBarraProductoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodigoDeBarraProductoKeyPressed
+        // TODO add your handling code here:
+        char cTeclaPresionada=evt.getKeyChar();
+        if (cTeclaPresionada==KeyEvent.VK_ENTER){
+            jButtonBuscarProducto.doClick();
+        }
+    }//GEN-LAST:event_jTextFieldCodigoDeBarraProductoKeyPressed
 
     /**
      * @param args the command line arguments
