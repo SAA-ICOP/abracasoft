@@ -64,9 +64,10 @@ public class GestorPrivilegio {
         return resultado;
     }
     public static ArrayList<Privilegio> listarPrivilegiosPorUsuario(int idUsuario) throws SQLException{
-        ArrayList<Privilegio> privilegios = null;
+        ArrayList<Privilegio> privilegios = new ArrayList<Privilegio>();
         String sql = "SELECT relation_582.IDPRIVILEGIO FROM relation_582 WHERE relation_582.IDUSU = ?";
         PreparedStatement pst = PoolDeConexiones.pedirConexion().prepareStatement(sql);
+        pst.setInt(1, idUsuario);
         ResultSet resulset = pst.executeQuery();
         while (resulset.next()) {            
             Privilegio privilegio = new Privilegio();

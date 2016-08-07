@@ -297,14 +297,19 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
             switch(idPrivilegio){
                 case 1:
                     jButton3.setEnabled(true);
+                    break;
                 case 2:
                     jButton5.setEnabled(true);
+                    break;
                 case 3:
                     jButton6.setEnabled(true);
+                    break;
                 case 4:
                     jButton1.setEnabled(true);
+                    break;
                 case 6:
                     jButton2.setEnabled(true);
+                    break;
             }
         }
         this.setVisible(true);

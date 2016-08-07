@@ -241,7 +241,7 @@ public class LogIn extends javax.swing.JFrame {
                     pantalla.pantallaPorPrivilegio(privilegios);
                 }
             }else{
-                JOptionPane.showMessageDialog(null, "El usuario ingresado no existe");
+                JOptionPane.showMessageDialog(null, "El usuario ingresado no existe", "Usuario Inexistente", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
