@@ -5,7 +5,9 @@
  */
 package pantallas;
 
+import entidades.Privilegio;
 import gestores.GestorUsuario;
+import java.util.ArrayList;
 import javax.swing.JTabbedPane;
 
 /**
@@ -58,6 +60,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton1.setText("Gestión de productos");
+        jButton1.setEnabled(false);
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -71,6 +74,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton2.setText("Gestión de clientes");
+        jButton2.setEnabled(false);
         jButton2.setFocusable(false);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -84,6 +88,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton3.setText("Gestión de presupuestos");
+        jButton3.setEnabled(false);
         jButton3.setFocusable(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -97,6 +102,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
 
         jButton5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton5.setText("Gestión de usuarios");
+        jButton5.setEnabled(false);
         jButton5.setFocusable(false);
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton5.setPreferredSize(new java.awt.Dimension(200, 29));
@@ -111,6 +117,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
 
         jButton6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton6.setText("Operaciones diarias");
+        jButton6.setEnabled(false);
         jButton6.setFocusable(false);
         jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton6.setPreferredSize(new java.awt.Dimension(200, 29));
@@ -284,4 +291,22 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     private int señalProd = 0;
     private int señalClie = 0;
     private int señalPresu = 0;
+    public void pantallaPorPrivilegio(ArrayList<Privilegio> privilegios){
+        for (int i = 0; i < privilegios.size(); i++) {
+            int idPrivilegio = privilegios.get(i).getID();
+            switch(idPrivilegio){
+                case 1:
+                    jButton3.setEnabled(true);
+                case 2:
+                    jButton5.setEnabled(true);
+                case 3:
+                    jButton6.setEnabled(true);
+                case 4:
+                    jButton1.setEnabled(true);
+                case 6:
+                    jButton2.setEnabled(true);
+            }
+        }
+        this.setVisible(true);
+    }
 }

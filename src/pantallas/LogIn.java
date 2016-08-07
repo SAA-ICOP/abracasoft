@@ -237,9 +237,12 @@ public class LogIn extends javax.swing.JFrame {
                 PrivilegioNegocio privilegio = new PrivilegioNegocio();
                 privilegios = privilegio.listarPrivilegiosPorUsuario(idUsuario);
                 if (privilegios != null) {
+                    MenuDeOpcionesEmpleado pantalla = new MenuDeOpcionesEmpleado();
+                    pantalla.pantallaPorPrivilegio(privilegios);
                 }
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 
