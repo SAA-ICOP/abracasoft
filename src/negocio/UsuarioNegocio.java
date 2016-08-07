@@ -65,10 +65,10 @@ public class UsuarioNegocio extends Usuario {
         return resultado;
     }
 
-    public int logIn(String nombreDeUsuario, int contraseña) {
+    public int logIn(String nombreDeUsuario, int pass) {
         int idUsuario = 0;
         try {
-            idUsuario = Usuario.LogIn(nombreDeUsuario, contraseña);
+            idUsuario = Usuario.LogIn(nombreDeUsuario, pass);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);

@@ -7,6 +7,7 @@
 package negocio;
 
 import entidades.Privilegio;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -25,6 +26,10 @@ public class PrivilegioNegocio {
             System.out.print(e.toString());
         }
         return listadeprivilegios;
+    }
+    public ArrayList<Privilegio> listarPrivilegiosPorUsuario(int idUsuario) throws SQLException{
+        Privilegio privilegio = new Privilegio();
+        return privilegio.listarPrivilegiosPorUsuario(idUsuario);
     }
     
 }

@@ -72,4 +72,7 @@ public class Privilegio {
     public ArrayList<Privilegio> listarPrivilegios() throws SQLException{
         return gestores.GestorPrivilegio.listarPrivilegiosDB();
     }
+    public ArrayList<Privilegio> listarPrivilegiosPorUsuario (int idUsuario) throws SQLException{
+        return gestores.GestorPrivilegio.listarPrivilegiosPorUsuario(idUsuario);
+    }
 }
