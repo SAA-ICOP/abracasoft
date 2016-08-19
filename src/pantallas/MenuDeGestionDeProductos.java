@@ -6,6 +6,7 @@
 package pantallas;
 
 import gestores.GestorProducto;
+import help.Help;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.event.KeyEvent;
@@ -334,7 +335,9 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
     }//GEN-LAST:event_BproductoEliminarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        abrirAyuda();
+        //abrirAyuda();
+        Help help = new Help();
+        help.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void BproductoEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BproductoEditarActionPerformed
